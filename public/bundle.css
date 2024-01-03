@@ -1,0 +1,510 @@
+/*!***********************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../app-module/style/reset.css ***!
+  \***********************************************************************************************************/
+/***
+    The new CSS reset - version 1.8.4 (last updated 14.2.2023)
+    GitHub page: https://github.com/elad2412/the-new-css-reset
+***/
+
+/*
+    Remove all the styles of the "User-Agent-Stylesheet", except for the 'display' property
+    - The "symbol *" part is to solve Firefox SVG sprite bug
+ */
+ *:where(:not(html, iframe, canvas, img, svg, video, audio, summary):not(svg *, symbol *)) {
+    all: unset;
+    display: revert;
+}
+
+/* Preferred box-sizing value */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Reapply the pointer cursor for anchor tags */
+a, button {
+    cursor: revert;
+}
+
+/* Remove list styles (bullets/numbers) */
+ol, ul, menu {
+    list-style: none;
+}
+
+/* For images to not be able to exceed their container */
+img {
+    max-inline-size: 100%;
+    max-block-size: 100%;
+}
+
+/* removes spacing between cells in tables */
+table {
+    border-collapse: collapse;
+}
+
+/* Safari - solving issue when using user-select:none on the <body> text input doesn't working */
+input, textarea {
+    -webkit-user-select: auto;
+}
+
+/* revert the 'white-space' property for textarea elements on Safari */
+textarea {
+    white-space: revert;
+}
+
+/* minimum style to allow to style meter element */
+meter {
+    -webkit-appearance: revert;
+    appearance: revert;
+}
+
+/* preformatted text - use only for this feature */
+:where(pre) {
+    all: revert;
+}
+
+/* reset default text opacity of input placeholder */
+::placeholder {
+    color: unset;
+}
+
+/* remove default dot (•) sign */
+::marker {
+    content: initial;
+}
+
+/* fix the feature of 'hidden' attribute.
+   display:revert; revert to element instead of attribute */
+:where([hidden]) {
+    display: none;
+}
+
+/* revert for bug in Chromium browsers
+   - fix for the content editable attribute will work properly.
+   - webkit-user-select: auto; added for Safari in case of using user-select:none on wrapper element*/
+:where([contenteditable]:not([contenteditable="false"])) {
+    -moz-user-modify: read-write;
+    -webkit-user-modify: read-write;
+    overflow-wrap: break-word;
+    -webkit-line-break: after-white-space;
+    -webkit-user-select: auto;
+}
+
+/* apply back the draggable feature - exist only in Chromium and Safari */
+:where([draggable="true"]) {
+    -webkit-user-drag: element;
+}
+
+/* Revert Modal native behavior */
+:where(dialog:modal) {
+    all: revert;
+}
+/*!*********************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/less-loader/dist/cjs.js!./public/style/main.less ***!
+  \*********************************************************************************************************************************************/
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Me5Q.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmWUlvAw.ttf) format('truetype');
+}
+:root {
+  --wrapper-bg-color: #121212;
+  --content-bg-color: #141414;
+  --text-color: #fff;
+  --line-color: #252527;
+  --primary-color: #C1A87D;
+  --error-color: #FF0000;
+  --warning-color: #FFA500;
+  --warning-bg-color: rgba(255, 165, 0, 0.12);
+  --success-color: #00FF00;
+  --popup-bg-color: rgba(0, 0, 0, 0.5);
+  --button-bg-color: rgba(193, 168, 125, 0.12);
+  --hover-color: rgba(193, 168, 125, 0.12);
+  --disable-color: rgba(255, 255, 255, 0.5);
+  width: 100%;
+  height: 100%;
+  background-color: var(--wrapper-bg-color);
+  color: var(--text-color);
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+}
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  container-type: inline-size;
+}
+p {
+  line-height: 1.6em;
+}
+a {
+  cursor: pointer;
+}
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+::placeholder {
+  color: var(--disable-color);
+}
+.clearfix::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+.avatar {
+  flex-shrink: 0;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #252527;
+  background-size: cover;
+}
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 100, 'GRAD' 0, 'opsz' 24;
+}
+button.component {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  color: var(--primary-color);
+  line-height: 1em;
+  gap: 8px;
+}
+button.component.disabled {
+  cursor: not-allowed;
+  filter: grayscale(1);
+}
+button.component.contained {
+  border: 1px solid var(--primary-color);
+  border-radius: 6px;
+  background-color: var(--button-bg-color);
+}
+button.component > .title {
+  text-transform: capitalize;
+}
+.nav-bar.component {
+  position: fixed;
+  left: calc(50% - 1280px / 2);
+  top: 0;
+  z-index: 999990;
+  width: 90px;
+  height: 100%;
+  background-color: var(--wrapper-bg-color);
+  border-right: 1px solid var(--line-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  padding-bottom: 32px;
+  overflow-y: auto;
+}
+@container (width < 1280px) {
+  .nav-bar.component {
+    left: 0;
+    top: auto;
+    bottom: 0;
+    width: 100%;
+    height: calc(90px + env(safe-area-inset-bottom));
+    padding-bottom: calc(6px + env(safe-area-inset-bottom));
+    border-top: 1px solid var(--line-color);
+    border-right: none;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 0;
+    padding-bottom: 0;
+    overflow-y: visible;
+  }
+  .nav-bar.component::before,
+  .nav-bar.component::after {
+    content: '';
+  }
+}
+.nav-bar.component > h1.logo {
+  padding: 21px 0;
+}
+@container (width < 1280px) {
+  .nav-bar.component > h1.logo {
+    display: none;
+  }
+}
+.nav-bar.component > h1.logo > a > img {
+  max-width: 55px;
+  max-height: 55px;
+}
+.nav-bar.component > a.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+  font-size: 12px;
+}
+.nav-bar.component > a.menu > .icon {
+  font-size: 42px;
+}
+.nav-bar.component > a.menu.active {
+  color: var(--primary-color);
+}
+.splash-screen.component {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background-color: var(--bg-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.splash-screen.component > img {
+  max-width: 120px;
+  max-height: 120px;
+}
+.popup-background {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 999998;
+  width: 100%;
+  height: 100%;
+  background-color: var(--popup-bg-color);
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  padding: 20px 0;
+}
+.popup.component {
+  max-width: 614px;
+  width: 90%;
+  margin: auto;
+  border: 1px solid var(--line-color);
+  border-radius: 16px;
+  background-color: var(--content-bg-color);
+}
+.popup.component > header {
+  display: flex;
+  align-items: center;
+  padding: 24px;
+}
+.popup.component > header > h1 {
+  flex-grow: 1;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+.popup.component > main {
+  padding: 0 24px;
+}
+.popup.component > footer {
+  padding: 24px;
+  display: flex;
+  justify-content: flex-end;
+}
+@keyframes loading-spinner-animation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.loading-spinner.component:after {
+  content: " ";
+  display: block;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid var(--text-color);
+  border-color: var(--text-color) transparent var(--text-color) transparent;
+  animation: loading-spinner-animation 1.2s linear infinite;
+}
+.dropdown-menu.component {
+  position: fixed;
+  z-index: 999998;
+  border: 1px solid var(--primary-color);
+  border-radius: 6px;
+  background-color: var(--content-bg-color);
+  min-width: 120px;
+  overflow: hidden;
+}
+.dropdown-menu.component > ul {
+  display: flex;
+  flex-direction: column;
+}
+.dropdown-menu.component > ul > li > button {
+  padding: 8px 12px;
+  cursor: pointer;
+  text-transform: capitalize;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  width: 100%;
+}
+.dropdown-menu.component > ul > li > button:hover {
+  background-color: var(--primary-color);
+}
+.snackbar.component {
+  position: fixed;
+  left: 0;
+  bottom: 20px;
+  z-index: 999998;
+  width: 100%;
+}
+@container (width < 1280px) {
+  .snackbar.component {
+    bottom: calc(110px + env(safe-area-inset-bottom));
+  }
+}
+.snackbar.component > main {
+  max-width: 532px;
+  width: 90%;
+  margin: auto;
+  background-color: var(--content-bg-color);
+  border: 1px solid var(--line-color);
+  display: flex;
+  align-items: center;
+  border-radius: 19px;
+  padding-left: 20px;
+  gap: 8px;
+}
+.snackbar.component > main > p {
+  flex-grow: 1;
+}
+.input.component > textarea,
+.input.component > input {
+  width: 100%;
+  border: 1px solid var(--line-color);
+  background-color: var(--content-bg-color);
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+.input.component > textarea:focus,
+.input.component > input:focus {
+  border: 1px solid var(--primary-color);
+}
+.select.component {
+  position: relative;
+  border: 1px solid var(--line-color);
+  border-radius: 6px;
+  background-color: var(--content-bg-color);
+  cursor: pointer;
+}
+.select.component > .value {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  line-height: 1em;
+  text-transform: capitalize;
+}
+.select.component > .value:empty::before {
+  content: attr(data-empty-message);
+}
+.select.component > .option-container {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: -1px;
+  z-index: 1;
+  border: 1px solid var(--primary-color);
+  border-radius: 6px;
+  background-color: var(--content-bg-color);
+  min-width: 120px;
+}
+.select.component > .option-container > .option {
+  padding: 8px 12px;
+  text-transform: capitalize;
+}
+.select.component > .option-container > .option:hover {
+  background-color: var(--primary-color);
+}
+.select.component.open {
+  border: 1px solid var(--primary-color);
+}
+.select.component.open > .option-container {
+  display: block;
+}
+.checkbox.component {
+  position: relative;
+  height: 27px;
+  width: 27px;
+}
+.checkbox.component > .checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  border: 1px solid var(--primary-color);
+  border-radius: 50%;
+}
+.checkbox.component > .checkmark:after {
+  display: none;
+  content: "";
+  position: absolute;
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid var(--primary-color);
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.checkbox.component > input:checked ~ .checkmark {
+  background-color: #fff;
+}
+.checkbox.component > input:checked ~ .checkmark:after {
+  display: block;
+}
+.file-drop-area.component.highlight {
+  outline: 2px dotted var(--primary-color);
+}
+.rich-display.component:empty {
+  display: none;
+}
+.rich-display.component > .image-container > a {
+  cursor: pointer;
+}
+.rich-display.component > .image-container > a > img {
+  border-radius: 12px;
+  max-height: 320px;
+  object-fit: cover;
+}
+.error-alert.component > header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.error-alert.component > main > p {
+  word-break: break-all;
+}
+.warning-message-box.component {
+  display: flex;
+  background-color: var(--warning-bg-color);
+  color: var(--warning-color);
+  padding: 12px 16px;
+  border-radius: 12px;
+  gap: 12px;
+}
+.warning-message-box.component > i {
+  font-size: 24px;
+}
+
