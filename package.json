@@ -17,7 +17,7 @@
   },
   "type": "module",
   "dependencies": {
-    "@common-module/game": "^0.0.1"
+    "@gaiaengine/2d": "^0.0.1"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-ethers": "^3.0.0",

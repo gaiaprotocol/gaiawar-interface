@@ -45,6 +45,24 @@ async function hasTransparency(image: Sharp) {
   }
 }
 
+const extractFilenames = (input: string) => {
+  const regex = /\/([^\/]+)\.png/g;
+  const matches = input.match(regex);
+  if (!matches) return [];
+  return matches.map((match) => {
+    const filename = match.split("/").pop()!.replace(".png", "");
+    return filename.replace(/^unique-/, "").replace(/-/g, "");
+  });
+};
+
+const keyToTile: {
+  [filename: string]: {
+    key: string;
+    row: number;
+    col: number;
+  };
+} = {};
+
 async function createTilesetImage(
   files: string[],
   outputFileName: string,
@@ -67,8 +85,13 @@ async function createTilesetImage(
   const compositeOperations = files.map((file, index) => {
     const row = Math.floor(index / tilesPerRow);
     const col = index % tilesPerRow;
+    keyToTile[extractFilenames(file)[0]] = {
+      key: outputFileName.replace(".png", "").replace(".jpg", ""),
+      row,
+      col,
+    };
     return {
-      input: path.join(directoryPath, file),
+      input: file,
       top: row * tileSize,
       left: col * tileSize,
     };
@@ -104,9 +127,9 @@ async function processImages() {
           uniqueImages.push(file);
         } else {
           if (await hasTransparency(sharpImage)) {
-            hasAlphaTilesetImages.push(file);
+            hasAlphaTilesetImages.push(path.join(directoryPath, file));
           } else {
-            noAlphaTilesetImages.push(file);
+            noAlphaTilesetImages.push(path.join(directoryPath, file));
           }
         }
       }
@@ -122,24 +145,39 @@ async function processImages() {
     );
     console.log("Unique images:", uniqueImages.length);
 
-    // 알파 값이 있는 타일들을 하나의 이미지로 만들기
-    await createTilesetImage(hasAlphaTilesetImages, "tileset_with_alpha.png");
-
-    // 알파 값이 없는 타일들을 하나의 이미지로 만들기
-    await createTilesetImage(
-      noAlphaTilesetImages,
-      "tileset_without_alpha.jpg",
-      "jpeg",
-    );
-
     // 유니크 이미지들 개별 저장
     for (const file of uniqueImages) {
       const metadata = metadataMap.get(file);
       await sharp(path.join(directoryPath, file)).resize(
-        Math.ceil(metadata!.width! / 2),
-        Math.ceil(metadata!.height! / 2),
-      ).toFile(path.join(outputPath, `unique_${file}`));
+        Math.ceil(metadata!.width! / 4),
+        Math.ceil(metadata!.height! / 4),
+      ).extend({
+        left: 128 - Math.ceil(metadata!.width! / 8),
+        top: 128 - Math.ceil(metadata!.height! / 8),
+        bottom: 128 - Math.ceil(metadata!.height! / 8),
+        right: 128 - Math.ceil(metadata!.width! / 8),
+        background: { r: 0, g: 0, b: 0, alpha: 0 },
+      }).toFile(path.join(outputPath, `unique-${file}`));
     }
+
+    hasAlphaTilesetImages.push(
+      ...uniqueImages.map((file) => path.join(outputPath, `unique-${file}`)),
+    );
+
+    // 알파 값이 있는 타일들을 하나의 이미지로 만들기
+    await createTilesetImage(hasAlphaTilesetImages, "tileset-with-alpha.png");
+
+    // 알파 값이 없는 타일들을 하나의 이미지로 만들기
+    await createTilesetImage(
+      noAlphaTilesetImages,
+      "tileset-without-alpha.jpg",
+      "jpeg",
+    );
+
+    fs.writeFileSync(
+      path.join(outputPath, "key-to-tile.json"),
+      JSON.stringify(keyToTile, null, 2),
+    );
 
     console.log("All files have been processed and saved.");
   } catch (err) {
@@ -147,4 +185,4 @@ async function processImages() {
   }
 }
 
-processImages();
+await processImages();
