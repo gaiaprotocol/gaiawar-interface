@@ -57,7 +57,7 @@ const extractFilenames = (input: string) => {
 
 const keyToTile: {
   [filename: string]: {
-    key: string;
+    tilesetId: string;
     row: number;
     col: number;
   };
@@ -86,7 +86,7 @@ async function createTilesetImage(
     const row = Math.floor(index / tilesPerRow);
     const col = index % tilesPerRow;
     keyToTile[extractFilenames(file)[0]] = {
-      key: outputFileName.replace(".png", "").replace(".jpg", ""),
+      tilesetId: outputFileName.replace(".png", "").replace(".jpg", ""),
       row,
       col,
     };
