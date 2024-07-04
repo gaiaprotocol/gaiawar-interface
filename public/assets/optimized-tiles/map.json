@@ -1,6 +1,6 @@
 {
-  "terreins": {
-    "terrein-0": {
+  "terrains": {
+    "terrain-0": {
       "top-left": [
         {
           "spritesheet": "spritesheet-with-alpha",
@@ -80,7 +80,7 @@
         }
       ]
     },
-    "terrein-1": {
+    "terrain-1": {
       "top-left": [
         {
           "spritesheet": "spritesheet-with-alpha",
@@ -212,7 +212,7 @@
         }
       ]
     },
-    "terrein-2": {
+    "terrain-2": {
       "top-left": [
         {
           "spritesheet": "spritesheet-with-alpha",
@@ -344,7 +344,7 @@
         }
       ]
     },
-    "terrein-3": {
+    "terrain-3": {
       "top-left": [
         {
           "spritesheet": "spritesheet-with-alpha",
@@ -428,7 +428,7 @@
         }
       ]
     },
-    "terrein-4": {
+    "terrain-4": {
       "top-left": [
         {
           "spritesheet": "spritesheet-with-alpha",

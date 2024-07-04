@@ -1,6 +1,6 @@
 import fs from "fs";
 import keyToSpritesheet from "../public/assets/optimized-tiles/key-to-spritesheet.json" assert {
-  type: "json",
+  type: "json"
 };
 import mapObjects from "./data/map-objects.json" assert { type: "json" };
 import objectsData from "./data/objects.json" assert { type: "json" };
@@ -23,7 +23,7 @@ enum TerrainDirection {
 }
 
 interface TilemapData {
-  terreins: {
+  terrains: {
     [id: string]: {
       [direction: string]: { spritesheet: string; frame: string }[];
     };
@@ -40,13 +40,13 @@ interface TilemapData {
 const mapData = fs.readFileSync("./data/map-tiles.txt", "utf-8");
 
 const tilemapData: TilemapData = {
-  terreins: {},
+  terrains: {},
   terrainMap: {},
   objects: [],
 };
 
 for (const [tileId, tileData] of Object.entries(tilesData)) {
-  tilemapData.terreins[`terrein-${tileId}`] = {
+  tilemapData.terrains[`terrain-${tileId}`] = {
     [TerrainDirection.TopLeft]: tileData.leftTop.parts[0].frames.map((frame) =>
       (keyToSpritesheet as any)[frame]
     ),
