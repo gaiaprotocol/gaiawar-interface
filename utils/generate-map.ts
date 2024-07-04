@@ -140,6 +140,7 @@ for (const mapObject of mapObjects as any) {
     x: mapObject.x,
     y: mapObject.y,
     ...(keyToSpritesheet as any)[key],
+    zIndex: 5,
   });
 }
 
