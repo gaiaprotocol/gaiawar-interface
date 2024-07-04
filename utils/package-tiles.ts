@@ -4,6 +4,22 @@ import sharp, { Metadata, Sharp } from "sharp";
 import objectsData from "./data/objects.json" assert { type: "json" };
 import tilesData from "./data/tiles.json" assert { type: "json" };
 
+interface SpritesheetData {
+  frames: {
+    [frame: string]: {
+      frame: {
+        x: number;
+        y: number;
+        w: number;
+        h: number;
+      };
+    };
+  };
+  meta: {
+    scale: number | string;
+  };
+}
+
 const frames: string[] = [];
 for (const tile of Object.values(tilesData)) {
   for (const p of Object.values(tile)) {
@@ -29,8 +45,8 @@ for (const object of Object.values(objectsData)) {
 
 const directoryPath = "../public/assets/raw-tiles";
 const outputPath = "../public/assets/optimized-tiles";
-const noAlphaTilesetImages: string[] = [];
-const hasAlphaTilesetImages: string[] = [];
+const noAlphaSpritesheets: string[] = [];
+const hasAlphaSpritesheets: string[] = [];
 const uniqueImages: string[] = [];
 
 async function hasTransparency(image: Sharp) {
@@ -57,13 +73,20 @@ const extractFilenames = (input: string) => {
 
 const keyToTile: {
   [filename: string]: {
-    tilesetId: string;
+    spritesheet: string;
     row: number;
     col: number;
   };
 } = {};
 
-async function createTilesetImage(
+const keyToSpritesheet: {
+  [filename: string]: {
+    spritesheet: string;
+    frame: string;
+  };
+} = {};
+
+async function createSpritesheetImage(
   files: string[],
   outputFileName: string,
   format = "png",
@@ -86,7 +109,7 @@ async function createTilesetImage(
     const row = Math.floor(index / tilesPerRow);
     const col = index % tilesPerRow;
     keyToTile[extractFilenames(file)[0]] = {
-      tilesetId: outputFileName.replace(".png", "").replace(".jpg", ""),
+      spritesheet: outputFileName.replace(".png", "").replace(".jpg", ""),
       row,
       col,
     };
@@ -127,26 +150,30 @@ async function processImages() {
           uniqueImages.push(file);
         } else {
           if (await hasTransparency(sharpImage)) {
-            hasAlphaTilesetImages.push(path.join(directoryPath, file));
+            hasAlphaSpritesheets.push(path.join(directoryPath, file));
           } else {
-            noAlphaTilesetImages.push(path.join(directoryPath, file));
+            noAlphaSpritesheets.push(path.join(directoryPath, file));
           }
         }
       }
     }
 
     console.log(
-      "Tileset images with transparency:",
-      hasAlphaTilesetImages.length,
+      "Spritesheet images with transparency:",
+      hasAlphaSpritesheets.length,
     );
     console.log(
-      "Tileset images without transparency:",
-      noAlphaTilesetImages.length,
+      "Spritesheet images without transparency:",
+      noAlphaSpritesheets.length,
     );
     console.log("Unique images:", uniqueImages.length);
 
+    const uniqueKeys = [];
+
     // 유니크 이미지들 개별 저장
     for (const file of uniqueImages) {
+      uniqueKeys.push(file.split(".")[0]);
+
       const metadata = metadataMap.get(file);
       await sharp(path.join(directoryPath, file)).resize(
         Math.ceil(metadata!.width! / 4),
@@ -160,23 +187,94 @@ async function processImages() {
       }).toFile(path.join(outputPath, `unique-${file}`));
     }
 
-    hasAlphaTilesetImages.push(
+    hasAlphaSpritesheets.push(
       ...uniqueImages.map((file) => path.join(outputPath, `unique-${file}`)),
     );
 
     // 알파 값이 있는 타일들을 하나의 이미지로 만들기
-    await createTilesetImage(hasAlphaTilesetImages, "tileset-with-alpha.png");
+    await createSpritesheetImage(
+      hasAlphaSpritesheets,
+      "spritesheet-with-alpha.png",
+    );
 
-    // 알파 값이 없는 타일들을 하나의 이미지로 만들기
-    await createTilesetImage(
-      noAlphaTilesetImages,
-      "tileset-without-alpha.jpg",
+    const spritesheetWithAlphaAtlas: SpritesheetData = {
+      frames: {},
+      meta: {
+        scale: 1,
+      },
+    };
+
+    let tileIndex = 0;
+    let objectIndex = 0;
+
+    for (const [key, tile] of Object.entries(keyToTile)) {
+      if (tile.spritesheet === "spritesheet-with-alpha") {
+        const frameId = uniqueKeys.includes(key)
+          ? `object-${objectIndex++}`
+          : `tile-${tileIndex++}`;
+
+        spritesheetWithAlphaAtlas.frames[frameId] = {
+          frame: {
+            x: tile.col * 256,
+            y: tile.row * 256,
+            w: 256,
+            h: 256,
+          },
+        };
+
+        keyToSpritesheet[key] = {
+          spritesheet: "spritesheet-with-alpha",
+          frame: frameId,
+        };
+      }
+    }
+
+    await createSpritesheetImage(
+      noAlphaSpritesheets,
+      "spritesheet-without-alpha.jpg",
       "jpeg",
     );
 
+    const spritesheetWithoutAlphaAtlas: SpritesheetData = {
+      frames: {},
+      meta: {
+        scale: 1,
+      },
+    };
+
+    tileIndex = 0;
+
+    for (const [key, tile] of Object.entries(keyToTile)) {
+      if (tile.spritesheet === "spritesheet-without-alpha") {
+        spritesheetWithoutAlphaAtlas.frames[`tile-${tileIndex++}`] = {
+          frame: {
+            x: tile.col * 256,
+            y: tile.row * 256,
+            w: 256,
+            h: 256,
+          },
+        };
+
+        keyToSpritesheet[key] = {
+          spritesheet: "spritesheet-without-alpha",
+          frame: `tile-${tileIndex - 1}`,
+        };
+      }
+    }
+
     fs.writeFileSync(
-      path.join(outputPath, "key-to-tile.json"),
-      JSON.stringify(keyToTile, null, 2),
+      path.join(outputPath, "spritesheet-with-alpha.json"),
+      JSON.stringify(spritesheetWithAlphaAtlas, null, 2),
+    );
+
+    fs.writeFileSync(
+      path.join(outputPath, "spritesheet-without-alpha.json"),
+      JSON.stringify(spritesheetWithoutAlphaAtlas, null, 2),
+    );
+
+    fs.writeFileSync(
+      path.join(outputPath, "key-to-spritesheet.json"),
+      JSON.stringify(keyToSpritesheet, null, 2),
     );
 
     console.log("All files have been processed and saved.");
