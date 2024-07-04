@@ -20,12 +20,12 @@ interface SpritesheetData {
   };
 }
 
-const frames: string[] = [];
+const zIndexes: { [key: string]: number } = {};
 for (const tile of Object.values(tilesData)) {
   for (const p of Object.values(tile)) {
     for (const part of p.parts) {
       for (const frame of part.frames) {
-        frames.push(frame);
+        zIndexes[frame] = part.zIndex;
       }
     }
   }
@@ -36,7 +36,7 @@ for (const object of Object.values(objectsData)) {
     for (const part of state.parts) {
       for (const p of Object.values(part)) {
         for (const frame of p.frames) {
-          frames.push(frame);
+          zIndexes[frame] = p.zIndex;
         }
       }
     }
@@ -76,6 +76,7 @@ const keyToTile: {
     spritesheet: string;
     row: number;
     col: number;
+    zIndex: number;
   };
 } = {};
 
@@ -83,6 +84,7 @@ const keyToSpritesheet: {
   [filename: string]: {
     spritesheet: string;
     frame: string;
+    zIndex: number;
   };
 } = {};
 
@@ -108,10 +110,12 @@ async function createSpritesheetImage(
   const compositeOperations = files.map((file, index) => {
     const row = Math.floor(index / tilesPerRow);
     const col = index % tilesPerRow;
-    keyToTile[extractFilenames(file)[0]] = {
+    const fileId = extractFilenames(file)[0];
+    keyToTile[fileId] = {
       spritesheet: outputFileName.replace(".png", "").replace(".jpg", ""),
       row,
       col,
+      zIndex: zIndexes[fileId],
     };
     return {
       input: file,
@@ -142,7 +146,7 @@ async function processImages() {
 
     const files = fs.readdirSync(directoryPath);
     for (const file of files) {
-      if (frames.includes(file.split(".")[0])) {
+      if (zIndexes[file.split(".")[0]] !== undefined) {
         const sharpImage = sharp(path.join(directoryPath, file));
         const metadata = await sharpImage.metadata();
         metadataMap.set(file, metadata);
@@ -225,6 +229,7 @@ async function processImages() {
         keyToSpritesheet[key] = {
           spritesheet: "spritesheet-with-alpha",
           frame: frameId,
+          zIndex: tile.zIndex,
         };
       }
     }
@@ -258,6 +263,7 @@ async function processImages() {
         keyToSpritesheet[key] = {
           spritesheet: "spritesheet-without-alpha",
           frame: `tile-${tileIndex - 1}`,
+          zIndex: tile.zIndex,
         };
       }
     }
