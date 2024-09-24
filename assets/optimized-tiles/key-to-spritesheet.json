@@ -1,0 +1,582 @@
+{
+  "5d49370df42a5f6bfa2da67b": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-0",
+    "zIndex": 2
+  },
+  "5d493712f42a5f6bfa2da67d": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-1",
+    "zIndex": 2
+  },
+  "5d493717f42a5f6bfa2da67f": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-2",
+    "zIndex": 2
+  },
+  "5d493720f42a5f6bfa2da681": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-3",
+    "zIndex": 2
+  },
+  "5d49372cf42a5f6bfa2da683": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-4",
+    "zIndex": 2
+  },
+  "5d493741f42a5f6bfa2da685": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-5",
+    "zIndex": 2
+  },
+  "5d493746f42a5f6bfa2da687": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-6",
+    "zIndex": 2
+  },
+  "5d49374bf42a5f6bfa2da689": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-7",
+    "zIndex": 2
+  },
+  "5d493751f42a5f6bfa2da68b": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-8",
+    "zIndex": 2
+  },
+  "5d493755f42a5f6bfa2da68d": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-9",
+    "zIndex": 2
+  },
+  "5d493762f42a5f6bfa2da68f": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-10",
+    "zIndex": 2
+  },
+  "5d493767f42a5f6bfa2da691": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-11",
+    "zIndex": 2
+  },
+  "5d4938eef42a5f6bfa2da6b2": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-12",
+    "zIndex": 3
+  },
+  "5d4938f5f42a5f6bfa2da6b4": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-13",
+    "zIndex": 3
+  },
+  "5d4938faf42a5f6bfa2da6b6": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-14",
+    "zIndex": 3
+  },
+  "5d4938fff42a5f6bfa2da6b8": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-15",
+    "zIndex": 3
+  },
+  "5d493906f42a5f6bfa2da6ba": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-16",
+    "zIndex": 3
+  },
+  "5d49390ef42a5f6bfa2da6bc": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-17",
+    "zIndex": 3
+  },
+  "5d493914f42a5f6bfa2da6be": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-18",
+    "zIndex": 3
+  },
+  "5d493919f42a5f6bfa2da6c0": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-19",
+    "zIndex": 3
+  },
+  "5d493939f42a5f6bfa2da6cc": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-20",
+    "zIndex": 4
+  },
+  "5d49393ef42a5f6bfa2da6ce": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-21",
+    "zIndex": 4
+  },
+  "5d493945f42a5f6bfa2da6d0": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-22",
+    "zIndex": 4
+  },
+  "5d493949f42a5f6bfa2da6d2": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-23",
+    "zIndex": 4
+  },
+  "5d49394ef42a5f6bfa2da6d4": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-24",
+    "zIndex": 4
+  },
+  "5d493953f42a5f6bfa2da6d6": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-25",
+    "zIndex": 4
+  },
+  "5d493956f42a5f6bfa2da6d8": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-26",
+    "zIndex": 4
+  },
+  "5d49395df42a5f6bfa2da6da": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-27",
+    "zIndex": 4
+  },
+  "5d49397ff42a5f6bfa2da6e7": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-28",
+    "zIndex": 4
+  },
+  "5d49398df42a5f6bfa2da6e9": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-29",
+    "zIndex": 4
+  },
+  "5d493992f42a5f6bfa2da6eb": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-30",
+    "zIndex": 4
+  },
+  "5d49399af42a5f6bfa2da6ed": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-31",
+    "zIndex": 4
+  },
+  "5d49399ef42a5f6bfa2da6ef": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-32",
+    "zIndex": 4
+  },
+  "5d4939a2f42a5f6bfa2da6f1": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-33",
+    "zIndex": 4
+  },
+  "5d4939a6f42a5f6bfa2da6f3": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-34",
+    "zIndex": 4
+  },
+  "5d4939abf42a5f6bfa2da6f5": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-35",
+    "zIndex": 4
+  },
+  "5d53700206402d787cf027a8": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-36",
+    "zIndex": 1
+  },
+  "5d53700806402d787cf027ac": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-37",
+    "zIndex": 1
+  },
+  "5d53700f06402d787cf027b0": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-38",
+    "zIndex": 1
+  },
+  "5d53701606402d787cf027b4": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-39",
+    "zIndex": 1
+  },
+  "5d53701e06402d787cf027b8": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-40",
+    "zIndex": 1
+  },
+  "5d53702406402d787cf027bc": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-41",
+    "zIndex": 1
+  },
+  "5d53702a06402d787cf027c0": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-42",
+    "zIndex": 1
+  },
+  "5d53703006402d787cf027c4": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-43",
+    "zIndex": 1
+  },
+  "5d54b95406402d787cf02dc8": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-44",
+    "zIndex": 3
+  },
+  "5d54b95a06402d787cf02dca": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-45",
+    "zIndex": 3
+  },
+  "5d54b96006402d787cf02dcc": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-46",
+    "zIndex": 3
+  },
+  "5d54b96506402d787cf02dce": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-47",
+    "zIndex": 3
+  },
+  "5d54b96a06402d787cf02dd0": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-48",
+    "zIndex": 3
+  },
+  "5d54b97106402d787cf02dd2": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-49",
+    "zIndex": 3
+  },
+  "5d54b97a06402d787cf02dd4": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-50",
+    "zIndex": 3
+  },
+  "5d54b98306402d787cf02dd6": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-51",
+    "zIndex": 3
+  },
+  "5d54b98b06402d787cf02dd8": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-52",
+    "zIndex": 3
+  },
+  "5d54b99206402d787cf02dda": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-53",
+    "zIndex": 3
+  },
+  "5d54b99a06402d787cf02ddc": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-54",
+    "zIndex": 3
+  },
+  "5d54b9a006402d787cf02dde": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-55",
+    "zIndex": 3
+  },
+  "5d92e36a36926771d96e9efe": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-56",
+    "zIndex": 0
+  },
+  "5d92e37136926771d96e9f00": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-57",
+    "zIndex": 0
+  },
+  "5d92e37a36926771d96e9f04": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-58",
+    "zIndex": 0
+  },
+  "5d92e38136926771d96e9f08": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-59",
+    "zIndex": 0
+  },
+  "5d92e38536926771d96e9f0a": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-60",
+    "zIndex": 0
+  },
+  "5d92e38a36926771d96e9f0c": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-61",
+    "zIndex": 0
+  },
+  "5d92e45736926771d96e9f18": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-62",
+    "zIndex": 0
+  },
+  "5d92e46136926771d96e9f1c": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-63",
+    "zIndex": 0
+  },
+  "5d92e47036926771d96e9f20": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-64",
+    "zIndex": 0
+  },
+  "5d92e47936926771d96e9f24": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-65",
+    "zIndex": 0
+  },
+  "5d92e60f36926771d96e9f28": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-66",
+    "zIndex": 0
+  },
+  "5d92e73f36926771d96e9f2c": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-67",
+    "zIndex": 0
+  },
+  "5d92e7df36926771d96e9f2e": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-68",
+    "zIndex": 0
+  },
+  "5d92e9b136926771d96e9f30": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-69",
+    "zIndex": 0
+  },
+  "5d92eb1736926771d96e9f34": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-70",
+    "zIndex": 0
+  },
+  "5d92ed0f36926771d96e9f36": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "tile-71",
+    "zIndex": 0
+  },
+  "5d9ab3a936926771d96ea0a8": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "object-0",
+    "zIndex": 0
+  },
+  "5d9bf7a136926771d96ea0d6": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "object-1",
+    "zIndex": 0
+  },
+  "5d9bf93f36926771d96ea104": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "object-2",
+    "zIndex": 0
+  },
+  "5d9bfead36926771d96ea149": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "object-3",
+    "zIndex": 0
+  },
+  "5d9bff1136926771d96ea14b": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "object-4",
+    "zIndex": 0
+  },
+  "5d9d8a4e36926771d96ea187": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "object-5",
+    "zIndex": 0
+  },
+  "5d9d8a6436926771d96ea18a": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "object-6",
+    "zIndex": 0
+  },
+  "5d9d8a8236926771d96ea18d": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "object-7",
+    "zIndex": 0
+  },
+  "5d9da0a336926771d96ea218": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "object-8",
+    "zIndex": 0
+  },
+  "5d9daf6a36926771d96ea294": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "object-9",
+    "zIndex": 0
+  },
+  "5d9e929636926771d96ea2d5": {
+    "spritesheet": "spritesheet-with-alpha",
+    "frame": "object-10",
+    "zIndex": 0
+  },
+  "5d4932f9f42a5f6bfa2da644": {
+    "spritesheet": "spritesheet-without-alpha",
+    "frame": "tile-0",
+    "zIndex": 0
+  },
+  "5d49333af42a5f6bfa2da65f": {
+    "spritesheet": "spritesheet-without-alpha",
+    "frame": "tile-1",
+    "zIndex": 0
+  },
+  "5d493358f42a5f6bfa2da671": {
+    "spritesheet": "spritesheet-without-alpha",
+    "frame": "tile-2",
+    "zIndex": 0
+  },
+  "5d49335cf42a5f6bfa2da673": {
+    "spritesheet": "spritesheet-without-alpha",
+    "frame": "tile-3",
+    "zIndex": 0
+  },
+  "5d49335ff42a5f6bfa2da675": {
+    "spritesheet": "spritesheet-without-alpha",
+    "frame": "tile-4",
+    "zIndex": 0
+  },
+  "5d493363f42a5f6bfa2da677": {
+    "spritesheet": "spritesheet-without-alpha",
+    "frame": "tile-5",
+    "zIndex": 0
+  },
+  "5d493707f42a5f6bfa2da679": {
+    "spritesheet": "spritesheet-without-alpha",
+    "frame": "tile-6",
+    "zIndex": 2
+  },
+  "5d49382df42a5f6bfa2da693": {
+    "spritesheet": "spritesheet-without-alpha",
+    "frame": "tile-7",
+    "zIndex": 2
+  },
+  "5d49383af42a5f6bfa2da695": {
+    "spritesheet": "spritesheet-without-alpha",
+    "frame": "tile-8",
+    "zIndex": 3
+  },
+  "5d4938e8f42a5f6bfa2da6b0": {
+    "spritesheet": "spritesheet-without-alpha",
+    "frame": "tile-9",
+    "zIndex": 3
+  },
+  "5d49391df42a5f6bfa2da6c2": {
+    "spritesheet": "spritesheet-without-alpha",
+    "frame": "tile-10",
+    "zIndex": 3
+  },
+  "5d493920f42a5f6bfa2da6c4": {
+    "spritesheet": "spritesheet-without-alpha",
+    "frame": "tile-11",
+    "zIndex": 3
+  },
+  "5d493923f42a5f6bfa2da6c6": {
+    "spritesheet": "spritesheet-without-alpha",
+    "frame": "tile-12",
+    "zIndex": 3
+  },
+  "5d493926f42a5f6bfa2da6c8": {
+    "spritesheet": "spritesheet-without-alpha",
+    "frame": "tile-13",
+    "zIndex": 3
+  },
+  "5d493935f42a5f6bfa2da6ca": {
+    "spritesheet": "spritesheet-without-alpha",
+    "frame": "tile-14",
+    "zIndex": 4
+  },
+  "5d493963f42a5f6bfa2da6dc": {
+    "spritesheet": "spritesheet-without-alpha",
+    "frame": "tile-15",
+    "zIndex": 4
+  },
+  "5d493966f42a5f6bfa2da6de": {
+    "spritesheet": "spritesheet-without-alpha",
+    "frame": "tile-16",
+    "zIndex": 4
+  },
+  "5d49396af42a5f6bfa2da6e0": {
+    "spritesheet": "spritesheet-without-alpha",
+    "frame": "tile-17",
+    "zIndex": 4
+  },
+  "5d49396df42a5f6bfa2da6e2": {
+    "spritesheet": "spritesheet-without-alpha",
+    "frame": "tile-18",
+    "zIndex": 4
+  },
+  "5d49397bf42a5f6bfa2da6e5": {
+    "spritesheet": "spritesheet-without-alpha",
+    "frame": "tile-19",
+    "zIndex": 4
+  },
+  "5d4939aef42a5f6bfa2da6f7": {
+    "spritesheet": "spritesheet-without-alpha",
+    "frame": "tile-20",
+    "zIndex": 4
+  },
+  "5d4939b1f42a5f6bfa2da6f9": {
+    "spritesheet": "spritesheet-without-alpha",
+    "frame": "tile-21",
+    "zIndex": 4
+  },
+  "5d4939b4f42a5f6bfa2da6fb": {
+    "spritesheet": "spritesheet-without-alpha",
+    "frame": "tile-22",
+    "zIndex": 4
+  },
+  "5d4939b7f42a5f6bfa2da6fd": {
+    "spritesheet": "spritesheet-without-alpha",
+    "frame": "tile-23",
+    "zIndex": 4
+  },
+  "5d536ffa06402d787cf027a3": {
+    "spritesheet": "spritesheet-without-alpha",
+    "frame": "tile-24",
+    "zIndex": 1
+  },
+  "5d53703e06402d787cf027cb": {
+    "spritesheet": "spritesheet-without-alpha",
+    "frame": "tile-25",
+    "zIndex": 1
+  },
+  "5d53704406402d787cf027cf": {
+    "spritesheet": "spritesheet-without-alpha",
+    "frame": "tile-26",
+    "zIndex": 1
+  },
+  "5d53706606402d787cf027d3": {
+    "spritesheet": "spritesheet-without-alpha",
+    "frame": "tile-27",
+    "zIndex": 1
+  },
+  "5d53709d06402d787cf027e2": {
+    "spritesheet": "spritesheet-without-alpha",
+    "frame": "tile-28",
+    "zIndex": 1
+  },
+  "5d92e39236926771d96e9f0e": {
+    "spritesheet": "spritesheet-without-alpha",
+    "frame": "tile-29",
+    "zIndex": 0
+  },
+  "5d92e39636926771d96e9f10": {
+    "spritesheet": "spritesheet-without-alpha",
+    "frame": "tile-30",
+    "zIndex": 0
+  },
+  "5d92e39c36926771d96e9f12": {
+    "spritesheet": "spritesheet-without-alpha",
+    "frame": "tile-31",
+    "zIndex": 0
+  },
+  "5d92e3a036926771d96e9f14": {
+    "spritesheet": "spritesheet-without-alpha",
+    "frame": "tile-32",
+    "zIndex": 0
+  }
+}
