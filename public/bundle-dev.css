@@ -354,6 +354,10 @@ dialog.modal.structured-modal > main {
 dialog.modal.structured-modal > footer {
   flex-shrink: 0;
   padding: 24px 34px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
 }
 @container (width <= 520px) {
   .wallet-connection-popup > header {
