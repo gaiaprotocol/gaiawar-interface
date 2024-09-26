@@ -1,9 +1,8 @@
 {
   "scripts": {
     "webpack-dev": "webpack --mode development --watch --config webpack.config.dev.cjs",
-    "webpack-prod": "webpack --mode production --config webpack.config.prod.cjs",
-    "predeploy": "yarn webpack-prod",
-    "deploy": "gh-pages -d public"
+    "webpack-testnet": "webpack --mode development --config webpack.config.testnet.cjs",
+    "webpack-mainnet": "webpack --mode production --config webpack.config.mainnet.cjs"
   },
   "type": "module",
   "dependencies": {

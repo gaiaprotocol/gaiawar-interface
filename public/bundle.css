@@ -346,10 +346,20 @@ dialog.modal.structured-modal > footer {
 button.contained .loading-spinner > svg > circle {
   stroke: var(--loading-spinner-on-contained-button-color);
 }
+@container (width <= 520px) {
+  .wallet-connection-popup > header {
+    padding: 34px 24px !important;
+  }
+}
 .wallet-connection-popup > main {
   display: flex;
   flex-direction: column;
   gap: 32px;
+}
+@container (width <= 520px) {
+  .wallet-connection-popup > main {
+    padding: 0 24px !important;
+  }
 }
 .wallet-connection-popup > main > section {
   display: flex;
@@ -364,10 +374,25 @@ button.contained .loading-spinner > svg > circle {
     font-size: 18px;
   }
 }
+@container (width <= 520px) {
+  .wallet-connection-popup > footer {
+    padding: 24px !important;
+  }
+}
+@container (width <= 520px) {
+  .wallet-login-popup > header {
+    padding: 34px 24px !important;
+  }
+}
 .wallet-login-popup > main {
   display: flex;
   flex-direction: column;
   gap: 32px;
+}
+@container (width <= 520px) {
+  .wallet-login-popup > main {
+    padding: 0 24px !important;
+  }
 }
 .wallet-login-popup > main > section {
   display: flex;
@@ -380,6 +405,11 @@ button.contained .loading-spinner > svg > circle {
 @container (width <= 520px) {
   .wallet-login-popup > main > section > h2 {
     font-size: 18px;
+  }
+}
+@container (width <= 520px) {
+  .wallet-login-popup > footer {
+    padding: 24px !important;
   }
 }
 

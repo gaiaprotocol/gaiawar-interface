@@ -56,12 +56,12 @@ module.exports = {
     },
   },
   output: {
-    filename: "[name].js",
+    filename: "[name]-testnet.js",
     path: path.resolve(__dirname, "public"),
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "bundle.css",
+      filename: "bundle-testnet.css",
     }),
     new ProvidePlugin({
       Buffer: ["buffer", "Buffer"],

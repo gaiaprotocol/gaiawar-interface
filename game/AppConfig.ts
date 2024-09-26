@@ -2,6 +2,7 @@ import { GaiaEngineConfig } from "@gaiaengine/2d";
 
 export interface IAppConfig {
   isDevMovde: boolean;
+  isForSepolia: boolean;
 
   supabaseUrl: string;
   supabaseKey: string;
@@ -9,6 +10,7 @@ export interface IAppConfig {
 
 class AppConfig implements IAppConfig {
   public isDevMovde!: boolean;
+  public isForSepolia!: boolean;
   public supabaseUrl!: string;
   public supabaseKey!: string;
 
