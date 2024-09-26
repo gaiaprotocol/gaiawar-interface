@@ -7,6 +7,9 @@
   },
   "type": "module",
   "dependencies": {
+    "@common-module/app-components": "^0.0.1",
+    "@common-module/supabase": "^0.0.1",
+    "@common-module/wallet-login": "^0.0.1",
     "@gaiaengine/2d": "^0.0.1"
   },
   "devDependencies": {
