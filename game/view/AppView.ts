@@ -8,7 +8,7 @@ export default class AppView extends View {
     super();
     this.container = el(".app-view").appendTo(BodyNode);
 
-    this.addEvent(
+    this.addViewManagedEvent(
       WalletLoginManager,
       "loginStatusChanged",
       () => this.createContent(),

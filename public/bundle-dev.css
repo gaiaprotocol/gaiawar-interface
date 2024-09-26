@@ -329,6 +329,9 @@ dialog.modal::backdrop {
   background-color: var(--overlay-color);
   animation: fade-in 0.3s ease-out;
 }
+dialog.modal:not([open]) {
+  display: none !important;
+}
 dialog.modal.structured-modal {
   display: flex;
   flex-direction: column;
