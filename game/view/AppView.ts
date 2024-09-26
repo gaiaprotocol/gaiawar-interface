@@ -4,20 +4,20 @@ import InGameUI from "../components/InGameUI.js";
 import Intro from "../components/Intro.js";
 
 export default class AppView extends View {
-  private intro;
-
   constructor() {
     super();
-    this.container = el(
-      ".app-view",
-      WalletLoginManager.isLoggedIn ? new InGameUI() : this.intro = new Intro(),
-    ).appendTo(BodyNode);
+    this.container = el(".app-view").appendTo(BodyNode);
 
-    WalletLoginManager.on("loginStatusChanged", (loggedIn) => {
-      if (loggedIn && this.intro) {
-        this.intro.remove();
-        this.intro = undefined;
-      }
-    });
+    this.addEvent(
+      WalletLoginManager,
+      "loginStatusChanged",
+      () => this.createContent(),
+    ).createContent();
+  }
+
+  private createContent() {
+    this.container.empty().append(
+      WalletLoginManager.isLoggedIn ? new InGameUI() : new Intro(),
+    );
   }
 }
