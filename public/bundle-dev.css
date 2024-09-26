@@ -125,6 +125,43 @@ meter {
   font-weight: 700;
   font-display: swap;
 }
+@keyframes rotate-material-loading-spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(270deg);
+  }
+}
+@keyframes rotate-material-loading-spinner-dash {
+  0% {
+    stroke-dashoffset: 187;
+  }
+  50% {
+    stroke-dashoffset: 46.75;
+    transform: rotate(135deg);
+  }
+  100% {
+    stroke-dashoffset: 187;
+    transform: rotate(450deg);
+  }
+}
+.material-loading-spinner {
+  display: flex;
+}
+.material-loading-spinner > svg {
+  animation: rotate-material-loading-spinner 1.4s linear infinite;
+}
+.material-loading-spinner > svg > circle {
+  stroke-dasharray: 187;
+  stroke-dashoffset: 0;
+  transform-origin: center;
+  animation: rotate-material-loading-spinner-dash 1.4s ease-in-out infinite;
+  stroke: var(--loading-spinner-color);
+}
+button.contained .material-loading-spinner > svg > circle {
+  stroke: var(--loading-spinner-on-contained-button-color);
+}
 :root {
   --line-color: #333333;
   --page-bg-color: #000;
@@ -314,43 +351,6 @@ dialog.modal.structured-modal > main {
 dialog.modal.structured-modal > footer {
   flex-shrink: 0;
   padding: 24px 34px;
-}
-@keyframes rotate-loading-spinner {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(270deg);
-  }
-}
-@keyframes rotate-loading-spinner-dash {
-  0% {
-    stroke-dashoffset: 187;
-  }
-  50% {
-    stroke-dashoffset: 46.75;
-    transform: rotate(135deg);
-  }
-  100% {
-    stroke-dashoffset: 187;
-    transform: rotate(450deg);
-  }
-}
-.loading-spinner {
-  display: flex;
-}
-.loading-spinner > svg {
-  animation: rotate-loading-spinner 1.4s linear infinite;
-}
-.loading-spinner > svg > circle {
-  stroke-dasharray: 187;
-  stroke-dashoffset: 0;
-  transform-origin: center;
-  animation: rotate-loading-spinner-dash 1.4s ease-in-out infinite;
-  stroke: var(--loading-spinner-color);
-}
-button.contained .loading-spinner > svg > circle {
-  stroke: var(--loading-spinner-on-contained-button-color);
 }
 @container (width <= 520px) {
   .wallet-connection-popup > header {

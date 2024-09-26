@@ -1,15 +1,15 @@
 import { Router, SPAInitializer } from "@common-module/app";
 import { AppCompConfig } from "@common-module/app-components";
+import { MaterialLoadingSpinner } from "@common-module/material-loading-spinner";
 import { SupabaseConnector } from "@common-module/supabase";
 import { UniversalWalletConnector } from "@common-module/wallet";
 import { WalletLoginManager } from "@common-module/wallet-login";
 import AppConfig, { IAppConfig } from "./AppConfig.js";
-import MaterialStyleLoadingSpinner from "./components/MaterialStyleLoadingSpinner.js";
 import AppView from "./view/AppView.js";
 
 export default async function init(config: IAppConfig) {
   AppConfig.init(config);
-  AppCompConfig.LoadingSpinner = MaterialStyleLoadingSpinner;
+  AppCompConfig.LoadingSpinner = MaterialLoadingSpinner;
   SPAInitializer.init();
 
   SupabaseConnector.init(
