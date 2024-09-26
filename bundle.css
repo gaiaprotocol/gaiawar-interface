@@ -193,7 +193,13 @@ button {
   transition: background-color 0.2s linear;
   border-radius: 9999px;
 }
+@container (width <= 520px) {
+  button {
+    padding: 8px 16px;
+  }
+}
 button > .icon {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -273,6 +279,7 @@ dialog.modal {
   background-color: var(--modal-bg-color);
   color: var(--paragraph-text-color);
   animation: fade-in 0.3s ease-out;
+  container-type: inline-size;
 }
 dialog.modal::backdrop {
   backdrop-filter: blur(50px);
@@ -287,6 +294,11 @@ dialog.modal.structured-modal > header {
   flex-shrink: 0;
   padding: 34px;
   font-size: 26px;
+}
+@container (width <= 520px) {
+  dialog.modal.structured-modal > header {
+    font-size: 22px;
+  }
 }
 dialog.modal.structured-modal > main {
   overflow-y: auto;
@@ -347,6 +359,11 @@ button.contained .loading-spinner > svg > circle {
 .wallet-connection-popup > main > section > h2 {
   font-size: 22px;
 }
+@container (width <= 520px) {
+  .wallet-connection-popup > main > section > h2 {
+    font-size: 18px;
+  }
+}
 .wallet-login-popup > main {
   display: flex;
   flex-direction: column;
@@ -359,5 +376,10 @@ button.contained .loading-spinner > svg > circle {
 }
 .wallet-login-popup > main > section > h2 {
   font-size: 22px;
+}
+@container (width <= 520px) {
+  .wallet-login-popup > main > section > h2 {
+    font-size: 18px;
+  }
 }
 
