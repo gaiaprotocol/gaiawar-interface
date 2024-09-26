@@ -1,5 +1,6 @@
 import { BodyNode, el, View } from "@common-module/app";
 import { WalletLoginManager } from "@common-module/wallet-login";
+import InGameUI from "../components/InGameUI.js";
 import Intro from "../components/Intro.js";
 
 export default class AppView extends View {
@@ -9,7 +10,7 @@ export default class AppView extends View {
     super();
     this.container = el(
       ".app-view",
-      WalletLoginManager.isLoggedIn ? undefined : this.intro = new Intro(),
+      WalletLoginManager.isLoggedIn ? new InGameUI() : this.intro = new Intro(),
     ).appendTo(BodyNode);
 
     WalletLoginManager.on("loginStatusChanged", (loggedIn) => {
