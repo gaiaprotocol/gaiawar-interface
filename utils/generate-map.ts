@@ -7,6 +7,7 @@ import objectsData from "./data/objects.json" assert { type: "json" };
 import tilesData from "./data/tiles.json" assert { type: "json" };
 
 enum TerrainDirection {
+  // Single directions
   TopLeft = "top-left",
   Top = "top",
   TopRight = "top-right",
@@ -17,16 +18,24 @@ enum TerrainDirection {
   Bottom = "bottom",
   BottomRight = "bottom-right",
 
-  FillFull = "fill-full",
-  FillTopLeftRight = "fill-top-left-right",
-  FillTopLeftBottom = "fill-top-left-bottom",
-  FillTopLeft = "fill-top-left",
-  FillTopRightBottom = "fill-top-right-bottom",
-  FillTopRight = "fill-top-right",
+  // Two-direction fills
   FillTopBottom = "fill-top-bottom",
   FillLeftRight = "fill-left-right",
+  FillTopLeft = "fill-top-left",
+  FillTopRight = "fill-top-right",
   FillBottomLeft = "fill-bottom-left",
   FillBottomRight = "fill-bottom-right",
+
+  // Three-direction fills
+  FillTopLeftRight = "fill-top-left-right",
+  FillTopLeftBottom = "fill-top-left-bottom",
+  FillTopRightBottom = "fill-top-right-bottom",
+  FillBottomLeftRight = "fill-bottom-left-right",
+  FillTopBottomLeft = "fill-top-bottom-left",
+  FillTopBottomRight = "fill-top-bottom-right",
+
+  // All directions filled
+  FillFull = "fill-full",
 }
 
 interface MapData {
@@ -47,7 +56,7 @@ interface MapData {
     };
   };
   terrainMap: { [cord: string]: string }; // { row, col } -> terrainId
-  mapObjects: { x: number; y: number; object: string }[];
+  mapObjects: { x: number; y: number; objectId: string }[];
 }
 
 const mapTiles = fs.readFileSync("./data/map-tiles.txt", "utf-8");
@@ -61,70 +70,57 @@ const mapData: MapData = {
 
 for (const [tileId, tileData] of Object.entries(tilesData)) {
   mapData.terrains[`terrain-${tileId}`] = {
-    [TerrainDirection.TopLeft]: tileData.leftTop.parts[0].frames.map((frame) =>
-      (keyToSpritesheet as any)[frame]
-    ),
-    [TerrainDirection.Top]: tileData.top.parts[0].frames.map((frame) =>
-      (keyToSpritesheet as any)[frame]
-    ),
-    [TerrainDirection.TopRight]: tileData.rightTop.parts[0].frames.map((
-      frame,
-    ) => (keyToSpritesheet as any)[frame]),
-    [TerrainDirection.Left]: tileData.left.parts[0].frames.map((frame) =>
-      (keyToSpritesheet as any)[frame]
-    ),
-    [TerrainDirection.Center]: tileData.center.parts[0].frames.map((frame) =>
-      (keyToSpritesheet as any)[frame]
-    ),
-    [TerrainDirection.Right]: tileData.right.parts[0].frames.map((frame) =>
-      (keyToSpritesheet as any)[frame]
-    ),
-    [TerrainDirection.BottomLeft]: tileData.leftBottom.parts[0].frames.map((
-      frame,
-    ) => (keyToSpritesheet as any)[frame]),
-    [TerrainDirection.Bottom]: tileData.bottom.parts[0].frames.map((frame) =>
-      (keyToSpritesheet as any)[frame]
-    ),
-    [TerrainDirection.BottomRight]: tileData.rightBottom.parts[0].frames.map((
-      frame,
-    ) => (keyToSpritesheet as any)[frame]),
-    [TerrainDirection.FillFull]: tileData.center.parts[0].frames.map((
-      frame,
-    ) => (keyToSpritesheet as any)[frame]),
-    [TerrainDirection.FillTopLeftRight]: tileData.center.parts[0]
-      .frames.map(
-        (frame) => (keyToSpritesheet as any)[frame],
-      ),
-    [TerrainDirection.FillTopLeftBottom]: tileData.center.parts[0]
-      .frames.map(
-        (frame) => (keyToSpritesheet as any)[frame],
-      ),
-    [TerrainDirection.FillTopLeft]: tileData.fillLeftTop.parts[0].frames.map(
-      (frame) => (keyToSpritesheet as any)[frame],
-    ),
-    [TerrainDirection.FillTopRightBottom]: tileData.center.parts[0]
-      .frames.map(
-        (frame) => (keyToSpritesheet as any)[frame],
-      ),
-    [TerrainDirection.FillTopRight]: tileData.fillRightTop.parts[0].frames.map(
-      (frame) => (keyToSpritesheet as any)[frame],
-    ),
+    // Single directions
+    [TerrainDirection.TopLeft]: tileData.leftTop.parts[0].frames
+      .map((frame) => (keyToSpritesheet as any)[frame]),
+    [TerrainDirection.Top]: tileData.top.parts[0].frames
+      .map((frame) => (keyToSpritesheet as any)[frame]),
+    [TerrainDirection.TopRight]: tileData.rightTop.parts[0].frames
+      .map((frame) => (keyToSpritesheet as any)[frame]),
+    [TerrainDirection.Left]: tileData.left.parts[0].frames
+      .map((frame) => (keyToSpritesheet as any)[frame]),
+    [TerrainDirection.Center]: tileData.center.parts[0].frames
+      .map((frame) => (keyToSpritesheet as any)[frame]),
+    [TerrainDirection.Right]: tileData.right.parts[0].frames
+      .map((frame) => (keyToSpritesheet as any)[frame]),
+    [TerrainDirection.BottomLeft]: tileData.leftBottom.parts[0].frames
+      .map((frame) => (keyToSpritesheet as any)[frame]),
+    [TerrainDirection.Bottom]: tileData.bottom.parts[0].frames
+      .map((frame) => (keyToSpritesheet as any)[frame]),
+    [TerrainDirection.BottomRight]: tileData.rightBottom.parts[0].frames
+      .map((frame) => (keyToSpritesheet as any)[frame]),
+
+    // Two-direction fills
     [TerrainDirection.FillTopBottom]: tileData.center.parts[0].frames
-      .map(
-        (frame) => (keyToSpritesheet as any)[frame],
-      ),
+      .map((frame) => (keyToSpritesheet as any)[frame]),
     [TerrainDirection.FillLeftRight]: tileData.center.parts[0].frames
-      .map(
-        (frame) => (keyToSpritesheet as any)[frame],
-      ),
+      .map((frame) => (keyToSpritesheet as any)[frame]),
+    [TerrainDirection.FillTopLeft]: tileData.fillLeftTop.parts[0].frames
+      .map((frame) => (keyToSpritesheet as any)[frame]),
+    [TerrainDirection.FillTopRight]: tileData.fillRightTop.parts[0].frames
+      .map((frame) => (keyToSpritesheet as any)[frame]),
     [TerrainDirection.FillBottomLeft]: tileData.fillLeftBottom.parts[0].frames
-      .map(
-        (frame) => (keyToSpritesheet as any)[frame],
-      ),
+      .map((frame) => (keyToSpritesheet as any)[frame]),
     [TerrainDirection.FillBottomRight]: tileData.fillRightBottom.parts[0].frames
-      .map(
-        (frame) => (keyToSpritesheet as any)[frame],
-      ),
+      .map((frame) => (keyToSpritesheet as any)[frame]),
+
+    // Three-direction fills
+    [TerrainDirection.FillTopLeftRight]: tileData.center.parts[0].frames
+      .map((frame) => (keyToSpritesheet as any)[frame]),
+    [TerrainDirection.FillTopLeftBottom]: tileData.center.parts[0].frames
+      .map((frame) => (keyToSpritesheet as any)[frame]),
+    [TerrainDirection.FillTopRightBottom]: tileData.center.parts[0].frames
+      .map((frame) => (keyToSpritesheet as any)[frame]),
+    [TerrainDirection.FillBottomLeftRight]: tileData.center.parts[0].frames
+      .map((frame) => (keyToSpritesheet as any)[frame]),
+    [TerrainDirection.FillTopBottomLeft]: tileData.center.parts[0].frames
+      .map((frame) => (keyToSpritesheet as any)[frame]),
+    [TerrainDirection.FillTopBottomRight]: tileData.center.parts[0].frames
+      .map((frame) => (keyToSpritesheet as any)[frame]),
+
+    // All directions filled
+    [TerrainDirection.FillFull]: tileData.center.parts[0].frames
+      .map((frame) => (keyToSpritesheet as any)[frame]),
   };
 }
 
@@ -147,7 +143,7 @@ for (const mapObject of mapObjects as any) {
   };
 
   mapData.mapObjects.push({
-    object: spritesheet.frame,
+    objectId: spritesheet.frame,
     x: mapObject.x,
     y: mapObject.y,
   });

@@ -425,4 +425,14 @@ dialog.modal.structured-modal > footer {
     padding: 24px !important;
   }
 }
+@font-face {
+  font-family: 'Trajan Pro';
+  font-style: normal;
+  font-weight: normal;
+  src: url('/fonts/trajan-pro.woff') format('woff');
+}
+.intro > h1 {
+  font-family: 'Trajan Pro';
+  font-size: 40px;
+}
 

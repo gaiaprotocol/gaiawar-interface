@@ -6,6 +6,7 @@ import { UniversalWalletConnector } from "@common-module/wallet";
 import { WalletLoginManager } from "@common-module/wallet-login";
 import AppConfig, { IAppConfig } from "./AppConfig.js";
 import AppView from "./view/AppView.js";
+import WorldManager from "./world/WorldManager.js";
 
 export default async function init(config: IAppConfig) {
   AppConfig.init(config);
@@ -33,6 +34,8 @@ export default async function init(config: IAppConfig) {
       },
     },
   });
+
+  WorldManager.createWorld();
 
   Router.add("/", AppView);
 }
