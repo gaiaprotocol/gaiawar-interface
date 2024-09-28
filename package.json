@@ -10,7 +10,8 @@
     "@common-module/material-loading-spinner": "^0.0.2",
     "@common-module/supabase": "^0.0.1",
     "@common-module/wallet-login": "^0.0.1",
-    "@gaiaengine/2d": "^0.0.1"
+    "@gaiaengine/2d": "^0.0.1",
+    "ethers": "^6.13.2"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-ethers": "^3.0.0",
