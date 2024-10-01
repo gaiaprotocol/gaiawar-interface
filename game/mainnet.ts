@@ -1,7 +1,7 @@
 import init from "./init.js";
 
 await init({
-  isDevMovde: false,
+  isDevMode: false,
   isForSepolia: false,
 
   supabaseUrl: "",

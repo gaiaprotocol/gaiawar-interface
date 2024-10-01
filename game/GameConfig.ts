@@ -1,24 +1,24 @@
 import { GaiaEngineConfig } from "@gaiaengine/2d";
 
-export interface IAppConfig {
-  isDevMovde: boolean;
+export interface IGameConfig {
+  isDevMode: boolean;
   isForSepolia: boolean;
 
   supabaseUrl: string;
   supabaseKey: string;
 }
 
-class AppConfig implements IAppConfig {
-  public isDevMovde!: boolean;
+class GameConfig implements IGameConfig {
+  public isDevMode!: boolean;
   public isForSepolia!: boolean;
   public supabaseUrl!: string;
   public supabaseKey!: string;
 
-  public init(config: IAppConfig) {
+  public init(config: IGameConfig) {
     Object.assign(this, config);
 
-    GaiaEngineConfig.isDevMovde = config.isDevMovde;
+    GaiaEngineConfig.isDevMode = config.isDevMode;
   }
 }
 
-export default new AppConfig();
+export default new GameConfig();

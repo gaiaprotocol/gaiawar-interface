@@ -3,10 +3,10 @@ import { WalletLoginManager } from "@common-module/wallet-login";
 import InGameUI from "../components/InGameUI.js";
 import Intro from "../components/Intro.js";
 
-export default class AppView extends View {
+export default class GameView extends View {
   constructor() {
     super();
-    this.container = el(".app-view").appendTo(BodyNode);
+    this.container = el(".game-view").appendTo(BodyNode);
 
     this.addViewManagedEvent(
       WalletLoginManager,

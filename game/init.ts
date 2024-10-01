@@ -4,18 +4,18 @@ import { MaterialLoadingSpinner } from "@common-module/material-loading-spinner"
 import { SupabaseConnector } from "@common-module/supabase";
 import { UniversalWalletConnector } from "@common-module/wallet";
 import { WalletLoginManager } from "@common-module/wallet-login";
-import AppConfig, { IAppConfig } from "./AppConfig.js";
-import AppView from "./view/AppView.js";
+import GameConfig, { IGameConfig } from "./GameConfig.js";
+import GameView from "./view/GameView.js";
 import WorldManager from "./world/WorldManager.js";
 
-export default async function init(config: IAppConfig) {
-  AppConfig.init(config);
+export default async function init(config: IGameConfig) {
+  GameConfig.init(config);
   AppCompConfig.LoadingSpinner = MaterialLoadingSpinner;
   SPAInitializer.init();
 
   SupabaseConnector.init(
-    AppConfig.supabaseUrl,
-    AppConfig.supabaseKey,
+    GameConfig.supabaseUrl,
+    GameConfig.supabaseKey,
     WalletLoginManager,
   );
 
@@ -37,5 +37,5 @@ export default async function init(config: IAppConfig) {
 
   WorldManager.createWorld();
 
-  Router.add("/", AppView);
+  Router.add("/", GameView);
 }

@@ -1,6 +1,6 @@
 import { DomNode, el } from "@common-module/app";
 import { Button, ButtonType } from "@common-module/app-components";
-import { WalletLoginManager } from "@common-module/wallet-login";
+import { WalletLoginPopup } from "@common-module/wallet-login";
 
 export default class Intro extends DomNode {
   constructor() {
@@ -10,7 +10,7 @@ export default class Intro extends DomNode {
       new Button({
         type: ButtonType.Contained,
         title: "Login with Wallet",
-        onClick: () => WalletLoginManager.login("Login to play the game"),
+        onClick: () => new WalletLoginPopup("Login to play the game"),
       }),
     );
   }
