@@ -17,5 +17,5 @@ deno cache --reload https://raw.githubusercontent.com/yjgaia/wallet-login-module
 
 ## Run dev entrypoint
 ```
-deno run --allow-net --allow-read server/entrypoint-dev.ts
+deno run --allow-net --allow-read --watch server/entrypoint-dev.ts
 ```
