@@ -1,0 +1,9 @@
+chat_messages
+  id - int8 - pk
+  author - text - ("auth"."jwt"() ->> 'wallet_address'::"text")
+  content - text - not null
+  rich - jsonb - nullable
+  ip_address - inet - not null
+  created_at - timestampz - now()
+  is_edited - bool - nullable
+  is_deleted - bool - nullable
