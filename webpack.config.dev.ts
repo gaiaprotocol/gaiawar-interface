@@ -36,12 +36,12 @@ const config: webpack.Configuration = {
     },
   },
   output: {
-    filename: "[name].js",
+    filename: "[name]-dev.js",
     path: path.resolve("public"),
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "bundle.css",
+      filename: "bundle-dev.css",
     }),
   ],
 };
