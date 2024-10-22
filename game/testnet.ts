@@ -2,7 +2,7 @@ import init from "./init.js";
 
 await init({
   isDevMode: true,
-  isForSepolia: true,
+  isTestnet: true,
 
   supabaseUrl: "https://itqgxihqmbuqpbuduktk.supabase.co",
   supabaseKey:

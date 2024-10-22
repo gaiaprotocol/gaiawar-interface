@@ -10,7 +10,7 @@ export default class Intro extends DomNode {
       new Button({
         type: ButtonType.Contained,
         title: "Login with Wallet",
-        onClick: () => new WalletLoginPopup("Login to play the game"),
+        onClick: () => new WalletLoginPopup(),
       }),
     );
   }

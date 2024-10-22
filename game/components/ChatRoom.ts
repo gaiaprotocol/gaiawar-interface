@@ -1,7 +1,7 @@
 import { DomNode } from "@common-module/app";
-import { SupabaseConnector } from "@common-module/supabase";
 import { RealtimeChannel } from "@supabase/supabase-js";
 import ChatMessageEntity from "../entities/ChatMessageEntity.js";
+import GameConfig from "../GameConfig.js";
 import ChatMessageRepository from "../repositories/ChatMessageRepository.js";
 
 export default class ChatRoom extends DomNode {
@@ -11,12 +11,11 @@ export default class ChatRoom extends DomNode {
     super(".chat-room");
     this.append();
 
-    this.chatMessageChannel = SupabaseConnector.subscribeToDataChanges<
-      ChatMessageEntity
-    >({
-      channel: "chat-messages-changes",
-      table: "chat_messages",
-    });
+    this.chatMessageChannel = GameConfig.supabaesConnector
+      .subscribeToDataChanges<ChatMessageEntity>({
+        channel: "chat-messages-changes",
+        table: "chat_messages",
+      });
 
     this.loadMessages();
   }

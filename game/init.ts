@@ -1,9 +1,7 @@
 import { Router, SPAInitializer } from "@common-module/app";
 import { AppCompConfig } from "@common-module/app-components";
 import { MaterialLoadingSpinner } from "@common-module/material-loading-spinner";
-import { SupabaseConnector } from "@common-module/supabase";
 import { UniversalWalletConnector } from "@common-module/wallet";
-import { WalletLoginManager } from "@common-module/wallet-login";
 import GameConfig, { IGameConfig } from "./GameConfig.js";
 import GameView from "./view/GameView.js";
 import WorldManager from "./world/WorldManager.js";
@@ -12,12 +10,6 @@ export default async function init(config: IGameConfig) {
   GameConfig.init(config);
   AppCompConfig.LoadingSpinner = MaterialLoadingSpinner;
   SPAInitializer.init();
-
-  SupabaseConnector.init(
-    GameConfig.supabaseUrl,
-    GameConfig.supabaseKey,
-    WalletLoginManager,
-  );
 
   UniversalWalletConnector.init({
     name: "Gaia War",

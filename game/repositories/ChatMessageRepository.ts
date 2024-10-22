@@ -2,10 +2,11 @@ import { SupabaseDataRepository } from "@common-module/supabase";
 import ChatMessageEntity, {
   ChatMessageQuery,
 } from "../entities/ChatMessageEntity.js";
+import GameConfig from "../GameConfig.js";
 
 class ChatMessageRepository extends SupabaseDataRepository<ChatMessageEntity> {
   constructor() {
-    super("chat_messages", ChatMessageQuery);
+    super(GameConfig.supabaesConnector, "chat_messages", ChatMessageQuery);
   }
 
   public async fetchMessages(): Promise<ChatMessageEntity[]> {

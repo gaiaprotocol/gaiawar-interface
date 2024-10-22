@@ -1,8 +1,10 @@
+import { SupabaseConnector } from "@common-module/supabase";
 import { GaiaEngineConfig } from "@gaiaengine/2d";
+import { GaiaProtocolConfig } from "gaiaprotocol";
 
 export interface IGameConfig {
   isDevMode: boolean;
-  isForSepolia: boolean;
+  isTestnet: boolean;
 
   supabaseUrl: string;
   supabaseKey: string;
@@ -10,14 +12,23 @@ export interface IGameConfig {
 
 class GameConfig implements IGameConfig {
   public isDevMode!: boolean;
-  public isForSepolia!: boolean;
+  public isTestnet!: boolean;
+
   public supabaseUrl!: string;
   public supabaseKey!: string;
+
+  public supabaesConnector!: SupabaseConnector;
 
   public init(config: IGameConfig) {
     Object.assign(this, config);
 
+    this.supabaesConnector = new SupabaseConnector(
+      config.supabaseUrl,
+      config.supabaseKey,
+    );
+
     GaiaEngineConfig.isDevMode = config.isDevMode;
+    GaiaProtocolConfig.init(config.isDevMode, config.isTestnet);
   }
 }
 
