@@ -6,7 +6,7 @@ import GameConfig from "../GameConfig.js";
 
 class ChatMessageRepository extends SupabaseDataRepository<ChatMessageEntity> {
   constructor() {
-    super(GameConfig.supabaesConnector, "chat_messages", ChatMessageQuery);
+    super(GameConfig.supabaseConnector, "chat_messages", ChatMessageQuery);
   }
 
   public async fetchMessages(): Promise<ChatMessageEntity[]> {

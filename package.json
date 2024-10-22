@@ -8,7 +8,7 @@
   "dependencies": {
     "@common-module/material-loading-spinner": "0.1.2",
     "@gaiaengine/2d": "^0.1.2",
-    "gaiaprotocol": "^0.1.2"
+    "gaiaprotocol": "^0.1.5"
   },
   "devDependencies": {
     "@types/node": "^22.7.5",

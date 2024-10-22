@@ -1,4 +1,4 @@
-import { SupabaseConnector } from "@common-module/supabase";
+import { AuthTokenManager, SupabaseConnector } from "@common-module/supabase";
 import { GaiaEngineConfig } from "@gaiaengine/2d";
 import { GaiaProtocolConfig } from "gaiaprotocol";
 
@@ -17,18 +17,27 @@ class GameConfig implements IGameConfig {
   public supabaseUrl!: string;
   public supabaseKey!: string;
 
-  public supabaesConnector!: SupabaseConnector;
+  public supabaseConnector!: SupabaseConnector;
 
   public init(config: IGameConfig) {
     Object.assign(this, config);
 
-    this.supabaesConnector = new SupabaseConnector(
+    const authTokenManager = new AuthTokenManager("game-auth-token");
+
+    this.supabaseConnector = new SupabaseConnector(
       config.supabaseUrl,
       config.supabaseKey,
+      authTokenManager,
     );
 
     GaiaEngineConfig.isDevMode = config.isDevMode;
-    GaiaProtocolConfig.init(config.isDevMode, config.isTestnet);
+
+    GaiaProtocolConfig.init(
+      config.isDevMode,
+      config.isTestnet,
+      this.supabaseConnector,
+      authTokenManager,
+    );
   }
 }
 

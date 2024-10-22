@@ -4,7 +4,7 @@ await init({
   isDevMode: true,
   isTestnet: true,
 
-  supabaseUrl: "https://itqgxihqmbuqpbuduktk.supabase.co",
+  supabaseUrl: "https://djdupcitqaopbnqzwqqh.supabase.co",
   supabaseKey:
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0cWd4aWhxbWJ1cXBidWR1a3RrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjcwNzM4ODgsImV4cCI6MjA0MjY0OTg4OH0.ZXKwLDmBweWHCMEFVRKcdr9n2M6sD9wjTPryUIgnrQk",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRqZHVwY2l0cWFvcGJucXp3cXFoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjk1ODcyNDIsImV4cCI6MjA0NTE2MzI0Mn0.TiEupt3ZsMcEASfYUHOdEy0bBIvzlNfNLEyeugjM-mI",
 });

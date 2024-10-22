@@ -5,6 +5,7 @@ import { UniversalWalletConnector } from "@common-module/wallet";
 import GameConfig, { IGameConfig } from "./GameConfig.js";
 import GameView from "./view/GameView.js";
 import WorldManager from "./world/WorldManager.js";
+import { WalletLoginConfig } from "@common-module/wallet-login";
 
 export default async function init(config: IGameConfig) {
   GameConfig.init(config);
@@ -30,4 +31,16 @@ export default async function init(config: IGameConfig) {
   WorldManager.createWorld();
 
   Router.add("/", GameView);
+
+  console.log(
+    await WalletLoginConfig.supabaseConnector.callDbFunction(
+      "get_login_wallet_address",
+    ),
+  );
+
+  console.log(
+    await GameConfig.supabaseConnector.callDbFunction(
+      "get_login_wallet_address",
+    ),
+  );
 }
