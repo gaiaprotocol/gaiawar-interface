@@ -6,12 +6,9 @@
   },
   "type": "module",
   "dependencies": {
-    "@common-module/app-components": "^0.0.1",
-    "@common-module/material-loading-spinner": "^0.0.2",
-    "@common-module/social-components": "^0.1.0",
-    "@common-module/supabase": "^0.0.1",
-    "@common-module/wallet-login": "^0.0.1",
-    "@gaiaengine/2d": "^0.0.1"
+    "@common-module/material-loading-spinner": "0.1.2",
+    "gaiaprotocol": "^0.1.2",
+    "@gaiaengine/2d": "^0.1.2"
   },
   "devDependencies": {
     "@types/node": "^22.7.5",
