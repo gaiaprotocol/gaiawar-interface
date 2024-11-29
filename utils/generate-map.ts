@@ -1,10 +1,10 @@
 import fs from "fs";
-import keyToSpritesheet from "../public/assets/optimized-tiles/key-to-spritesheet.json" assert {
+import keyToSpritesheet from "../public/assets/optimized-tiles/key-to-spritesheet.json" with {
   type: "json",
 };
-import mapObjects from "./data/map-objects.json" assert { type: "json" };
-import objectsData from "./data/objects.json" assert { type: "json" };
-import tilesData from "./data/tiles.json" assert { type: "json" };
+import mapObjects from "./data/map-objects.json" with { type: "json" };
+import objectsData from "./data/objects.json" with { type: "json" };
+import tilesData from "./data/tiles.json" with { type: "json" };
 
 enum TerrainDirection {
   // Single directions

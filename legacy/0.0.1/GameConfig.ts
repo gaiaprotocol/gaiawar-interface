@@ -19,21 +19,6 @@ class GameConfig implements IGameConfig {
 
   public supabaseConnector!: SupabaseConnector;
 
-  public materialAddresses: Record<string, Record<string, string>> = {
-    mainnet: {
-      wood: "",
-      stone: "",
-      iron: "",
-      ducat: "",
-    },
-    testnet: {
-      wood: "",
-      stone: "",
-      iron: "",
-      ducat: "",
-    },
-  };
-
   public init(config: IGameConfig) {
     Object.assign(this, config);
 

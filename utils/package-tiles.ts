@@ -1,8 +1,8 @@
 import fs from "fs";
 import path from "path";
 import sharp, { Metadata, Sharp } from "sharp";
-import objectsData from "./data/objects.json" assert { type: "json" };
-import tilesData from "./data/tiles.json" assert { type: "json" };
+import objectsData from "./data/objects.json" with { type: "json" };
+import tilesData from "./data/tiles.json" with { type: "json" };
 
 interface SpritesheetData {
   frames: {
@@ -88,12 +88,13 @@ const keyToSpritesheet: {
   };
 } = {};
 
+const tileSize = 256;
+
 async function createSpritesheetImage(
   files: string[],
   outputFileName: string,
   format = "png",
 ) {
-  const tileSize = 256;
   const tilesPerRow = Math.ceil(Math.sqrt(files.length));
   const outputWidth = tileSize * tilesPerRow;
   const outputHeight = tileSize * Math.ceil(files.length / tilesPerRow);
@@ -150,7 +151,7 @@ async function processImages() {
         const sharpImage = sharp(path.join(directoryPath, file));
         const metadata = await sharpImage.metadata();
         metadataMap.set(file, metadata);
-        if (metadata.width !== 256 || metadata.height !== 256) {
+        if (metadata.width !== tileSize || metadata.height !== tileSize) {
           uniqueImages.push(file);
         } else {
           if (await hasTransparency(sharpImage)) {
@@ -183,10 +184,10 @@ async function processImages() {
         Math.ceil(metadata!.width! / 4),
         Math.ceil(metadata!.height! / 4),
       ).extend({
-        left: 128 - Math.ceil(metadata!.width! / 8),
-        top: 128 - Math.ceil(metadata!.height! / 8),
-        bottom: 128 - Math.ceil(metadata!.height! / 8),
-        right: 128 - Math.ceil(metadata!.width! / 8),
+        left: tileSize / 2 - Math.ceil(metadata!.width! / 8),
+        top: tileSize / 2 - Math.ceil(metadata!.height! / 8),
+        bottom: tileSize / 2 - Math.ceil(metadata!.height! / 8),
+        right: tileSize / 2 - Math.ceil(metadata!.width! / 8),
         background: { r: 0, g: 0, b: 0, alpha: 0 },
       }).toFile(path.join(outputPath, `unique-${file}`));
     }
@@ -219,10 +220,10 @@ async function processImages() {
 
         spritesheetWithAlphaAtlas.frames[frameId] = {
           frame: {
-            x: tile.col * 256,
-            y: tile.row * 256,
-            w: 256,
-            h: 256,
+            x: tile.col * tileSize,
+            y: tile.row * tileSize,
+            w: tileSize,
+            h: tileSize,
           },
         };
 
@@ -253,10 +254,10 @@ async function processImages() {
       if (tile.spritesheet === "spritesheet-without-alpha") {
         spritesheetWithoutAlphaAtlas.frames[`tile-${tileIndex++}`] = {
           frame: {
-            x: tile.col * 256,
-            y: tile.row * 256,
-            w: 256,
-            h: 256,
+            x: tile.col * tileSize,
+            y: tile.row * tileSize,
+            w: tileSize,
+            h: tileSize,
           },
         };
 
