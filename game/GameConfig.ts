@@ -1,5 +1,9 @@
+import { SocialCompConfig } from "@common-module/social-components";
 import { AuthTokenManager, SupabaseConnector } from "@common-module/supabase";
+import { WalletLoginConfig } from "@common-module/wallet-login";
 import { GaiaEngineConfig } from "@gaiaengine/2d";
+import { GaiaUIPreset } from "@gaiaprotocol/ui-preset";
+import { mainnet } from "@wagmi/core/chains";
 import { GaiaProtocolConfig } from "gaiaprotocol";
 
 export interface IGameConfig {
@@ -8,9 +12,11 @@ export interface IGameConfig {
 
   supabaseUrl: string;
   supabaseKey: string;
+
+  walletConnectProjectId: string;
 }
 
-class GameConfig implements IGameConfig {
+class GameConfig {
   public isDevMode!: boolean;
   public isTestnet!: boolean;
 
@@ -36,6 +42,7 @@ class GameConfig implements IGameConfig {
 
   public init(config: IGameConfig) {
     Object.assign(this, config);
+    GaiaUIPreset.init();
 
     const authTokenManager = new AuthTokenManager("gaiawar-auth-token");
 
@@ -45,6 +52,12 @@ class GameConfig implements IGameConfig {
       authTokenManager,
     );
 
+    WalletLoginConfig.init({
+      chains: [mainnet] as any,
+      walletConnectProjectId: config.walletConnectProjectId,
+      supabaseConnector: this.supabaseConnector,
+    });
+
     GaiaEngineConfig.isDevMode = config.isDevMode;
 
     GaiaProtocolConfig.init(
@@ -53,6 +66,14 @@ class GameConfig implements IGameConfig {
       this.supabaseConnector,
       authTokenManager,
     );
+
+    SocialCompConfig.goLoggedInUserProfile = async (user) => {
+      //TODO: Implement this
+    };
+
+    SocialCompConfig.getLoggedInUserMenu = async (menu, user) => {
+      return [];
+    };
   }
 }
 

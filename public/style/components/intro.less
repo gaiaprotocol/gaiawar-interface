@@ -1,5 +1,28 @@
 .intro {
-  >h1 {
-    font-size  : 40px;
+  >header {
+    >h1 {
+      font-size  : 40px;
+      font-family: 'Trajan Pro';
+    }
+  }
+
+  >footer {
+    display: flex;
+
+    >.credit {
+      flex-grow: 1;
+      color    : #b4b4b4;
+      font-size: 14px;
+
+      >a {
+        text-decoration      : underline;
+        text-decoration-color: var(--link-underline-color);
+        transition           : text-decoration-color 0.25s ease;
+
+        &:hover {
+          text-decoration-color: currentColor;
+        }
+      }
+    }
   }
 }
