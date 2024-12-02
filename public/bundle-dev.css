@@ -1764,6 +1764,17 @@ li.chat-message-list-item > main {
 .chat-message-edit-form > form > .actions > button > .icon-container > .icon {
   font-size: 20px;
 }
+.logged-in-user-avatar-button {
+  position: relative;
+  min-width: 32px;
+  min-height: 32px;
+}
+.logged-in-user-avatar-button > .loading-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 .logged-in-user-avatar-button > button.avatar {
   padding: 0;
   transition: none;
@@ -2123,5 +2134,63 @@ li.chat-message-list-item > main {
 }
 .intro > footer > .credit > a:hover {
   text-decoration-color: currentColor;
+}
+.hud {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.hud > .material-panel {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+}
+.hud > .logged-in-user-avatar-button {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 40px;
+  height: 40px;
+  background-color: #333;
+  border-radius: 50%;
+}
+.hud > .logged-in-user-avatar-button > button.avatar > .icon-container {
+  width: 40px;
+  height: 40px;
+}
+.hud > button.world-map {
+  position: absolute;
+  top: 68px;
+  right: 14px;
+}
+.hud > .chat-room {
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+}
+.hud > .command-panel {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.chat-room {
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 8px;
+  width: 100%;
+  max-width: 400px;
+}
+.chat-room > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 8px 8px 16px;
+}
+.chat-room > header > .button-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
