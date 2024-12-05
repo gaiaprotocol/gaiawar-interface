@@ -34,7 +34,7 @@ GRANT ALL ON SEQUENCE "public"."chat_messages_id_seq" TO "service_role";
 
 CREATE POLICY "Allow read access for all users" ON public.chat_messages FOR SELECT USING (true);
 
-CREATE POLICY "Allow insert for authenticated users" ON public.chat_messages FOR INSERT TO authenticated 
+CREATE POLICY "Allow insert for authenticated users" ON public.chat_messages FOR INSERT
 WITH CHECK (
     author = ("auth"."jwt"() ->> 'wallet_address'::text)
     AND
@@ -45,7 +45,7 @@ WITH CHECK (
     )
 );
 
-CREATE POLICY "Allow update for message owner" ON public.chat_messages FOR UPDATE TO authenticated 
+CREATE POLICY "Allow update for message owner" ON public.chat_messages FOR UPDATE
 USING (author = ("auth"."jwt"() ->> 'wallet_address'::text))
 WITH CHECK (
     (
@@ -55,5 +55,5 @@ WITH CHECK (
     )
 );
 
-CREATE POLICY "Allow delete for message owner" ON public.chat_messages FOR DELETE TO authenticated 
+CREATE POLICY "Allow delete for message owner" ON public.chat_messages FOR DELETE
 USING (author = ("auth"."jwt"() ->> 'wallet_address'::text));
