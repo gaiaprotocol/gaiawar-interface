@@ -1,10 +1,16 @@
+import {
+  DropdownMenuGroup,
+  DropdownMenuItem,
+} from "@common-module/app-components";
 import { SocialCompConfig } from "@common-module/social-components";
 import { AuthTokenManager, SupabaseConnector } from "@common-module/supabase";
 import { WalletLoginConfig } from "@common-module/wallet-login";
 import { GaiaEngineConfig } from "@gaiaengine/2d";
+import { ProfileIcon } from "@gaiaprotocol/svg-icons";
 import { GaiaUIPreset } from "@gaiaprotocol/ui-preset";
 import { base, baseSepolia } from "@wagmi/core/chains";
 import { GaiaProtocolConfig, MaterialContract } from "gaiaprotocol";
+import UserInfoModal from "./components/UserInfoModal.js";
 
 export interface IGameConfig {
   isDevMode: boolean;
@@ -82,12 +88,22 @@ class GameConfig {
       authTokenManager,
     );
 
-    SocialCompConfig.goLoggedInUserProfile = async (user) => {
-      //TODO: Implement this
-    };
+    SocialCompConfig.goLoggedInUserProfile = (user) =>
+      new UserInfoModal(user.id);
 
     SocialCompConfig.getLoggedInUserMenu = async (menu, user) => {
-      return [];
+      return [
+        new DropdownMenuGroup(
+          new DropdownMenuItem({
+            icon: new ProfileIcon(),
+            label: "Profile",
+            onClick: () => {
+              new UserInfoModal(user.id);
+              menu.remove();
+            },
+          }),
+        ),
+      ];
     };
   }
 }
