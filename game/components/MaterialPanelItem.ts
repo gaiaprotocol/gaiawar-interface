@@ -1,7 +1,12 @@
 import { DomNode, el } from "@common-module/app";
-import { AppCompConfig } from "@common-module/app-components";
+import {
+  AppCompConfig,
+  Button,
+  ButtonType,
+} from "@common-module/app-components";
 import { StringUtils } from "@common-module/ts";
 import { WalletLoginManager } from "@common-module/wallet-login";
+import { AddIcon } from "@gaiaprotocol/svg-icons";
 import { formatEther } from "viem";
 import GameConfig from "../GameConfig.js";
 
@@ -33,7 +38,16 @@ export default class MaterialPanelItem extends DomNode {
       const balance = await GameConfig.materialContracts.wood.balanceOf(
         account,
       );
-      this.append(StringUtils.formatNumberWithCommas(formatEther(balance)));
+      this.append(
+        el(
+          ".balance",
+          StringUtils.formatNumberWithCommas(formatEther(balance)),
+        ),
+        new Button(".buy", {
+          type: ButtonType.Circle,
+          icon: new AddIcon(),
+        }),
+      );
       loadingSpinner.remove();
     }
   }

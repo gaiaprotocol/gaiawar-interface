@@ -2185,8 +2185,9 @@ li.chat-message-list-item > main {
 }
 .material-panel-item {
   background-color: rgba(0, 0, 0, 0.8);
-  padding: 8px 12px 8px 8px;
-  border-radius: 19px;
+  border-radius: 20px;
+  height: 40px;
+  padding: 8px;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -2195,5 +2196,10 @@ li.chat-message-list-item > main {
 .material-panel-item > .loading-spinner {
   width: 16px;
   height: 16px;
+}
+.material-panel-item > button.buy {
+  width: 24px;
+  height: 24px;
+  min-height: 24px;
 }
 
