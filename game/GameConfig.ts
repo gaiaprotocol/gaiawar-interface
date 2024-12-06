@@ -3,8 +3,8 @@ import { AuthTokenManager, SupabaseConnector } from "@common-module/supabase";
 import { WalletLoginConfig } from "@common-module/wallet-login";
 import { GaiaEngineConfig } from "@gaiaengine/2d";
 import { GaiaUIPreset } from "@gaiaprotocol/ui-preset";
-import { mainnet } from "@wagmi/core/chains";
-import { GaiaProtocolConfig } from "gaiaprotocol";
+import { base, baseSepolia } from "@wagmi/core/chains";
+import { GaiaProtocolConfig, MaterialContract } from "gaiaprotocol";
 
 export interface IGameConfig {
   isDevMode: boolean;
@@ -25,12 +25,12 @@ class GameConfig {
 
   public supabaseConnector!: SupabaseConnector;
 
-  public materialAddresses: Record<string, Record<string, string>> = {
+  public materialAddresses: Record<string, Record<string, `0x${string}`>> = {
     mainnet: {
-      wood: "",
-      stone: "",
-      iron: "",
-      ducat: "",
+      wood: "0x",
+      stone: "0x",
+      iron: "0x",
+      ducat: "0x",
     },
     testnet: {
       wood: "0xB9fA43F582f5b8A9Dc15129D0E5d61475399C84d",
@@ -40,9 +40,19 @@ class GameConfig {
     },
   };
 
+  public materialContracts: Record<string, MaterialContract> = {};
+
   public init(config: IGameConfig) {
     Object.assign(this, config);
     GaiaUIPreset.init();
+
+    ["wood", "stone", "iron", "ducat"].forEach((material) => {
+      this.materialContracts[material] = new MaterialContract(
+        config.isTestnet
+          ? this.materialAddresses.testnet[material]
+          : this.materialAddresses.mainnet[material],
+      );
+    });
 
     const authTokenManager = new AuthTokenManager("gaiawar-auth-token");
 
@@ -53,7 +63,7 @@ class GameConfig {
     );
 
     WalletLoginConfig.init({
-      chains: [mainnet] as any,
+      chains: [config.isTestnet ? baseSepolia : base] as any,
       walletConnectProjectId: config.walletConnectProjectId,
       supabaseConnector: this.supabaseConnector,
     });

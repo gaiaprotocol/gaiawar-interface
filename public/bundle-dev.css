@@ -2178,4 +2178,22 @@ li.chat-message-list-item > main {
   align-items: center;
   gap: 8px;
 }
+.material-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.material-panel-item {
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 8px 12px 8px 8px;
+  border-radius: 19px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+.material-panel-item > .loading-spinner {
+  width: 16px;
+  height: 16px;
+}
 
