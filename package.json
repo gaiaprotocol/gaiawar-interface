@@ -1,7 +1,7 @@
 {
   "scripts": {
     "webpack-dev": "node --loader ts-node/esm node_modules/webpack-cli/bin/cli.js --mode development --watch --config webpack.config.dev.ts",
-    "webpack-testnet": "node --loader ts-node/esm node_modules/webpack-cli/bin/cli.js --mode development --watch --config webpack.config.testnet.ts",
+    "webpack-testnet": "node --loader ts-node/esm node_modules/webpack-cli/bin/cli.js --mode development --config webpack.config.testnet.ts",
     "webpack-mainnet": "node --loader ts-node/esm node_modules/webpack-cli/bin/cli.js --mode production --config webpack.config.mainnet.ts"
   },
   "type": "module",
