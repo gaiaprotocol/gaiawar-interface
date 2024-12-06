@@ -7,6 +7,7 @@ import {
 import { StringUtils } from "@common-module/ts";
 import { WalletLoginManager } from "@common-module/wallet-login";
 import { AddIcon } from "@gaiaprotocol/svg-icons";
+import { TradeMaterialModal } from "gaiaprotocol";
 import { formatEther } from "viem";
 import GameConfig from "../GameConfig.js";
 
@@ -46,6 +47,8 @@ export default class MaterialPanelItem extends DomNode {
         new Button(".buy", {
           type: ButtonType.Circle,
           icon: new AddIcon(),
+          onClick: () =>
+            new TradeMaterialModal(GameConfig.getMaterialAddress(this.type)),
         }),
       );
       loadingSpinner.remove();

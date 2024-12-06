@@ -25,7 +25,7 @@ class GameConfig {
 
   public supabaseConnector!: SupabaseConnector;
 
-  public materialAddresses: Record<string, Record<string, `0x${string}`>> = {
+  private materialAddresses: Record<string, Record<string, `0x${string}`>> = {
     mainnet: {
       wood: "0x",
       stone: "0x",
@@ -39,6 +39,11 @@ class GameConfig {
       ducat: "0x06ee2166F70105c2F83D4DD7885fCd8aE6D08aFf",
     },
   };
+
+  public getMaterialAddress(material: string) {
+    return this
+      .materialAddresses[this.isTestnet ? "testnet" : "mainnet"][material];
+  }
 
   public materialContracts: Record<string, MaterialContract> = {};
 

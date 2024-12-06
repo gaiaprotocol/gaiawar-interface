@@ -6,6 +6,7 @@ import { MapIcon } from "@gaiaprotocol/svg-icons";
 import ChatRoom from "./ChatRoom.js";
 import CommandPanel from "./CommandPanel.js";
 import MaterialPanel from "./MaterialPanel.js";
+import WorldMapModal from "./WorldMapModal.js";
 
 export default class HUD extends DomNode {
   private chatRoom: ChatRoom;
@@ -19,6 +20,7 @@ export default class HUD extends DomNode {
       new Button(".world-map", {
         type: ButtonType.Circle,
         icon: new MapIcon(),
+        onClick: () => new WorldMapModal(),
       }),
       this.chatRoom = new ChatRoom(),
       this.commandPanel = new CommandPanel(),
