@@ -33,10 +33,10 @@ class GameConfig {
       ducat: "",
     },
     testnet: {
-      wood: "",
-      stone: "",
-      iron: "",
-      ducat: "",
+      wood: "0xB9fA43F582f5b8A9Dc15129D0E5d61475399C84d",
+      stone: "0xCA0c32a6bdd89b0595C0360d89be97325379397e",
+      iron: "0xa7156113Bdbb4ff78749885b3C9E13d823c99424",
+      ducat: "0x06ee2166F70105c2F83D4DD7885fCd8aE6D08aFf",
     },
   };
 
