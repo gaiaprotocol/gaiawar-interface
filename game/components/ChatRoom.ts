@@ -4,15 +4,24 @@ import {
   ChatMessageForm,
   ChatMessageList,
 } from "@common-module/social-components";
+import { WalletLoginManager } from "@common-module/wallet-login";
 import { CollapseIcon, ExpandIcon } from "@gaiaprotocol/svg-icons";
+import { RealtimeChannel } from "@supabase/supabase-js";
+import { v4 as uuidv4 } from "uuid";
+import ChatMessageEntity from "../chat/ChatMessageEntity.js";
 import ChatMessageRepository from "../chat/ChatMessageRepository.js";
 import GameConfig from "../GameConfig.js";
 
+const clientId = Date.now() % 32767;
+
 export default class ChatRoom extends DomNode {
+  private chatMessageChannel: RealtimeChannel;
   private messageList: ChatMessageList;
+  private tempMessages: { id: string; content: string }[] = [];
 
   constructor() {
     super(".chat-room");
+
     this.append(
       el(
         "header",
@@ -36,20 +45,70 @@ export default class ChatRoom extends DomNode {
       ),
     );
 
+    this.chatMessageChannel = GameConfig.supabaseConnector
+      .subscribeToDataChanges<ChatMessageEntity>({
+        channel: "chat-messages-changes",
+        table: "chat_messages",
+        onInsert: (m) => {
+          const index = this.tempMessages.findIndex((tm) =>
+            tm.content === m.content
+          );
+          if (index !== -1) {
+            this.messageList.updateMessage(this.tempMessages[index].id, {
+              id: m.id.toString(),
+              sender: m.sender,
+              content: m.content,
+              createdAt: m.created_at,
+            });
+            this.tempMessages.splice(index, 1);
+          } else {
+            this.messageList.addMessage({
+              id: m.id.toString(),
+              sender: m.sender,
+              content: m.content,
+              createdAt: m.created_at,
+            });
+          }
+        },
+      });
+
     this.loadMessages();
   }
 
   private async loadMessages() {
     const messages = await ChatMessageRepository.fetchMessages();
-    for (const message of messages) {
+    this.messageList.setMessages(
+      messages.reverse().map((m) => ({
+        id: m.id.toString(),
+        sender: m.sender,
+        content: m.content,
+        createdAt: m.created_at,
+      })),
+    );
+  }
+
+  private sendMessage(content: string) {
+    GameConfig.supabaseConnector.callEdgeFunction(
+      "send-chat-message",
+      { content, clientId },
+    );
+
+    const sender = WalletLoginManager.getLoggedInAddress();
+    if (sender) {
+      const tempMessageId = uuidv4();
+      this.tempMessages.push({ id: tempMessageId, content });
+      this.messageList.addMessage({
+        id: tempMessageId,
+        sender,
+        content,
+        createdAt: new Date().toISOString(),
+        isTemp: true,
+      });
     }
   }
 
-  private async sendMessage(content: string) {
-    const messageId = await GameConfig.supabaseConnector.callEdgeFunction(
-      "send-chat-message",
-      { content },
-    );
-    console.log(messageId);
+  public remove(): void {
+    this.chatMessageChannel.unsubscribe();
+    super.remove();
   }
 }

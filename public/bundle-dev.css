@@ -1773,6 +1773,9 @@ li.chat-message-list-item > main {
 .chat-message-edit-form > form > .actions > button > .icon-container > .icon {
   font-size: 20px;
 }
+li.chat-content-list-item.temp {
+  opacity: 0.5;
+}
 .logged-in-user-avatar-button {
   position: relative;
   min-width: 32px;

@@ -1,6 +1,7 @@
 chat_messages
   id - int8 - pk
   sender - text - not null
+  client_id - smallint - not null
   content - text - not null
   ip_address - inet - not null
   created_at - timestampz - now()

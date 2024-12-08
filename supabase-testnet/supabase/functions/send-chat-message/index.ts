@@ -4,11 +4,11 @@ import { extractWalletAddressFromRequest } from "https://raw.githubusercontent.c
 
 serve(async (req, ip) => {
   const walletAddress = extractWalletAddressFromRequest(req);
-  const { content } = await req.json();
+  const { content, clientId } = await req.json();
 
   const data = await insert(
     "chat_messages",
-    { sender: walletAddress, content, ip_address: ip },
+    { sender: walletAddress, client_id: clientId, content, ip_address: ip },
     "id",
   );
 

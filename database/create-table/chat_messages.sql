@@ -1,6 +1,7 @@
 CREATE TABLE IF NOT EXISTS "public"."chat_messages" (
   "id" bigint NOT NULL,
   "sender" "text" NOT NULL,
+  "client_id" smallint NOT NULL,
   "content" "text" NOT NULL,
   "ip_address" "inet" NOT NULL,
   "created_at" timestamp with time zone DEFAULT "now"() NOT NULL

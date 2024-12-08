@@ -6,12 +6,13 @@
   },
   "type": "module",
   "dependencies": {
-    "@gaiaprotocol/ui-preset": "^0.0.2",
     "@gaiaengine/2d": "^0.1.6",
+    "@gaiaprotocol/ui-preset": "^0.0.2",
     "gaiaprotocol": "^0.2.3"
   },
   "devDependencies": {
     "@types/node": "^22.7.5",
+    "@types/uuid": "^10.0.0",
     "@types/webpack": "^5.28.5",
     "css-loader": "^7.1.2",
     "less": "^4.2.0",
