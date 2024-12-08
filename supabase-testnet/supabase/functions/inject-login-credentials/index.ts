@@ -1,5 +1,5 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.31.0";
-import { serve } from "https://raw.githubusercontent.com/yjgaia/deno-module/main/api.ts";
+import { serve } from "https://raw.githubusercontent.com/yjgaia/deno-module/refs/heads/main/api.ts";
 import { sign } from "https://esm.sh/jsonwebtoken@8.5.1";
 
 const GAIA_PROTOCOL_SUPABASE_URL = Deno.env.get("GAIA_PROTOCOL_SUPABASE_URL")!;

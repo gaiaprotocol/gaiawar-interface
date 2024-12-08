@@ -10,6 +10,7 @@ import { ProfileIcon } from "@gaiaprotocol/svg-icons";
 import { GaiaUIPreset } from "@gaiaprotocol/ui-preset";
 import { base, baseSepolia } from "@wagmi/core/chains";
 import { GaiaProtocolConfig, MaterialContract } from "gaiaprotocol";
+import ChatMessageRepository from "./chat/ChatMessageRepository.js";
 import UserInfoModal from "./components/UserInfoModal.js";
 
 export interface IGameConfig {
@@ -72,6 +73,8 @@ class GameConfig {
       config.supabaseKey,
       authTokenManager,
     );
+
+    ChatMessageRepository.supabaseConnector = this.supabaseConnector;
 
     WalletLoginConfig.init({
       chains: [config.isTestnet ? baseSepolia : base] as any,
