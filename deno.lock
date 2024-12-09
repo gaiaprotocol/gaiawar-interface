@@ -109,6 +109,7 @@
         "npm:@gaiaengine/2d@~0.1.6",
         "npm:@gaiaprotocol/ui-preset@^0.0.2",
         "npm:@types/node@^22.7.5",
+        "npm:@types/uuid@10",
         "npm:@types/webpack@^5.28.5",
         "npm:css-loader@^7.1.2",
         "npm:gaiaprotocol@~0.2.3",

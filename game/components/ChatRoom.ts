@@ -49,6 +49,7 @@ export default class ChatRoom extends DomNode {
       .subscribeToDataChanges<ChatMessageEntity>({
         channel: "chat-messages-changes",
         table: "chat_messages",
+        onSubscribe: () => this.loadMessages(),
         onInsert: (m) => {
           const index = this.tempMessages.findIndex((tm) =>
             tm.content === m.content
@@ -71,8 +72,6 @@ export default class ChatRoom extends DomNode {
           }
         },
       });
-
-    this.loadMessages();
   }
 
   private async loadMessages() {
