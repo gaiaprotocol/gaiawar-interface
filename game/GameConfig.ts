@@ -40,10 +40,10 @@ class GameConfig {
       ducat: "0x",
     },
     testnet: {
-      wood: "0xB9fA43F582f5b8A9Dc15129D0E5d61475399C84d",
-      stone: "0xCA0c32a6bdd89b0595C0360d89be97325379397e",
-      iron: "0xa7156113Bdbb4ff78749885b3C9E13d823c99424",
-      ducat: "0x06ee2166F70105c2F83D4DD7885fCd8aE6D08aFf",
+      wood: "0x2E3b262256412fb2398aF82222721F1960715de3",
+      stone: "0x501a023D3a477573A2590F75f7B0fe0F0F4B7982",
+      iron: "0x158943c132507703D491778bD33c22fF5DB5Bf46",
+      ducat: "0x8AD600DC65228C83d1a1ecE3a0BC1E9705406d57",
     },
   };
 

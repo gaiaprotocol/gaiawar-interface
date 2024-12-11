@@ -25,14 +25,12 @@ const iconImages = {
 export default class MaterialPanelItem extends DomNode {
   constructor(private type: "wood" | "stone" | "iron" | "ducat") {
     super(".material-panel-item");
-    this.append(
-      el("img.icon", { src: iconImages[type] }),
-    );
-
     this.loadBalance();
   }
 
   private async loadBalance() {
+    this.clear().append(el("img.icon", { src: iconImages[this.type] }));
+
     const account = WalletLoginManager.getLoggedInAddress();
     if (account) {
       const loadingSpinner = new AppCompConfig.LoadingSpinner().appendTo(this);
@@ -47,8 +45,12 @@ export default class MaterialPanelItem extends DomNode {
         new Button(".buy", {
           type: ButtonType.Circle,
           icon: new AddIcon(),
-          onClick: () =>
-            new TradeMaterialModal(GameConfig.getMaterialAddress(this.type)),
+          onClick: () => {
+            const modal = new TradeMaterialModal(
+              GameConfig.getMaterialAddress(this.type),
+            );
+            modal.on("traded", () => this.loadBalance());
+          },
         }),
       );
       loadingSpinner.remove();

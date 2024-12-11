@@ -1452,6 +1452,7 @@ a.button.circle.disabled {
 .input > input,
 .input > textarea {
   width: 100%;
+  font-size: 18px;
   border: 1px solid var(--input-border-color);
   border-radius: 4.5px;
 }
@@ -2395,6 +2396,7 @@ li.chat-content-list-item.temp {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  align-items: flex-start;
 }
 .material-panel-item {
   background-color: rgba(0, 0, 0, 0.8);
