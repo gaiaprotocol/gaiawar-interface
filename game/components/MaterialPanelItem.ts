@@ -36,7 +36,7 @@ export default class MaterialPanelItem extends DomNode {
     const account = WalletLoginManager.getLoggedInAddress();
     if (account) {
       const loadingSpinner = new AppCompConfig.LoadingSpinner().appendTo(this);
-      const balance = await GameConfig.materialContracts.wood.balanceOf(
+      const balance = await GameConfig.materialContracts[this.type].balanceOf(
         account,
       );
       this.append(

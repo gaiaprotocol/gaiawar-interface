@@ -1107,6 +1107,7 @@ button.contained .material-loading-spinner > svg > circle {
   --line-color: #333333;
   --page-bg-color: #000;
   --paragraph-text-color: #fff;
+  --secondary-text-color: rgba(255, 255, 255, 0.7);
   --placeholder-color: rgba(255, 255, 255, 0.5);
   --link-underline-color: #616161;
   --selection-bg-color: #fff;
@@ -1626,15 +1627,22 @@ dialog.modal.structured-modal > footer {
   }
 }
 dialog.modal.alert-dialog > header > h1,
-dialog.modal.confirm-dialog > header > h1 {
+dialog.modal.confirm-dialog > header > h1,
+dialog.modal.prompt-dialog > header > h1 {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 dialog.modal.alert-dialog > header > h1 > .icon,
-dialog.modal.confirm-dialog > header > h1 > .icon {
+dialog.modal.confirm-dialog > header > h1 > .icon,
+dialog.modal.prompt-dialog > header > h1 > .icon {
   width: 32px;
   height: 32px;
+}
+dialog.modal.prompt-dialog > main {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 .accordion-item {
   border-bottom: 1px solid var(--line-color);
@@ -1648,6 +1656,52 @@ dialog.modal.confirm-dialog > header > h1 > .icon {
 }
 .accordion-item > .content {
   padding-bottom: 15px;
+}
+.tab-group {
+  position: relative;
+  display: flex;
+  gap: 4.25px;
+}
+.tab-group > .background {
+  position: absolute;
+  inset: 0;
+  background: white;
+  transition: clip-path 0.2s ease-out;
+}
+.tab-group > .tab {
+  z-index: 1;
+}
+.tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 8px 22px;
+  min-height: 40px;
+  font-size: 15px;
+  transition: background-color 0.2s linear;
+  border-radius: 9999px;
+  background-color: transparent;
+  color: var(--text-button-text-color);
+}
+@container (width <= 520px) {
+  .tab {
+    padding: 8px 16px;
+  }
+}
+@media (pointer: fine) {
+  .tab:hover:not(.disabled):not(.selected) {
+    background-color: var(--text-button-hover-bg-color);
+  }
+}
+.tab:active:not(.disabled):not(.selected) {
+  background-color: var(--text-button-hover-bg-color);
+}
+.tab.disabled {
+  color: var(--text-button-disabled-text-color);
+}
+.tab.selected {
+  mix-blend-mode: difference;
 }
 .icon.svg {
   display: flex;
@@ -2100,6 +2154,152 @@ li.chat-content-list-item.temp {
   .persona-display > .mobile-button-container > button {
     flex-grow: 1;
   }
+}
+.trade-material-modal {
+  display: flex;
+  flex-direction: column;
+  max-width: 480px !important;
+}
+.trade-material-modal > header {
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.trade-material-modal > header > .game-banner {
+  height: 120px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.trade-material-modal > header > .material-icon {
+  position: absolute;
+  top: 60px;
+  z-index: 1;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 80px;
+  border-radius: 16px;
+  background-color: #333;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.trade-material-modal > header > .material-name {
+  font-size: 26px;
+  padding: 24px 34px;
+  text-align: center;
+}
+@container (width <= 520px) {
+  .trade-material-modal > header > .material-name {
+    font-size: 22px;
+    padding: 24px 24px;
+  }
+}
+.trade-material-modal > main {
+  flex-grow: 1;
+  padding: 0 34px 24px 34px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+@container (width <= 520px) {
+  .trade-material-modal > main {
+    padding: 0 24px 24px 24px;
+  }
+}
+.trade-material-modal > main > .material-description {
+  text-align: center;
+}
+.trade-material-modal > main > .tab-group {
+  margin: 0 auto;
+}
+.trade-material-modal > main > .tab-content.hidden {
+  display: none;
+}
+.tab-content.trade-material {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.tab-content.trade-material > section {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.tab-content.trade-material > section > header {
+  font-size: 15.14px;
+  display: flex;
+  justify-content: space-between;
+}
+.tab-content.trade-material > section > header > .current-balance,
+.tab-content.trade-material > section > header > .unit-price {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--secondary-text-color);
+}
+.tab-content.trade-material > section > header > .current-balance > .balance > .icon,
+.tab-content.trade-material > section > header > .unit-price > .balance > .icon,
+.tab-content.trade-material > section > header > .current-balance > .price > .icon,
+.tab-content.trade-material > section > header > .unit-price > .price > .icon,
+.tab-content.trade-material > section > header > .current-balance > .balance > .loading-spinner,
+.tab-content.trade-material > section > header > .unit-price > .balance > .loading-spinner,
+.tab-content.trade-material > section > header > .current-balance > .price > .loading-spinner,
+.tab-content.trade-material > section > header > .unit-price > .price > .loading-spinner {
+  width: 16px;
+  height: 16px;
+}
+.tab-content.trade-material > section > header > .current-balance > button,
+.tab-content.trade-material > section > header > .unit-price > button {
+  min-height: 20px;
+  padding: 4px 8px;
+  font-size: 12px;
+}
+.tab-content.trade-material > section > header > .recipient-count {
+  color: var(--secondary-text-color);
+}
+.tab-content.trade-material > section.amount > .input > input {
+  text-align: right;
+  border-radius: 19px;
+  padding: 0 16px;
+}
+.tab-content.trade-material > section.price > ul {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line-color);
+  border-radius: 19px;
+  padding: 8px 0;
+}
+.tab-content.trade-material > section.price > ul > li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  font-size: 14px;
+}
+.tab-content.trade-material > section.price > ul > li > span.price > .icon,
+.tab-content.trade-material > section.price > ul > li > span.price > .loading-spinner {
+  width: 16px;
+  height: 16px;
+}
+.tab-content.trade-material > section.fee-recipients > .recipients {
+  border: 1px solid var(--line-color);
+  border-radius: 19px;
+}
+.tab-content.trade-material > section.fee-recipients > .recipients > .fee-recipient-display {
+  padding: 8px 16px;
+}
+.tab-content.trade-material > section.fee-recipients > .recipients > .fee-recipient-display:not(:last-child) {
+  border-bottom: 1px solid var(--line-color);
+}
+.tab-content.trade-material > .button-container {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 .intro {
   position: fixed;
