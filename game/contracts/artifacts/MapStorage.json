@@ -1,0 +1,10 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "MapStorage",
+  "sourceName": "contracts/MapStorage.sol",
+  "abi": [],
+  "bytecode": "0x60808060405234601357603a908160198239f35b600080fdfe600080fdfea26469706673582212205bf63be377d62ffcd6f3471abd5464e77bc6404ac2e9ca98ee77bb07a83c7ee864736f6c634300081b0033",
+  "deployedBytecode": "0x600080fdfea26469706673582212205bf63be377d62ffcd6f3471abd5464e77bc6404ac2e9ca98ee77bb07a83c7ee864736f6c634300081b0033",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}

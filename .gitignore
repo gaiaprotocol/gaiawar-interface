@@ -30,9 +30,3 @@ supabase/functions/_shared/firebase-adminsdk-key.json
 
 # vscode
 .history
-
-# hardhat
-cache
-artifacts
-typechain*
-.openzeppelin
