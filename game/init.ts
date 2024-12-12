@@ -9,7 +9,7 @@ export default async function init(config: IGameConfig) {
   SPAInitializer.init();
   WalletLoginManager.init();
 
-  WorldManager.createWorld();
+  WorldManager.init();
 
   Router.add("/", GameView);
 }
