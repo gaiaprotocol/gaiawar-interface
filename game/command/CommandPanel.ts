@@ -1,6 +1,6 @@
 import { DomNode } from "@common-module/app";
-import CommandButton from "./CommandButton.js";
 import ConstructionModal from "../construction/ConstructionModal.js";
+import CommandButton from "./CommandButton.js";
 import ConstructionIcon from "./icons/ConstructionIcon.js";
 
 export default class CommandPanel extends DomNode {
@@ -10,8 +10,12 @@ export default class CommandPanel extends DomNode {
       new CommandButton(
         new ConstructionIcon(),
         "Build",
-        () => new ConstructionModal(),
+        () => new ConstructionModal((buildingId) => this.build(buildingId)),
       ),
     );
+  }
+
+  private build(buildingId: number) {
+    console.log(`Building ${buildingId}`);
   }
 }

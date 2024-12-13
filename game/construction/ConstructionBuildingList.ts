@@ -2,7 +2,9 @@ import { DomNode } from "@common-module/app";
 import Building from "../building/Building.js";
 import ConstructionBuildingListItem from "./ConstructionBuildingListItem.js";
 
-export default class ConstructionBuildingList extends DomNode {
+export default class ConstructionBuildingList extends DomNode<HTMLDivElement, {
+  buildingSelected: (buildingId: number) => void;
+}> {
   constructor(buildings?: Building[]) {
     super(".construction-building-list");
     if (buildings) this.setBuildings(buildings);
@@ -16,6 +18,7 @@ export default class ConstructionBuildingList extends DomNode {
   }
 
   public addBuilding(building: Building) {
-    this.append(new ConstructionBuildingListItem(building));
+    const item = new ConstructionBuildingListItem(building).appendTo(this);
+    item.onDom("click", () => this.emit("buildingSelected", building.id));
   }
 }

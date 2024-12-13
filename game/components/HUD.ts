@@ -5,7 +5,7 @@ import { WalletLoginManager } from "@common-module/wallet-login";
 import { MapIcon } from "@gaiaprotocol/svg-icons";
 import ChatRoom from "../chat/ChatRoom.js";
 import CommandPanel from "../command/CommandPanel.js";
-import MaterialPanel from "../material/MaterialPanel.js";
+import UserMaterialList from "../material/UserMaterialList.js";
 import WorldMapModal from "./WorldMapModal.js";
 
 export default class HUD extends DomNode {
@@ -15,7 +15,7 @@ export default class HUD extends DomNode {
   constructor() {
     super(".hud");
     this.append(
-      new MaterialPanel(),
+      new UserMaterialList(),
       new LoggedInUserAvatarButton(WalletLoginManager),
       new Button(".world-map", {
         type: ButtonType.Circle,

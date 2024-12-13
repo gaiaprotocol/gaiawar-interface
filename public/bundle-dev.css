@@ -2336,7 +2336,7 @@ li.chat-content-list-item.temp {
 .intro > footer > .credit > a:hover {
   text-decoration-color: currentColor;
 }
-.hud > .material-panel {
+.hud > .user-material-list {
   position: fixed;
   top: 14px;
   left: 14px;
@@ -2392,13 +2392,13 @@ li.chat-content-list-item.temp {
   max-height: calc(50vh - 100px);
   overflow-y: auto;
 }
-.material-panel {
+.user-material-list {
   display: flex;
   flex-direction: column;
   gap: 8px;
   align-items: flex-start;
 }
-.material-panel-item {
+.user-material-list-item {
   background-color: rgba(0, 0, 0, 0.6);
   border-radius: 20px;
   height: 40px;
@@ -2408,11 +2408,11 @@ li.chat-content-list-item.temp {
   gap: 8px;
   font-size: 14px;
 }
-.material-panel-item > .loading-spinner {
+.user-material-list-item > .loading-spinner {
   width: 16px;
   height: 16px;
 }
-.material-panel-item > button.buy {
+.user-material-list-item > button.buy {
   width: 24px;
   height: 24px;
   min-height: 24px;
@@ -2445,26 +2445,56 @@ li.chat-content-list-item.temp {
 .construction-modal {
   max-width: 90% !important;
 }
+.construction-modal > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 .construction-modal > main {
   padding: 0 !important;
+}
+.construction-modal > main > p {
+  padding: 0 34px 34px 34px;
+}
+@container (width <= 520px) {
+  .construction-modal > main > p {
+    padding: 0 24px 24px 24px;
+  }
+}
+.construction-modal > footer {
+  justify-content: center !important;
+}
+.construction-modal > footer > .user-material-list {
+  flex-direction: row;
 }
 .construction-building-list {
   display: flex;
   overflow-x: auto;
   gap: 13.5px;
-  padding: 0 13.5px;
+  padding: 0 34px;
+}
+.construction-building-list::-webkit-scrollbar {
+  display: none;
+}
+@container (width <= 520px) {
+  .construction-building-list {
+    padding: 0 24px;
+  }
 }
 .construction-building-list-item {
   flex-shrink: 0;
   width: 300px;
-  padding: 20px 0;
+  padding: 20px;
+  cursor: pointer;
   background-color: #2f2f2f;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 4.5px;
+  box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.1) 0px 4px 6px -4px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
+  transition: background-color 0.2s linear;
 }
 .construction-building-list-item > h3 {
   font-size: 18px;
@@ -2475,11 +2505,24 @@ li.chat-content-list-item.temp {
 .construction-building-list-item > .image-container > img {
   height: 200px;
 }
+@media (pointer: fine) {
+  .construction-building-list-item:hover {
+    background-color: #424242;
+  }
+}
+.construction-building-list-item:active {
+  background-color: #424242;
+}
 .construction-cost-list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  height: 184px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 4px;
+  width: 100%;
+  background-color: #171717;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 8px;
+  border-radius: 20px;
 }
 .construction-cost-list-item {
   background-color: rgba(0, 0, 0, 0.6);
@@ -2488,6 +2531,7 @@ li.chat-content-list-item.temp {
   padding: 8px 12px 8px 8px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 8px;
   font-size: 14px;
 }
