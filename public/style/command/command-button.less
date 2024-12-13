@@ -1,0 +1,31 @@
+.command-button {
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius   : 20px;
+  width           : 80px;
+  height          : 80px;
+
+  display        : flex;
+  flex-direction : column;
+  align-items    : center;
+  justify-content: center;
+  gap            : 8px;
+
+  cursor: pointer;
+
+  padding-top: 4px;
+  transition : background-color 0.2s linear;
+
+  >.title {
+    font-size: 14px;
+  }
+
+  @media (pointer: fine) {
+    &:hover {
+      background-color: #000;
+    }
+  }
+
+  &:active {
+    background-color: #000;
+  }
+}

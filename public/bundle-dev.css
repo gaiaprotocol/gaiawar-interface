@@ -2417,4 +2417,29 @@ li.chat-content-list-item.temp {
   height: 24px;
   min-height: 24px;
 }
+.command-button {
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 20px;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  padding-top: 4px;
+  transition: background-color 0.2s linear;
+}
+.command-button > .title {
+  font-size: 14px;
+}
+@media (pointer: fine) {
+  .command-button:hover {
+    background-color: #000;
+  }
+}
+.command-button:active {
+  background-color: #000;
+}
 

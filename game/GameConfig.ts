@@ -32,6 +32,30 @@ class GameConfig {
 
   public supabaseConnector!: SupabaseConnector;
 
+  private contractAddresses: Record<string, Record<string, `0x${string}`>> = {
+    mainnet: {
+      Buildings: "0x", //TODO:
+      Battleground: "0x", //TODO:
+      Construction: "0x", //TODO:
+    },
+    testnet: {
+      Battleground: "0x2764105cbc52639985733CD18f770F09F6626280",
+      Buildings: "0xC911108F80B792A0E1f69FEd013b720CA1e49Dcd",
+      Construction: "0xA2033689D584EB0F5ca69490b27eF9B274f2F724",
+    },
+  };
+
+  public getContractAddress(
+    contractName:
+      | "Buildings"
+      | "Battleground"
+      | "Construction",
+  ) {
+    return this.contractAddresses[this.isTestnet ? "testnet" : "mainnet"][
+      contractName
+    ];
+  }
+
   private materialAddresses: Record<string, Record<string, `0x${string}`>> = {
     mainnet: {
       wood: "0x",
@@ -50,6 +74,18 @@ class GameConfig {
   public getMaterialAddress(material: string) {
     return this
       .materialAddresses[this.isTestnet ? "testnet" : "mainnet"][material];
+  }
+
+  public getMaterialNameByAddress(address: string) {
+    for (
+      const [material, addr] of Object.entries(
+        this.materialAddresses[this.isTestnet ? "testnet" : "mainnet"],
+      )
+    ) {
+      if (addr === address) {
+        return material;
+      }
+    }
   }
 
   public materialContracts: Record<string, MaterialContract> = {};

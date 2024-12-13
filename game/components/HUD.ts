@@ -1,10 +1,10 @@
-import { BrowserInfo, DomNode } from "@common-module/app";
+import { DomNode } from "@common-module/app";
 import { Button, ButtonType } from "@common-module/app-components";
 import { LoggedInUserAvatarButton } from "@common-module/social-components";
 import { WalletLoginManager } from "@common-module/wallet-login";
 import { MapIcon } from "@gaiaprotocol/svg-icons";
-import ChatRoom from "./ChatRoom.js";
-import CommandPanel from "./CommandPanel.js";
+import ChatRoom from "../chat/ChatRoom.js";
+import CommandPanel from "../command/CommandPanel.js";
 import MaterialPanel from "./MaterialPanel.js";
 import WorldMapModal from "./WorldMapModal.js";
 
