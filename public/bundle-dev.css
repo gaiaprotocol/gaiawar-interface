@@ -2442,4 +2442,53 @@ li.chat-content-list-item.temp {
 .command-button:active {
   background-color: #000;
 }
+.construction-modal {
+  max-width: 90% !important;
+}
+.construction-modal > main {
+  padding: 0 !important;
+}
+.construction-building-list {
+  display: flex;
+  overflow-x: auto;
+  gap: 13.5px;
+  padding: 0 13.5px;
+}
+.construction-building-list-item {
+  flex-shrink: 0;
+  width: 300px;
+  padding: 20px 0;
+  background-color: #2f2f2f;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4.5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.construction-building-list-item > h3 {
+  font-size: 18px;
+}
+.construction-building-list-item > .image-container {
+  margin-top: 12px;
+}
+.construction-building-list-item > .image-container > img {
+  height: 200px;
+}
+.construction-cost-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 184px;
+}
+.construction-cost-list-item {
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 20px;
+  height: 40px;
+  padding: 8px 12px 8px 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
 
