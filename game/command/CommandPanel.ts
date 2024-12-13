@@ -1,6 +1,6 @@
 import { DomNode } from "@common-module/app";
 import CommandButton from "./CommandButton.js";
-import ConstructionModal from "./ConstructionModal.js";
+import ConstructionModal from "../building/ConstructionModal.js";
 import ConstructionIcon from "./icons/ConstructionIcon.js";
 
 export default class CommandPanel extends DomNode {

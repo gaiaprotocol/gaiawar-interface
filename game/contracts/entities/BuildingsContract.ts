@@ -6,6 +6,15 @@ import BuildingsArtifact from "../artifacts/entities/Buildings.json" assert {
 };
 
 class BuildingsContract {
+  public async getNextBuildingId() {
+    return await WalletLoginManager.readContract({
+      chainId: GaiaProtocolConfig.getChainId(),
+      address: GameConfig.getContractAddress("Buildings"),
+      abi: BuildingsArtifact.abi,
+      functionName: "nextBuildingId",
+    }) as number;
+  }
+
   public async getBuilding(buildingId: number) {
     const [
       previousBuildingId,
