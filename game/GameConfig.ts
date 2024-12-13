@@ -90,6 +90,8 @@ class GameConfig {
 
   public materialContracts: Record<string, MaterialContract> = {};
 
+  public tileSize = 256;
+
   public init(config: IGameConfig) {
     Object.assign(this, config);
     GaiaUIPreset.init();

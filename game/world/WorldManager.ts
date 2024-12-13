@@ -1,5 +1,6 @@
 import { BodyNode, Store } from "@common-module/app";
-import { Fullscreen } from "@gaiaengine/2d";
+import { Fullscreen, Sprite } from "@gaiaengine/2d";
+import GameConfig from "../GameConfig.js";
 import World from "./World.js";
 
 class WorldManager {
@@ -10,19 +11,25 @@ class WorldManager {
   private dragY = 0;
 
   private screen!: Fullscreen;
-  private world!: World;
+  private world = new World();
+  private tileHoverOverlay = new Sprite(
+    -999999,
+    -999999,
+    "/assets/tile/hover.png",
+  );
 
   public init() {
     this.screen = new Fullscreen(
       { backgroundColor: 0x121212 },
-      this.world = new World(),
+      this.world,
+      this.tileHoverOverlay,
     ).appendTo(BodyNode);
 
     this.screen.camera.setPosition(
       -(this.store.get<number>("worldX") ?? 0),
       -(this.store.get<number>("worldY") ?? 0),
     );
-    this.screen.camera.scale = this.store.get("worldZoom") ?? 1;
+    this.screen.camera.scale = this.store.get("worldZoom") ?? 0.5;
 
     this.screen
       .onDom("mousedown", (event) => {
@@ -33,22 +40,42 @@ class WorldManager {
         this.dragY = event.clientY;
       })
       .onDom("mousemove", (event) => {
+        const scale = this.screen.camera.scale;
+        const cameraX = this.screen.camera.x;
+        const cameraY = this.screen.camera.y;
+
+        const screenX = event.clientX;
+        const screenY = event.clientY;
+
         if (this.dragging) {
-          const worldX = -this.screen.camera.x +
-            ((event.clientX - this.dragX) / this.screen.camera.scale);
-          const worldY = -this.screen.camera.y +
-            ((event.clientY - this.dragY) / this.screen.camera.scale);
+          const worldX = -cameraX + ((screenX - this.dragX) / scale);
+          const worldY = -cameraY + ((screenY - this.dragY) / scale);
 
           this.screen.camera.setPosition(-worldX, -worldY);
 
-          this.dragX = event.clientX;
-          this.dragY = event.clientY;
+          this.dragX = screenX;
+          this.dragY = screenY;
 
           this.store.setPermanent("worldX", worldX);
           this.store.setPermanent("worldY", worldY);
+        } else {
+          const worldX = ((screenX - this.screen.width / 2) / scale) + cameraX;
+          const worldY = ((screenY - this.screen.height / 2) / scale) + cameraY;
+
+          const tileX = Math.round(worldX / GameConfig.tileSize);
+          const tileY = Math.round(worldY / GameConfig.tileSize);
+
+          this.tileHoverOverlay.setPosition(
+            tileX * GameConfig.tileSize,
+            tileY * GameConfig.tileSize,
+          );
         }
       })
-      .onDom("mouseup", () => this.dragging = false)
+      .onDom("mouseup", () => {
+        this.dragging = false;
+
+        //TODO:
+      })
       .onDom("wheel", (event) => {
         event.preventDefault();
 

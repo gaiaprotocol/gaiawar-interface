@@ -3,9 +3,9 @@ import BuildingsContract from "../contracts/entities/BuildingsContract.js";
 import buildingMetadataSet from "../metadata/buildings.json" assert {
   type: "json",
 };
-import Building from "./Building.js";
+import BuildingData from "./BuildingData.js";
 
-type NormalizedBuilding = Omit<Building, "constructionCosts"> & {
+type NormalizedBuilding = Omit<BuildingData, "constructionCosts"> & {
   constructionCosts: {
     [material: string]: string;
   };
@@ -13,9 +13,9 @@ type NormalizedBuilding = Omit<Building, "constructionCosts"> & {
 
 class BuildingManager {
   private buildingCache = new Map<number, NormalizedBuilding>();
-  private pendingRequests = new Map<number, Promise<Building>>();
+  private pendingRequests = new Map<number, Promise<BuildingData>>();
 
-  private normalizeBuilding(building: Building): NormalizedBuilding {
+  private normalizeBuilding(building: BuildingData): NormalizedBuilding {
     return {
       ...building,
       constructionCosts: Object.fromEntries(
@@ -26,7 +26,7 @@ class BuildingManager {
     };
   }
 
-  private denormalizeBuilding(building: NormalizedBuilding): Building {
+  private denormalizeBuilding(building: NormalizedBuilding): BuildingData {
     return {
       ...building,
       constructionCosts: Object.fromEntries(
@@ -37,7 +37,7 @@ class BuildingManager {
     };
   }
 
-  public setBuilding(building: Building) {
+  public setBuilding(building: BuildingData) {
     const normalizedBuilding = this.normalizeBuilding(building);
     const cachedBuilding = this.buildingCache.get(building.id);
 
@@ -46,7 +46,7 @@ class BuildingManager {
     }
   }
 
-  public async getBuilding(buildingId: number): Promise<Building> {
+  public async getBuilding(buildingId: number): Promise<BuildingData> {
     const cachedBuilding = this.buildingCache.get(buildingId);
     if (cachedBuilding) return this.denormalizeBuilding(cachedBuilding);
 
@@ -61,7 +61,7 @@ class BuildingManager {
     const metadata = buildingMetadataSet.find((metadata) =>
       metadata.id === buildingId
     );
-    const building: Building = {
+    const building: BuildingData = {
       ...(metadata ? metadata : {
         id: buildingId,
         name: `Building ${buildingId}`,
@@ -77,7 +77,7 @@ class BuildingManager {
     return building;
   }
 
-  public async loadAllBuildings(): Promise<Building[]> {
+  public async loadAllBuildings(): Promise<BuildingData[]> {
     return await Promise.all(
       buildingMetadataSet.map((metadata) => this.getBuilding(metadata.id)),
     );

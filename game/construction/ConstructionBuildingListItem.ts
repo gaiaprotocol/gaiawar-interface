@@ -1,9 +1,9 @@
 import { DomNode, el } from "@common-module/app";
-import Building from "../building/Building.js";
+import BuildingData from "../building/BuildingData.js";
 import ConstructionCostList from "./ConstructionCostList.js";
 
 export default class ConstructionBuildingListItem extends DomNode {
-  constructor(building: Building) {
+  constructor(building: BuildingData) {
     super(".construction-building-list-item");
     this.append(
       el("h3", building.name),
