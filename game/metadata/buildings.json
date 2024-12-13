@@ -43,7 +43,7 @@
 }, {
   "id": 7,
   "name": "Tower",
-  "description": "The Tower allows you to train mages",
+  "description": "The Tower increases the health and damage of units stationed inside.",
   "assets": {
     "base": "buildings/tower.png"
   }
