@@ -9,7 +9,7 @@ export default class ConstructionBuildingListItem extends DomNode {
       el("h3", building.name),
       el(
         ".image-container",
-        el("img", { src: `/assets/${building.assets.base}` }),
+        el("img", { src: `/assets/${building.sprites.base}` }),
       ),
       new ConstructionCostList(building.constructionCosts),
     );

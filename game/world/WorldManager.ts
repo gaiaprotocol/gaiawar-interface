@@ -1,28 +1,36 @@
 import { BodyNode, Store } from "@common-module/app";
-import { Fullscreen, Sprite } from "@gaiaengine/2d";
+import { Fullscreen, GameObject, Sprite } from "@gaiaengine/2d";
+import BuildingManager from "../building/BuildingManager.js";
+import ConstructionContract from "../contracts/actions/ConstructionContract.js";
 import GameConfig from "../GameConfig.js";
+import TileHoverOverlay from "./TileHoverOverlay.js";
+import TileSelectedOverlay from "./TileSelectedOverlay.js";
 import World from "./World.js";
 
 class WorldManager {
   private store = new Store("world-manager");
 
-  private dragging = false;
-  private dragX = 0;
-  private dragY = 0;
+  private isMouseDown = false;
+  private isDragging = false;
+  private dragStartX = 0;
+  private dragStartY = 0;
+  private lastX = 0;
+  private lastY = 0;
+
+  private dragThreshold = 5;
 
   private screen!: Fullscreen;
   private world = new World();
-  private tileHoverOverlay = new Sprite(
-    -999999,
-    -999999,
-    "/assets/tile/hover.png",
-  );
+  private tileHoverOverlay = new TileHoverOverlay();
+  private tileSelectedOverlay = new TileSelectedOverlay();
+
+  private buildingToBuild: number | undefined;
 
   public init() {
     this.screen = new Fullscreen(
       { backgroundColor: 0x121212 },
       this.world,
-      this.tileHoverOverlay,
+      new GameObject(0, 0, this.tileHoverOverlay, this.tileSelectedOverlay),
     ).appendTo(BodyNode);
 
     this.screen.camera.setPosition(
@@ -35,9 +43,12 @@ class WorldManager {
       .onDom("mousedown", (event) => {
         event.preventDefault();
 
-        this.dragging = true;
-        this.dragX = event.clientX;
-        this.dragY = event.clientY;
+        this.isMouseDown = true;
+        this.isDragging = false;
+        this.dragStartX = event.clientX;
+        this.dragStartY = event.clientY;
+        this.lastX = event.clientX;
+        this.lastY = event.clientY;
       })
       .onDom("mousemove", (event) => {
         const scale = this.screen.camera.scale;
@@ -47,17 +58,39 @@ class WorldManager {
         const screenX = event.clientX;
         const screenY = event.clientY;
 
-        if (this.dragging) {
-          const worldX = -cameraX + ((screenX - this.dragX) / scale);
-          const worldY = -cameraY + ((screenY - this.dragY) / scale);
+        if (this.isMouseDown) {
+          const distanceMoved = Math.sqrt(
+            (screenX - this.dragStartX) ** 2 + (screenY - this.dragStartY) ** 2,
+          );
+          if (!this.isDragging && distanceMoved > this.dragThreshold) {
+            this.isDragging = true;
+          }
 
-          this.screen.camera.setPosition(-worldX, -worldY);
+          if (this.isDragging) {
+            const worldX = -cameraX + ((screenX - this.lastX) / scale);
+            const worldY = -cameraY + ((screenY - this.lastY) / scale);
 
-          this.dragX = screenX;
-          this.dragY = screenY;
+            this.screen.camera.setPosition(-worldX, -worldY);
 
-          this.store.setPermanent("worldX", worldX);
-          this.store.setPermanent("worldY", worldY);
+            this.store.setPermanent("worldX", -this.screen.camera.x);
+            this.store.setPermanent("worldY", -this.screen.camera.y);
+
+            this.lastX = screenX;
+            this.lastY = screenY;
+          } else {
+            const worldX = ((screenX - this.screen.width / 2) / scale) +
+              cameraX;
+            const worldY = ((screenY - this.screen.height / 2) / scale) +
+              cameraY;
+
+            const tileX = Math.round(worldX / GameConfig.tileSize);
+            const tileY = Math.round(worldY / GameConfig.tileSize);
+
+            this.tileHoverOverlay.setPosition(
+              tileX * GameConfig.tileSize,
+              tileY * GameConfig.tileSize,
+            );
+          }
         } else {
           const worldX = ((screenX - this.screen.width / 2) / scale) + cameraX;
           const worldY = ((screenY - this.screen.height / 2) / scale) + cameraY;
@@ -72,9 +105,24 @@ class WorldManager {
         }
       })
       .onDom("mouseup", () => {
-        this.dragging = false;
+        if (!this.isDragging) {
+          this.tileSelectedOverlay.setPosition(
+            this.tileHoverOverlay.x,
+            this.tileHoverOverlay.y,
+          );
 
-        //TODO:
+          const tileX = Math.round(
+            this.tileHoverOverlay.x / GameConfig.tileSize,
+          );
+          const tileY = Math.round(
+            this.tileHoverOverlay.y / GameConfig.tileSize,
+          );
+
+          this.build(tileX, tileY);
+        }
+
+        this.isMouseDown = false;
+        this.isDragging = false;
       })
       .onDom("wheel", (event) => {
         event.preventDefault();
@@ -88,6 +136,25 @@ class WorldManager {
 
         this.store.setPermanent("worldZoom", worldZoom);
       });
+  }
+
+  public async setBuildingToBuild(buildingId: number) {
+    this.buildingToBuild = buildingId;
+
+    const building = await BuildingManager.getBuilding(buildingId);
+    this.tileHoverOverlay.setBuildingPreview(
+      new Sprite(0, 0, `/assets/${building.sprites.base}`),
+    );
+  }
+
+  private async build(tileX: number, tileY: number) {
+    if (this.buildingToBuild) {
+      await ConstructionContract.constructBuilding(
+        tileX,
+        tileY,
+        this.buildingToBuild,
+      );
+    }
   }
 }
 

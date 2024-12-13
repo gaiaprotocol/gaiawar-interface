@@ -66,7 +66,7 @@ class BuildingManager {
         id: buildingId,
         name: `Building ${buildingId}`,
         description: `Description of building ${buildingId}`,
-        assets: {
+        sprites: {
           base: "",
         },
       }),

@@ -2,7 +2,7 @@ export default interface BuildingData {
   id: number;
   name: string;
   description: string;
-  assets: {
+  sprites: {
     base: string;
   };
 
