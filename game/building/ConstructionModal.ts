@@ -8,7 +8,7 @@ export default class ConstructionModal extends StructuredModal {
   }
 
   private async loadBuildings() {
-    const building = await BuildingManager.getBuilding(1);
-    console.log(building);
+    const buildings = await BuildingManager.loadAllBuildings();
+    console.log(buildings);
   }
 }

@@ -46,7 +46,7 @@ class BuildingManager {
     }
   }
 
-  public async getBuilding(buildingId: number): Promise<Building | undefined> {
+  public async getBuilding(buildingId: number): Promise<Building> {
     const cachedBuilding = this.buildingCache.get(buildingId);
     if (cachedBuilding) return this.denormalizeBuilding(cachedBuilding);
 
@@ -77,15 +77,10 @@ class BuildingManager {
     return building;
   }
 
-  public async loadAllBuildings(): Promise<void> {
-    const nextBuildingId = await BuildingsContract.getNextBuildingId();
-    await Promise.all(
-      Array.from(
-        { length: nextBuildingId - 1 },
-        (_, index) => this.getBuilding(index + 1),
-      ),
+  public async loadAllBuildings(): Promise<Building[]> {
+    return await Promise.all(
+      buildingMetadataSet.map((metadata) => this.getBuilding(metadata.id)),
     );
-    console.log("All buildings loaded");
   }
 }
 
