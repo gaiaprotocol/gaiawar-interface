@@ -7,6 +7,11 @@ import TileHoverOverlay from "./world/tile-overlays/TileHoverOverlay.js";
 import TileSelectedOverlay from "./world/tile-overlays/TileSelectedOverlay.js";
 
 class GameScreen extends Fullscreen {
+  private static readonly MIN_ZOOM = 0.2;
+  private static readonly MAX_ZOOM = 10.0;
+  private static readonly DRAG_THRESHOLD = 5;
+  private static readonly ZOOM_SENSITIVITY = 1000;
+
   private store = new Store("game-screen");
 
   private isMousePressed = false;
@@ -15,8 +20,6 @@ class GameScreen extends Fullscreen {
   private initialDragY = 0;
   private previousMouseX = 0;
   private previousMouseY = 0;
-
-  private dragActivationThreshold = 5;
 
   constructor() {
     super(
@@ -58,33 +61,35 @@ class GameScreen extends Fullscreen {
 
   private handleMouseMove(event: MouseEvent): void {
     const { clientX: mouseX, clientY: mouseY } = event;
+    if (this.isMousePressed) {
+      this.handleDragMove(mouseX, mouseY);
+    } else {
+      this.updateHoverOverlay(mouseX, mouseY);
+    }
+  }
+
+  private handleDragMove(mouseX: number, mouseY: number): void {
     const { scale, x: cameraX, y: cameraY } = this.camera;
 
-    if (this.isMousePressed) {
-      const distanceMoved = Math.sqrt(
-        (mouseX - this.initialDragX) ** 2 + (mouseY - this.initialDragY) ** 2,
-      );
+    const distanceMoved = Math.sqrt(
+      (mouseX - this.initialDragX) ** 2 + (mouseY - this.initialDragY) ** 2,
+    );
 
-      if (
-        !this.isDraggingView && distanceMoved > this.dragActivationThreshold
-      ) {
-        this.isDraggingView = true;
-      }
+    if (!this.isDraggingView && distanceMoved > GameScreen.DRAG_THRESHOLD) {
+      this.isDraggingView = true;
+    }
 
-      if (this.isDraggingView) {
-        const deltaX = (mouseX - this.previousMouseX) / scale;
-        const deltaY = (mouseY - this.previousMouseY) / scale;
+    if (this.isDraggingView) {
+      const deltaX = (mouseX - this.previousMouseX) / scale;
+      const deltaY = (mouseY - this.previousMouseY) / scale;
 
-        this.camera.setPosition(cameraX - deltaX, cameraY - deltaY);
+      this.camera.setPosition(cameraX - deltaX, cameraY - deltaY);
 
-        this.store.setPermanent("cameraX", -this.camera.x);
-        this.store.setPermanent("cameraY", -this.camera.y);
+      this.store.setPermanent("cameraX", -this.camera.x);
+      this.store.setPermanent("cameraY", -this.camera.y);
 
-        this.previousMouseX = mouseX;
-        this.previousMouseY = mouseY;
-      } else {
-        this.updateHoverOverlay(mouseX, mouseY);
-      }
+      this.previousMouseX = mouseX;
+      this.previousMouseY = mouseY;
     } else {
       this.updateHoverOverlay(mouseX, mouseY);
     }
@@ -105,8 +110,13 @@ class GameScreen extends Fullscreen {
   private handleMouseWheel(event: WheelEvent): void {
     event.preventDefault();
 
-    let updatedZoom = this.camera.scale + event.deltaY / 1000;
-    updatedZoom = Math.max(0.2, Math.min(updatedZoom, 10));
+    let updatedZoom = this.camera.scale +
+      event.deltaY / GameScreen.ZOOM_SENSITIVITY;
+
+    updatedZoom = Math.max(
+      GameScreen.MIN_ZOOM,
+      Math.min(updatedZoom, GameScreen.MAX_ZOOM),
+    );
 
     this.camera.scale = updatedZoom;
     this.store.setPermanent("cameraZoom", updatedZoom);
