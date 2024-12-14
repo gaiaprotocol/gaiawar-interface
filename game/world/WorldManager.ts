@@ -20,7 +20,12 @@ class WorldManager {
   private dragThreshold = 5;
 
   private screen!: Fullscreen;
-  private world = new World();
+  private world = new World({
+    onTileRangeChanged: (range) => {
+      console.log(range);
+    },
+  });
+
   private tileHoverOverlay = new TileHoverOverlay();
   private tileSelectedOverlay = new TileSelectedOverlay();
 

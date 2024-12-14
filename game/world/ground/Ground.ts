@@ -1,4 +1,4 @@
-import { RectTerrainMap } from "@gaiaengine/2d";
+import { RectTerrainMap, RectTerrainMapOptions } from "@gaiaengine/2d";
 import mapData from "./map.json" with { type: "json" };
 import spritesheetWithAlphaData from "./spritesheet-with-alpha.json" with {
   type: "json",
@@ -8,7 +8,7 @@ import spritesheetWithoutAlphaData from "./spritesheet-without-alpha.json" with 
 };
 
 export default class Ground extends RectTerrainMap {
-  constructor() {
+  constructor(options: RectTerrainMapOptions) {
     super(
       256,
       {
@@ -25,6 +25,7 @@ export default class Ground extends RectTerrainMap {
       mapData.objects,
       mapData.terrainMap,
       mapData.mapObjects,
+      options,
     );
   }
 }
