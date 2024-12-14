@@ -55,7 +55,7 @@ interface MapData {
       zIndex: number;
     };
   };
-  terrainMap: { [cord: string]: string }; // { row, col } -> terrainId
+  terrainMap: { [cord: string]: string }; // { x, y } -> terrainId
   mapObjects: { x: number; y: number; objectId: string }[];
 }
 
@@ -127,7 +127,7 @@ for (const [tileId, tileData] of Object.entries(tilesData)) {
 for (let i = 0; i < mapTiles.length; i += 14) {
   const tileId = mapTiles[i];
   mapData
-    .terrainMap[`${Math.floor(i / (100 * 14)) - 50},${i / 14 % 100 - 50}`] =
+    .terrainMap[`${i / 14 % 100 - 50},${Math.floor(i / (100 * 14)) - 50}`] =
       `terrain-${tileId}`;
 }
 

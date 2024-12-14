@@ -3,7 +3,12 @@
 ```
 cd utils
 node --loader ts-node/esm ./package-tiles.ts
+cd ..
+
+```
+cd utils
 node --loader ts-node/esm ./generate-map.ts
+cd ..
 ```
 
 ## Deploy Edge Function
