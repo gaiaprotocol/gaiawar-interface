@@ -30,6 +30,12 @@ class GameScreen extends Fullscreen {
 
     this.initializeCamera();
     this.attachEventListeners();
+
+    this.onWindow("keydown", (event) => {
+      if (event.key === "Escape") {
+        GameController.clearBuildingToConstruct();
+      }
+    });
   }
 
   private initializeCamera(): void {
