@@ -1,0 +1,50 @@
+[{
+  "id": 1,
+  "name": "Castle Level 1",
+  "description": "The Castle is the main building of your city. It allows you to build other buildings and train knights.",
+  "sprites": {
+    "base": "buildings/castle-lv1.png"
+  }
+}, {
+  "id": 2,
+  "name": "Castle Level 2",
+  "description": "The Castle is the main building of your city. It allows you to build other buildings and train knights.",
+  "sprites": {
+    "base": "buildings/castle-lv2.png"
+  }
+}, {
+  "id": 3,
+  "name": "Castle Level 3",
+  "description": "The Castle is the main building of your city. It allows you to build other buildings and train knights.",
+  "sprites": {
+    "base": "buildings/castle-lv3.png"
+  }
+}, {
+  "id": 4,
+  "name": "Training Camp",
+  "description": "The Training Camp allows you to train swordsmen",
+  "sprites": {
+    "base": "buildings/training-camp.png"
+  }
+}, {
+  "id": 5,
+  "name": "Archery Range",
+  "description": "The Archery Range allows you to train archers",
+  "sprites": {
+    "base": "buildings/archery-range.png"
+  }
+}, {
+  "id": 6,
+  "name": "Stable",
+  "description": "The Stable allows you to train cavalry",
+  "sprites": {
+    "base": "buildings/stable.png"
+  }
+}, {
+  "id": 7,
+  "name": "Tower",
+  "description": "The Tower increases the health and damage of units stationed inside.",
+  "sprites": {
+    "base": "buildings/tower.png"
+  }
+}]
