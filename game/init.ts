@@ -1,6 +1,7 @@
-import { Router, SPAInitializer } from "@common-module/app";
+import { BodyNode, Router, SPAInitializer } from "@common-module/app";
 import { WalletLoginManager } from "@common-module/wallet-login";
 import BuildingManager from "./data/building/BuildingManager.js";
+import GaiaWarScreen from "./GaiaWarScreen.js";
 import GameConfig, { IGameConfig } from "./GameConfig.js";
 import GameView from "./views/GameView.js";
 
@@ -10,7 +11,7 @@ export default async function init(config: IGameConfig) {
   WalletLoginManager.init();
 
   BuildingManager.loadAllBuildings();
-  //WorldManager.init();
 
+  GaiaWarScreen.appendTo(BodyNode);
   Router.add("/", GameView);
 }
