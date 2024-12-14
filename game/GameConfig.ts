@@ -6,12 +6,13 @@ import { SocialCompConfig } from "@common-module/social-components";
 import { AuthTokenManager, SupabaseConnector } from "@common-module/supabase";
 import { WalletLoginConfig } from "@common-module/wallet-login";
 import { GaiaEngineConfig } from "@gaiaengine/2d";
-import { ProfileIcon } from "@gaiaprotocol/svg-icons";
+import { EthereumIcon, ProfileIcon } from "@gaiaprotocol/svg-icons";
 import { GaiaUIPreset } from "@gaiaprotocol/ui-preset";
 import { base, baseSepolia } from "@wagmi/core/chains";
 import { GaiaProtocolConfig, MaterialContract } from "gaiaprotocol";
 import ChatMessageRepository from "./chat/ChatMessageRepository.js";
 import UserInfoModal from "./components/UserInfoModal.js";
+import { WalletModuleConfig } from "../../wallet-module/lib/index.js";
 
 export interface IGameConfig {
   isDevMode: boolean;
@@ -115,7 +116,14 @@ class GameConfig {
     ChatMessageRepository.supabaseConnector = this.supabaseConnector;
 
     WalletLoginConfig.init({
-      chains: [config.isTestnet ? baseSepolia : base] as any,
+      chains: [
+        config.isTestnet
+          ? {
+            ...baseSepolia,
+            faucetUrl: "https://docs.base.org/docs/tools/network-faucets/",
+          }
+          : base,
+      ] as any,
       walletConnectProjectId: config.walletConnectProjectId,
       supabaseConnector: this.supabaseConnector,
     });
@@ -144,6 +152,18 @@ class GameConfig {
             },
           }),
         ),
+        WalletModuleConfig.chains[0].faucetUrl
+          ? new DropdownMenuGroup(
+            new DropdownMenuItem({
+              icon: new EthereumIcon(),
+              label: "Get Testnet ETH",
+              onClick: () => {
+                window.open(WalletModuleConfig.chains[0].faucetUrl);
+                menu.remove();
+              },
+            }),
+          )
+          : undefined,
       ];
     };
   }

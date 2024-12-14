@@ -1,32 +1,88 @@
-.intro {
+.intro-background {
   position: fixed;
   top     : 0;
   left    : 0;
   width   : 100%;
   height  : 100%;
 
-  >header {
-    >h1 {
-      font-size  : 40px;
-      font-family: 'Trajan Pro';
+  display        : flex;
+  justify-content: center;
+  align-items    : center;
+
+  >.intro {
+    width    : 90%;
+    max-width: 600px;
+
+    border-radius: 8px;
+
+    background-color: var(--modal-bg-color);
+    color           : var(--paragraph-text-color);
+
+    animation: fade-in 0.3s ease-out;
+
+    container-type: inline-size;
+
+    display       : flex;
+    flex-direction: column;
+
+    >header {
+      flex-shrink: 0;
+      padding    : 34px;
+
+      @container (width <=@phone-width) {
+        padding: 34px 24px;
+      }
+
+      display       : flex;
+      flex-direction: column;
+      align-items   : center;
+
+      >h1 {
+        font-size  : 40px;
+        font-family: 'Trajan Pro';
+      }
     }
-  }
 
-  >footer {
-    display: flex;
+    >main {
+      overflow-y: auto;
+      flex-grow : 1;
+      padding   : 0 34px;
 
-    >.credit {
-      flex-grow: 1;
-      color    : #b4b4b4;
-      font-size: 14px;
+      @container (width <=@phone-width) {
+        padding: 0 24px;
+      }
 
-      >a {
-        text-decoration      : underline;
-        text-decoration-color: var(--link-underline-color);
-        transition           : text-decoration-color 0.25s ease;
+      display       : flex;
+      flex-direction: column;
+      align-items   : center;
+    }
 
-        &:hover {
-          text-decoration-color: currentColor;
+    >footer {
+      flex-shrink: 0;
+      padding    : 24px 34px;
+
+      @container (width <=@phone-width) {
+        padding: 24px;
+      }
+
+      display        : flex;
+      align-items    : center;
+      justify-content: flex-end;
+      gap            : 16px;
+
+      >.credit {
+        flex-grow: 1;
+        color    : #b4b4b4;
+        font-size: 14px;
+
+        >a {
+          text-decoration      : underline;
+          text-decoration-color: var(--link-underline-color);
+          transition           : text-decoration-color 0.25s ease;
+
+          &:hover {
+            text-decoration-color: currentColor;
+          }
         }
       }
     }

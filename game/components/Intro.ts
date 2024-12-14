@@ -5,36 +5,39 @@ import { XIcon } from "@gaiaprotocol/svg-icons";
 
 export default class Intro extends DomNode {
   constructor() {
-    super(".intro");
+    super(".intro-background");
     this.append(
-      el("header", el("h1", "Gaia War")),
       el(
-        "main",
-        new Button({
-          type: ButtonType.Contained,
-          title: "Login with Wallet",
-          onClick: () => WalletLoginManager.login(),
-        }),
-      ),
-      el(
-        "footer",
+        ".intro",
+        el("header", el("h1", "Gaia War")),
         el(
-          ".credit",
-          "Created by ",
-          el("a", "Gaia Protocol", {
-            href: "https://gaiaprotocol.com",
-            target: "_blank",
+          "main",
+          new Button({
+            type: ButtonType.Contained,
+            title: "Login with Wallet",
+            onClick: () => WalletLoginManager.login(),
           }),
         ),
         el(
-          ".social",
+          "footer",
           el(
-            "a",
-            new XIcon(),
-            {
-              href: "https://x.com/GaiaWarGame",
+            ".credit",
+            "Created by ",
+            el("a", "Gaia Protocol", {
+              href: "https://gaiaprotocol.com",
               target: "_blank",
-            },
+            }),
+          ),
+          el(
+            ".social",
+            el(
+              "a",
+              new XIcon(),
+              {
+                href: "https://x.com/GaiaWarGame",
+                target: "_blank",
+              },
+            ),
           ),
         ),
       ),
