@@ -1,4 +1,5 @@
 import { GameObject, Sprite } from "@gaiaengine/2d";
+import BuildingManager from "../../data/building/BuildingManager.js";
 
 class TileHoverOverlay extends GameObject {
   private buildingPreview: Sprite | undefined;
@@ -15,10 +16,12 @@ class TileHoverOverlay extends GameObject {
     return super.setPosition(x, y);
   }
 
-  public setBuildingPreview(building: Sprite) {
+  public async setBuildingPreview(buildingId: number) {
+    const building = await BuildingManager.getBuilding(buildingId);
+
     this.buildingPreview?.remove();
-    this.buildingPreview = building;
-    this.append(building);
+    this.buildingPreview = new Sprite(0, 0, `/assets/${building.sprites.base}`);
+    this.append(this.buildingPreview);
   }
 
   public clearBuildingPreview() {

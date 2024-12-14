@@ -6,13 +6,14 @@ import {
 } from "@common-module/app-components";
 import { CloseIcon } from "@gaiaprotocol/svg-icons";
 import BuildingManager from "../../data/building/BuildingManager.js";
+import GameController from "../../GameController.js";
 import UserMaterialList from "../material/UserMaterialList.js";
 import ConstructionBuildingList from "./ConstructionBuildingList.js";
 
 export default class ConstructionModal extends StructuredModal {
   private buildingList: ConstructionBuildingList;
 
-  constructor(onBuild: (buildingId: number) => void) {
+  constructor() {
     super(".construction-modal");
     this.appendToHeader(
       el("h2", "Build Buildings"),
@@ -31,7 +32,7 @@ export default class ConstructionModal extends StructuredModal {
     this.buildingList.on(
       "buildingSelected",
       (buildingId) => {
-        onBuild(buildingId);
+        GameController.setBuildingToConstruct(buildingId);
         this.remove();
       },
     );

@@ -10,12 +10,8 @@ export default class CommandPanel extends DomNode {
       new CommandButton(
         new ConstructionIcon(),
         "Build",
-        () => new ConstructionModal((buildingId) => this.build(buildingId)),
+        () => new ConstructionModal(),
       ),
     );
-  }
-
-  private build(buildingId: number) {
-    //WorldManager.setBuildingToBuild(buildingId);
   }
 }

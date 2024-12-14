@@ -1,8 +1,8 @@
 import { WalletLoginManager } from "@common-module/wallet-login";
 import { GaiaProtocolConfig } from "gaiaprotocol";
 import GameConfig from "../../GameConfig.js";
-import ConstructionArtifact from "../artifacts/actions/Construction.json" assert {
-  type: "json"
+import ConstructionArtifact from "../artifacts/commands/Construction.json" assert {
+  type: "json",
 };
 
 class ConstructionContract {
