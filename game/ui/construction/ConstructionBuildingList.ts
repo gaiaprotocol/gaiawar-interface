@@ -1,5 +1,5 @@
 import { DomNode } from "@common-module/app";
-import BuildingData from "../building/BuildingData.js";
+import BuildingData from "../../data/building/BuildingData.js";
 import ConstructionBuildingListItem from "./ConstructionBuildingListItem.js";
 
 export default class ConstructionBuildingList extends DomNode<HTMLDivElement, {

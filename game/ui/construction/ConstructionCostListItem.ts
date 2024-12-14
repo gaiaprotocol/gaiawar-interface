@@ -1,7 +1,7 @@
 import { DomNode, el } from "@common-module/app";
 import { formatEther } from "viem";
+import MaterialType from "../../data/material/MaterialType.js";
 import materialIcons from "../material/materialIcons.js";
-import MaterialType from "../material/MaterialType.js";
 
 export default class ConstructionCostListItem extends DomNode {
   constructor(material: MaterialType, cost: bigint) {

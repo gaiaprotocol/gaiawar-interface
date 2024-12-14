@@ -10,9 +10,9 @@ import { EthereumIcon, ProfileIcon } from "@gaiaprotocol/svg-icons";
 import { GaiaUIPreset } from "@gaiaprotocol/ui-preset";
 import { base, baseSepolia } from "@wagmi/core/chains";
 import { GaiaProtocolConfig, MaterialContract } from "gaiaprotocol";
-import ChatMessageRepository from "./chat/ChatMessageRepository.js";
-import UserInfoModal from "./components/UserInfoModal.js";
 import { WalletModuleConfig } from "../../wallet-module/lib/index.js";
+import ChatMessageRepository from "./data/chat/ChatMessageRepository.js";
+import UserInfoModal from "./ui/user/UserInfoModal.js";
 
 export interface IGameConfig {
   isDevMode: boolean;

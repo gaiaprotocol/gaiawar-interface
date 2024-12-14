@@ -8,9 +8,9 @@ import { WalletLoginManager } from "@common-module/wallet-login";
 import { CollapseIcon, ExpandIcon } from "@gaiaprotocol/svg-icons";
 import { RealtimeChannel } from "@supabase/supabase-js";
 import { v4 as uuidv4 } from "uuid";
-import ChatMessageEntity from "./ChatMessageEntity.js";
-import ChatMessageRepository from "./ChatMessageRepository.js";
 import GameConfig from "../GameConfig.js";
+import ChatMessageEntity from "../data/chat/ChatMessageEntity.js";
+import ChatMessageRepository from "../data/chat/ChatMessageRepository.js";
 
 const clientId = Date.now() % 32767;
 

@@ -1,9 +1,9 @@
 import { ObjectUtils } from "@common-module/ts";
-import BuildingsContract from "../contracts/entities/BuildingsContract.js";
-import buildingMetadataSet from "../metadata/buildings.json" assert {
+import BuildingsContract from "../../contracts/entities/BuildingsContract.js";
+import BuildingData from "./BuildingData.js";
+import buildingMetadataSet from "./buildings-metadata.json" assert {
   type: "json",
 };
-import BuildingData from "./BuildingData.js";
 
 type NormalizedBuilding = Omit<BuildingData, "constructionCosts"> & {
   constructionCosts: {

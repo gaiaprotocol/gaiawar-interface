@@ -9,9 +9,9 @@ import { WalletLoginManager } from "@common-module/wallet-login";
 import { AddIcon } from "@gaiaprotocol/svg-icons";
 import { TradeMaterialModal } from "gaiaprotocol";
 import { formatEther } from "viem";
-import GameConfig from "../GameConfig.js";
+import MaterialType from "../../data/material/MaterialType.js";
+import GameConfig from "../../GameConfig.js";
 import materialIcons from "./materialIcons.js";
-import MaterialType from "./MaterialType.js";
 
 export default class UserMaterialListItem extends DomNode {
   constructor(private type: MaterialType) {

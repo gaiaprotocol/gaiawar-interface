@@ -1,5 +1,5 @@
 import { DomNode } from "@common-module/app";
-import MaterialType from "../material/MaterialType.js";
+import MaterialType from "../../data/material/MaterialType.js";
 import ConstructionCostListItem from "./ConstructionCostListItem.js";
 
 export default class ConstructionCostList extends DomNode {

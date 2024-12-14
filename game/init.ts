@@ -1,9 +1,8 @@
 import { Router, SPAInitializer } from "@common-module/app";
 import { WalletLoginManager } from "@common-module/wallet-login";
-import BuildingManager from "./building/BuildingManager.js";
+import BuildingManager from "./data/building/BuildingManager.js";
 import GameConfig, { IGameConfig } from "./GameConfig.js";
 import GameView from "./views/GameView.js";
-import WorldManager from "./world/WorldManager.js";
 
 export default async function init(config: IGameConfig) {
   GameConfig.init(config);
@@ -11,7 +10,7 @@ export default async function init(config: IGameConfig) {
   WalletLoginManager.init();
 
   BuildingManager.loadAllBuildings();
-  WorldManager.init();
+  //WorldManager.init();
 
   Router.add("/", GameView);
 }

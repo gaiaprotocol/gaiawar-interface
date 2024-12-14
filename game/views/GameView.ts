@@ -1,7 +1,7 @@
 import { BodyNode, el, View } from "@common-module/app";
 import { WalletLoginManager } from "@common-module/wallet-login";
-import HUD from "../components/HUD.js";
-import Intro from "../components/Intro.js";
+import HUD from "../ui/HUD.js";
+import Intro from "../ui/Intro.js";
 
 export default class GameView extends View {
   constructor() {

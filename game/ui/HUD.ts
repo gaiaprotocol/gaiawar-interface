@@ -3,10 +3,10 @@ import { Button, ButtonType } from "@common-module/app-components";
 import { LoggedInUserAvatarButton } from "@common-module/social-components";
 import { WalletLoginManager } from "@common-module/wallet-login";
 import { MapIcon } from "@gaiaprotocol/svg-icons";
-import ChatRoom from "../chat/ChatRoom.js";
-import CommandPanel from "../command/CommandPanel.js";
-import UserMaterialList from "../material/UserMaterialList.js";
-import WorldMapModal from "./WorldMapModal.js";
+import ChatRoom from "./ChatRoom.js";
+import CommandPanel from "./command/CommandPanel.js";
+import UserMaterialList from "./material/UserMaterialList.js";
+import WorldMapModal from "./worldmap/WorldMapModal.js";
 
 export default class HUD extends DomNode {
   private chatRoom: ChatRoom;

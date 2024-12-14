@@ -1,6 +1,5 @@
 import { DomNode } from "@common-module/app";
 import ConstructionModal from "../construction/ConstructionModal.js";
-import WorldManager from "../world/WorldManager.js";
 import CommandButton from "./CommandButton.js";
 import ConstructionIcon from "./icons/ConstructionIcon.js";
 
@@ -17,6 +16,6 @@ export default class CommandPanel extends DomNode {
   }
 
   private build(buildingId: number) {
-    WorldManager.setBuildingToBuild(buildingId);
+    //WorldManager.setBuildingToBuild(buildingId);
   }
 }
