@@ -4,27 +4,29 @@ import TileSelectedOverlay from "./world/tile-overlays/TileSelectedOverlay.js";
 import World from "./world/World.js";
 
 class GameController {
-  private buildingToConstruct: number | undefined;
+  private _buildingToConstruct: number | undefined;
 
   public selectTile(x: number, y: number) {
     TileSelectedOverlay.setTilePosition(x, y);
 
-    if (this.buildingToConstruct) {
-      ConstructionCommand.constructBuilding(x, y, this.buildingToConstruct);
-      this.clearBuildingToConstruct();
+    if (this._buildingToConstruct) {
+      ConstructionCommand.constructBuilding(x, y, this._buildingToConstruct);
+      this.buildingToConstruct = undefined;
     }
   }
 
-  public setBuildingToConstruct(buildingId: number) {
-    this.buildingToConstruct = buildingId;
-    TileHoverOverlay.setBuildingPreview(buildingId);
-    World.showBuildableArea();
+  public get buildingToConstruct() {
+    return this._buildingToConstruct;
   }
 
-  public clearBuildingToConstruct() {
-    this.buildingToConstruct = undefined;
-    TileHoverOverlay.clearBuildingPreview();
-    World.hideBuildableArea();
+  public set buildingToConstruct(buildingId: number | undefined) {
+    this._buildingToConstruct = buildingId;
+    if (buildingId) {
+      TileHoverOverlay.setBuildingPreview(buildingId);
+    } else {
+      TileHoverOverlay.clearBuildingPreview();
+      World.hideBuildableArea();
+    }
   }
 }
 

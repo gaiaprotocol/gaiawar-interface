@@ -33,7 +33,7 @@ class GameScreen extends Fullscreen {
 
     this.onWindow("keydown", (event) => {
       if (event.key === "Escape") {
-        GameController.clearBuildingToConstruct();
+        GameController.buildingToConstruct = undefined;
       }
     });
   }

@@ -1,4 +1,3 @@
-import { Debouncer } from "@common-module/ts";
 import { WalletLoginManager } from "@common-module/wallet-login";
 import { GameObject } from "@gaiaengine/2d";
 import { zeroAddress } from "viem";
@@ -17,16 +16,7 @@ class BuildableArea extends GameObject {
     super(0, 0);
   }
 
-  private updateAreaDebouncer = new Debouncer(
-    200,
-    (tiles) => this._updateArea(tiles),
-  );
-
-  public updateArea(tiles: { [key: string]: Tile }) {
-    this.updateAreaDebouncer.execute(tiles);
-  }
-
-  private async _updateArea(tiles: { [key: string]: Tile }) {
+  public async updateArea(tiles: { [key: string]: Tile }) {
     const walletAddress = WalletLoginManager.getLoggedInAddress();
     if (!walletAddress) return;
 
@@ -117,7 +107,6 @@ class BuildableArea extends GameObject {
     this.clear();
     this.overlays = {};
     this.map = {};
-    this.updateAreaDebouncer.cancel();
   }
 }
 

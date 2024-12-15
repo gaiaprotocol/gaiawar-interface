@@ -14,10 +14,9 @@ class World extends GameObject {
     super(0, 0);
     this.append(
       new Ground({
-        extraTileLoadWidth: GameConfig.headquartersSearchRange *
+        extraLoadSize: GameConfig.headquartersSearchRange *
           GameConfig.tileSize,
-        extraTileLoadHeight: GameConfig.headquartersSearchRange *
-          GameConfig.tileSize,
+        debounceDelay: 200,
         onLoadTiles: (coordinates) => this.loadTiles(coordinates),
         onDeleteTiles: (coordinates) => this.deleteTiles(coordinates),
       }),
@@ -28,6 +27,7 @@ class World extends GameObject {
 
   private async loadTiles(coordinates: Coordinates[]) {
     const tileInfoSet = await BattlegroundContract.getTiles(coordinates);
+
     for (const [index, c] of coordinates.entries()) {
       const tileInfo = tileInfoSet[index];
       const key = `${c.x},${c.y}`;
