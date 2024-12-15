@@ -1,8 +1,8 @@
 import { RectangleNode } from "@gaiaengine/2d";
 import GameConfig from "../../GameConfig.js";
-import TileBase from "../TileBase.js";
+import PulseTileOverlay from "./PulseTileOverlay.js";
 
-export default class BuildableTileOverlay extends TileBase {
+export default class BuildableTileOverlay extends PulseTileOverlay {
   private currentScale: number | undefined;
   private rect: RectangleNode;
 
