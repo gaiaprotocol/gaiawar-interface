@@ -14,7 +14,7 @@ class BattlegroundContract {
       abi: BattlegroundArtifact.abi,
       functionName: "getTiles",
       args: [coordinates],
-    });
+    }) as { occupant: `0x${string}`; buildingId: number }[];
   }
 }
 

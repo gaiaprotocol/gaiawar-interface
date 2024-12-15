@@ -2419,6 +2419,11 @@ li.chat-content-list-item.temp {
   left: 50%;
   transform: translateX(-50%);
 }
+.hud > .history-panel {
+  position: fixed;
+  bottom: 14px;
+  right: 14px;
+}
 .chat-room {
   background-color: rgba(0, 0, 0, 0.6);
   border-radius: 16px;

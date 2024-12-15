@@ -5,12 +5,14 @@ import { WalletLoginManager } from "@common-module/wallet-login";
 import { MapIcon } from "@gaiaprotocol/svg-icons";
 import ChatRoom from "./ChatRoom.js";
 import CommandPanel from "./command/CommandPanel.js";
+import HistoryPanel from "./HistoryPanel.js";
 import UserMaterialList from "./material/UserMaterialList.js";
 import WorldMapModal from "./worldmap/WorldMapModal.js";
 
 export default class HUD extends DomNode {
   private chatRoom: ChatRoom;
   private commandPanel: CommandPanel;
+  private historyPanel: HistoryPanel;
 
   constructor() {
     super(".hud");
@@ -24,6 +26,7 @@ export default class HUD extends DomNode {
       }),
       this.chatRoom = new ChatRoom(),
       this.commandPanel = new CommandPanel(),
+      this.historyPanel = new HistoryPanel(),
     );
 
     this.onWindow("resize", () => this.updateLayout());
