@@ -13,7 +13,7 @@ export default class UnbuildableTileOverlay extends TileBase {
       0xff0000,
       { width: 2, color: 0xff0000 },
     );
-    rect.alpha = 0.2;
+    rect.alpha = 0.16;
     this.append(rect);
   }
 }
