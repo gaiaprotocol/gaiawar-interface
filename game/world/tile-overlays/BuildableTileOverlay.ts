@@ -3,17 +3,33 @@ import GameConfig from "../../GameConfig.js";
 import TileBase from "../TileBase.js";
 
 export default class BuildableTileOverlay extends TileBase {
+  private currentScale: number | undefined;
+  private rect: RectangleNode;
+
   constructor(tileX: number, tileY: number) {
     super(tileX, tileY);
-    const rect = new RectangleNode(
+    this.rect = new RectangleNode(
       0,
       0,
       GameConfig.tileSize,
       GameConfig.tileSize,
-      0x00ff00,
-      { width: 2, color: 0x00ff00 },
+      { color: 0x00ff00, alpha: 0.16 },
+      { width: 1, color: 0x00ff00 },
     );
-    rect.alpha = 0.16;
-    this.append(rect);
+    this.append(this.rect);
+  }
+
+  protected update(deltaTime: number): void {
+    if (this.screen) {
+      const newScale = this.screen.camera.scale;
+      if (newScale !== this.currentScale) {
+        this.currentScale = this.screen.camera.scale;
+        this.rect.stroke = {
+          width: 1 / this.screen.camera.scale,
+          color: 0x00ff00,
+        };
+      }
+    }
+    super.update(deltaTime);
   }
 }
