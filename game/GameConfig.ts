@@ -40,9 +40,9 @@ class GameConfig {
       Construction: "0x", //TODO:
     },
     testnet: {
-      Battleground: "0x2764105cbc52639985733CD18f770F09F6626280",
+      Battleground: "0x0FeA20dA5F88E92F3d59b2208E5A5904c53184fD",
       Buildings: "0xC911108F80B792A0E1f69FEd013b720CA1e49Dcd",
-      Construction: "0xA2033689D584EB0F5ca69490b27eF9B274f2F724",
+      Construction: "0xCb3428bA809B47d0cA7eC766d7d476986CF4fC10",
     },
   };
 
