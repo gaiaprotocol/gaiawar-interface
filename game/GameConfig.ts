@@ -12,6 +12,7 @@ import { base, baseSepolia } from "@wagmi/core/chains";
 import { GaiaProtocolConfig, MaterialContract } from "gaiaprotocol";
 import { WalletModuleConfig } from "../../wallet-module/lib/index.js";
 import ChatMessageRepository from "./data/chat/ChatMessageRepository.js";
+import MaterialType from "./data/material/MaterialType.js";
 import UserInfoModal from "./ui/user/UserInfoModal.js";
 
 export interface IGameConfig {
@@ -72,7 +73,11 @@ class GameConfig {
     },
   };
 
-  public getMaterialAddress(material: string) {
+  public getMaterialContract(material: MaterialType) {
+    return this.materialContracts[material];
+  }
+
+  public getMaterialAddress(material: MaterialType) {
     return this
       .materialAddresses[this.isTestnet ? "testnet" : "mainnet"][material];
   }
