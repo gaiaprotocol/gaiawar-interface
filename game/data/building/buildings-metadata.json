@@ -3,7 +3,9 @@
   "name": "Castle Level 1",
   "description": "The Castle is the main building of your city. It allows you to build other buildings and train knights.",
   "sprites": {
-    "base": "buildings/castle-lv1.png"
+    "base": "buildings/castle-lv1.png",
+    "player": "buildings/castle-lv1-player.png",
+    "enemy": "buildings/castle-lv1-enemy.png"
   },
   "constructionRange": 3
 }, {
@@ -11,7 +13,9 @@
   "name": "Castle Level 2",
   "description": "The Castle is the main building of your city. It allows you to build other buildings and train knights.",
   "sprites": {
-    "base": "buildings/castle-lv2.png"
+    "base": "buildings/castle-lv2.png",
+    "player": "buildings/castle-lv2-player.png",
+    "enemy": "buildings/castle-lv2-enemy.png"
   },
   "constructionRange": 5
 }, {
@@ -19,7 +23,9 @@
   "name": "Castle Level 3",
   "description": "The Castle is the main building of your city. It allows you to build other buildings and train knights.",
   "sprites": {
-    "base": "buildings/castle-lv3.png"
+    "base": "buildings/castle-lv3.png",
+    "player": "buildings/castle-lv3-player.png",
+    "enemy": "buildings/castle-lv3-enemy.png"
   },
   "constructionRange": 7
 }, {
@@ -27,27 +33,35 @@
   "name": "Training Camp",
   "description": "The Training Camp allows you to train swordsmen",
   "sprites": {
-    "base": "buildings/training-camp.png"
+    "base": "buildings/training-camp.png",
+    "player": "buildings/training-camp-player.png",
+    "enemy": "buildings/training-camp-enemy.png"
   }
 }, {
   "id": 5,
   "name": "Archery Range",
   "description": "The Archery Range allows you to train archers",
   "sprites": {
-    "base": "buildings/archery-range.png"
+    "base": "buildings/archery-range.png",
+    "player": "buildings/archery-range-player.png",
+    "enemy": "buildings/archery-range-enemy.png"
   }
 }, {
   "id": 6,
   "name": "Stable",
   "description": "The Stable allows you to train cavalry",
   "sprites": {
-    "base": "buildings/stable.png"
+    "base": "buildings/stable.png",
+    "player": "buildings/stable-player.png",
+    "enemy": "buildings/stable-enemy.png"
   }
 }, {
   "id": 7,
   "name": "Tower",
   "description": "The Tower increases the health and damage of units stationed inside.",
   "sprites": {
-    "base": "buildings/tower.png"
+    "base": "buildings/tower.png",
+    "player": "buildings/tower-player.png",
+    "enemy": "buildings/tower-enemy.png"
   }
 }]

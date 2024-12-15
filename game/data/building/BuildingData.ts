@@ -2,9 +2,7 @@ export default interface BuildingData {
   id: number;
   name: string;
   description: string;
-  sprites: {
-    base: string;
-  };
+  sprites: { base: string; player: string; enemy: string };
 
   previousBuildingId: number;
   isHeadquarters: boolean;

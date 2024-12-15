@@ -66,9 +66,7 @@ class BuildingManager {
         id: buildingId,
         name: `Building ${buildingId}`,
         description: `Description of building ${buildingId}`,
-        sprites: {
-          base: "",
-        },
+        sprites: { base: "", player: "", enemy: "" },
       }),
       ...buildingInfo,
       constructionCosts,
