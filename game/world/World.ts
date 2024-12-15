@@ -17,6 +17,7 @@ class World extends GameObject {
         extraLoadSize: GameConfig.headquartersSearchRange *
           GameConfig.tileSize,
         debounceDelay: 200,
+        tileFadeDuration: 0.2,
         onLoadTiles: (coordinates) => this.loadTiles(coordinates),
         onDeleteTiles: (coordinates) => this.deleteTiles(coordinates),
       }),
