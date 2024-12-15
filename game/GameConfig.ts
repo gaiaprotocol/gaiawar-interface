@@ -73,9 +73,7 @@ class GameConfig {
     },
   };
 
-  public getMaterialContract(material: MaterialType) {
-    return this.materialContracts[material];
-  }
+  public materialContracts: Record<string, MaterialContract> = {};
 
   public getMaterialAddress(material: MaterialType) {
     return this
@@ -94,7 +92,9 @@ class GameConfig {
     }
   }
 
-  public materialContracts: Record<string, MaterialContract> = {};
+  public getMaterialContract(material: MaterialType) {
+    return this.materialContracts[material];
+  }
 
   public tileSize = 256;
 

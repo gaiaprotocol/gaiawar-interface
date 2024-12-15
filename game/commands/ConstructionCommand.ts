@@ -6,6 +6,7 @@ import { formatEther } from "viem";
 import ConstructionContract from "../contracts/commands/ConstructionContract.js";
 import BuildingManager from "../data/building/BuildingManager.js";
 import MaterialType from "../data/material/MaterialType.js";
+import UserMaterialManager from "../data/material/UserMaterialManager.js";
 import GameConfig from "../GameConfig.js";
 import CommandBase from "./CommandBase.js";
 
@@ -15,20 +16,10 @@ class ConstructionCommand extends CommandBase {
     if (!walletAddress) throw new Error("Not logged in");
 
     const building = await BuildingManager.getBuilding(buildingId);
-    const balances = await Promise.all(
-      Object.keys(building.constructionCosts).map((material) =>
-        GameConfig.getMaterialContract(material as MaterialType).balanceOf(
-          walletAddress,
-        )
-      ),
-    );
+    await UserMaterialManager.reloadBalances();
 
-    for (
-      const [index, [material, cost]] of Object.entries(
-        building.constructionCosts,
-      ).entries()
-    ) {
-      if (balances[index] < cost) {
+    for (const [material, cost] of Object.entries(building.constructionCosts)) {
+      if (UserMaterialManager.userMaterialBalances[material] < cost) {
         new ConfirmDialog({
           icon: new ErrorIcon(),
           title: "Insufficient Materials",
