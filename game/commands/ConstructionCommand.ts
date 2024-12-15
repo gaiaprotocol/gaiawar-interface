@@ -11,7 +11,11 @@ import GameConfig from "../GameConfig.js";
 import CommandBase from "./CommandBase.js";
 
 class ConstructionCommand extends CommandBase {
-  public async constructBuilding(x: number, y: number, buildingId: number) {
+  public async constructBuilding(
+    x: number,
+    y: number,
+    buildingId: number,
+  ): Promise<boolean> {
     const walletAddress = WalletLoginManager.getLoggedInAddress();
     if (!walletAddress) throw new Error("Not logged in");
 
@@ -31,11 +35,12 @@ class ConstructionCommand extends CommandBase {
               GameConfig.getMaterialAddress(material as MaterialType),
             ),
         });
-        return;
+        return false;
       }
     }
 
     await ConstructionContract.constructBuilding(x, y, buildingId);
+    return true;
   }
 }
 

@@ -1,3 +1,4 @@
+import { WalletLoginManager } from "@common-module/wallet-login";
 import ConstructionCommand from "./commands/ConstructionCommand.js";
 import TileHoverOverlay from "./world/tile-overlays/TileHoverOverlay.js";
 import TileSelectedOverlay from "./world/tile-overlays/TileSelectedOverlay.js";
@@ -16,21 +17,22 @@ class GameController {
   }
 
   private async constructBuilding(x: number, y: number) {
-    if (!this._buildingToConstruct) {
-      return;
-    }
+    if (!this._buildingToConstruct) return;
 
     const tile = World.getTile(x, y);
-    tile?.showConstructing();
+    if (!tile) return;
 
+    const walletAddress = WalletLoginManager.getLoggedInAddress();
+    if (!walletAddress) return;
+
+    tile.showConstructing();
     try {
-      await ConstructionCommand.constructBuilding(
-        x,
-        y,
-        this._buildingToConstruct,
-      );
+      const buildingId = this._buildingToConstruct;
+      if (await ConstructionCommand.constructBuilding(x, y, buildingId)) {
+        tile.setBuilding(walletAddress, buildingId);
+      }
     } finally {
-      tile?.hideConstructing();
+      tile.hideConstructing();
     }
   }
 

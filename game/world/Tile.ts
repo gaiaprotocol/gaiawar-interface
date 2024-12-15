@@ -4,23 +4,36 @@ import Constructing from "./Constructing.js";
 import TileBase from "./TileBase.js";
 
 export default class Tile extends TileBase {
+  private _occupant!: `0x${string}`;
+  private _buildingId!: number;
+
   private constructing: Constructing | undefined;
+  private building: Building | undefined;
 
   constructor(
     private tileX: number,
     private tileY: number,
-    private info: { occupant: `0x${string}`; buildingId: number },
+    occupant: `0x${string}`,
+    buildingId: number,
   ) {
     super(tileX, tileY);
-    if (info.buildingId !== 0) {
-      this.append(
-        new Building(
-          info.buildingId,
-          info.occupant === WalletLoginManager.getLoggedInAddress()
-            ? "player"
-            : "enemy",
-        ),
-      );
+    this.setBuilding(occupant, buildingId);
+  }
+
+  public setBuilding(occupant: `0x${string}`, buildingId: number) {
+    this._occupant = occupant;
+    this._buildingId = buildingId;
+
+    this.building?.remove();
+    this.building = undefined;
+
+    if (buildingId !== 0) {
+      this.building = new Building(
+        buildingId,
+        occupant === WalletLoginManager.getLoggedInAddress()
+          ? "player"
+          : "enemy",
+      ).appendTo(this);
     }
   }
 
@@ -33,11 +46,11 @@ export default class Tile extends TileBase {
   }
 
   public getOccupant() {
-    return this.info.occupant;
+    return this._occupant;
   }
 
   public getBuildingId() {
-    return this.info.buildingId;
+    return this._buildingId;
   }
 
   public showConstructing() {

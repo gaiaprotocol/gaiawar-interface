@@ -32,7 +32,7 @@ class World extends GameObject {
     for (const [index, c] of coordinates.entries()) {
       const tileInfo = tileInfoSet[index];
       const key = `${c.x},${c.y}`;
-      const tile = new Tile(c.x, c.y, tileInfo);
+      const tile = new Tile(c.x, c.y, tileInfo.occupant, tileInfo.buildingId);
       this.tiles[key] = tile;
       this.tileContainer.append(tile);
     }
@@ -42,7 +42,7 @@ class World extends GameObject {
     }
   }
 
-  public getTile(x: number, y: number) {
+  public getTile(x: number, y: number): Tile | undefined {
     return this.tiles[`${x},${y}`];
   }
 
