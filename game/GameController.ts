@@ -10,8 +10,27 @@ class GameController {
     TileSelectedOverlay.setTilePosition(x, y);
 
     if (this._buildingToConstruct) {
-      ConstructionCommand.constructBuilding(x, y, this._buildingToConstruct);
+      this.constructBuilding(x, y);
       this.buildingToConstruct = undefined;
+    }
+  }
+
+  private async constructBuilding(x: number, y: number) {
+    if (!this._buildingToConstruct) {
+      return;
+    }
+
+    const tile = World.getTile(x, y);
+    tile?.showConstructing();
+
+    try {
+      await ConstructionCommand.constructBuilding(
+        x,
+        y,
+        this._buildingToConstruct,
+      );
+    } finally {
+      tile?.hideConstructing();
     }
   }
 

@@ -42,6 +42,10 @@ class World extends GameObject {
     }
   }
 
+  public getTile(x: number, y: number) {
+    return this.tiles[`${x},${y}`];
+  }
+
   private deleteTiles(coordinates: Coordinates[]) {
     for (const c of coordinates) {
       const key = `${c.x},${c.y}`;

@@ -1,8 +1,11 @@
 import { WalletLoginManager } from "@common-module/wallet-login";
 import Building from "./Building.js";
+import Constructing from "./Constructing.js";
 import TileBase from "./TileBase.js";
 
 export default class Tile extends TileBase {
+  private constructing: Constructing | undefined;
+
   constructor(
     private tileX: number,
     private tileY: number,
@@ -35,5 +38,15 @@ export default class Tile extends TileBase {
 
   public getBuildingId() {
     return this.info.buildingId;
+  }
+
+  public showConstructing() {
+    this.constructing?.remove();
+    this.constructing = new Constructing().appendTo(this);
+  }
+
+  public hideConstructing() {
+    this.constructing?.remove();
+    this.constructing = undefined;
   }
 }
