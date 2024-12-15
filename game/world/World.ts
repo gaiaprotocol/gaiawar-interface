@@ -1,5 +1,6 @@
 import { WalletLoginManager } from "@common-module/wallet-login";
 import { Coordinates, GameObject, TileRange } from "@gaiaengine/2d";
+import { zeroAddress } from "viem";
 import BattlegroundContract from "../contracts/BattlegroundContract.js";
 import BuildingManager from "../data/building/BuildingManager.js";
 import GameConfig from "../GameConfig.js";
@@ -82,7 +83,10 @@ class World extends GameObject {
         }
       } else {
         for (const tile of Object.values(this.tiles)) {
-          if (tile.getOccupant() !== walletAddress) {
+          if (
+            tile.getOccupant() !== zeroAddress &&
+            tile.getOccupant() !== walletAddress
+          ) {
             for (
               let x = -GameConfig.enemyBuildingSearchRange;
               x <= GameConfig.enemyBuildingSearchRange;
