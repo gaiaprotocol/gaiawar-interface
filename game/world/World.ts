@@ -1,4 +1,4 @@
-import { Coordinates, GameObject, TileRange } from "@gaiaengine/2d";
+import { Coordinates, GameObject } from "@gaiaengine/2d";
 import BattlegroundContract from "../contracts/BattlegroundContract.js";
 import GameConfig from "../GameConfig.js";
 import BuildableArea from "./BuildableArea.js";
@@ -8,7 +8,7 @@ import Tile from "./Tile.js";
 class World extends GameObject {
   private tileContainer = new GameObject(0, 0);
   private tiles: { [key: string]: Tile } = {};
-  private tileRange: TileRange = { startX: 0, startY: 0, endX: 0, endY: 0 };
+  private showingBuildableArea = false;
 
   constructor() {
     super(0, 0);
@@ -20,7 +20,6 @@ class World extends GameObject {
           GameConfig.tileSize,
         onLoadTiles: (coordinates) => this.loadTiles(coordinates),
         onDeleteTiles: (coordinates) => this.deleteTiles(coordinates),
-        onTileRangeChanged: (range) => this.tileRange = range,
       }),
       BuildableArea,
       this.tileContainer,
@@ -36,7 +35,10 @@ class World extends GameObject {
       this.tiles[key] = tile;
       this.tileContainer.append(tile);
     }
-    BuildableArea.updateArea(this.tiles, this.tileRange);
+
+    if (this.showingBuildableArea) {
+      BuildableArea.updateArea(this.tiles);
+    }
   }
 
   private deleteTiles(coordinates: Coordinates[]) {
@@ -48,6 +50,20 @@ class World extends GameObject {
         delete this.tiles[key];
       }
     }
+
+    if (this.showingBuildableArea) {
+      BuildableArea.updateArea(this.tiles);
+    }
+  }
+
+  public showBuildableArea() {
+    this.showingBuildableArea = true;
+    BuildableArea.updateArea(this.tiles);
+  }
+
+  public hideBuildableArea() {
+    this.showingBuildableArea = false;
+    BuildableArea.clearAll();
   }
 }
 

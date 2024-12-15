@@ -1,20 +1,32 @@
+import { Debouncer } from "@common-module/ts";
 import { WalletLoginManager } from "@common-module/wallet-login";
-import { GameObject, TileRange } from "@gaiaengine/2d";
+import { GameObject } from "@gaiaengine/2d";
 import { zeroAddress } from "viem";
 import BattlegroundContract from "../contracts/BattlegroundContract.js";
 import BuildingManager from "../data/building/BuildingManager.js";
 import GameConfig from "../GameConfig.js";
+import BuildableTileOverlay from "./tile-overlays/BuildableTileOverlay.js";
+import UnbuildableTileOverlay from "./tile-overlays/UnbuildableTileOverlay.js";
 import Tile from "./Tile.js";
 
 class BuildableArea extends GameObject {
+  private map: { [key: string]: number } = {};
+  private overlays: { [key: string]: GameObject } = {};
+
   constructor() {
     super(0, 0);
   }
 
-  public async updateArea(
-    tiles: { [key: string]: Tile },
-    tileRange: TileRange,
-  ) {
+  private updateAreaDebouncer = new Debouncer(
+    200,
+    (tiles) => this._updateArea(tiles),
+  );
+
+  public updateArea(tiles: { [key: string]: Tile }) {
+    this.updateAreaDebouncer.execute(tiles);
+  }
+
+  private async _updateArea(tiles: { [key: string]: Tile }) {
     const walletAddress = WalletLoginManager.getLoggedInAddress();
     if (!walletAddress) return;
 
@@ -22,13 +34,7 @@ class BuildableArea extends GameObject {
       walletAddress,
     );
 
-    const width = tileRange.endX - tileRange.startX + 1;
-    const height = tileRange.endY - tileRange.startY + 1;
-
-    const map: number[][] = new Array(height);
-    for (let row = 0; row < height; row++) {
-      map[row] = new Array(width).fill(0);
-    }
+    this.map = {};
 
     if (hasHeadquarters) {
       for (const tile of Object.values(tiles)) {
@@ -40,14 +46,8 @@ class BuildableArea extends GameObject {
             for (let y = -constructionRange; y <= constructionRange; y++) {
               const tileX = tile.getTileX() + x;
               const tileY = tile.getTileY() + y;
-              const localX = tileX - tileRange.startX;
-              const localY = tileY - tileRange.startY;
-
-              if (
-                localY >= 0 && localY < height && localX >= 0 && localX < width
-              ) {
-                map[localY][localX] = 1;
-              }
+              const key = `${tileX},${tileY}`;
+              this.map[key] = 1;
             }
           }
         }
@@ -63,21 +63,61 @@ class BuildableArea extends GameObject {
             for (let y = -searchRange; y <= searchRange; y++) {
               const tileX = tile.getTileX() + x;
               const tileY = tile.getTileY() + y;
-              const localX = tileX - tileRange.startX;
-              const localY = tileY - tileRange.startY;
-
-              if (
-                localY >= 0 && localY < height && localX >= 0 && localX < width
-              ) {
-                map[localY][localX] = 2;
-              }
+              const key = `${tileX},${tileY}`;
+              this.map[key] = 2;
             }
           }
         }
       }
     }
 
-    console.log(map);
+    for (const key in this.map) {
+      const mapValue = this.map[key];
+      const existingOverlay = this.overlays[key];
+
+      if (!existingOverlay) {
+        this.overlays[key] = this.createOverlay(key, mapValue);
+        continue;
+      }
+
+      const isBuildableOverlay = existingOverlay instanceof
+        BuildableTileOverlay;
+      if (
+        (mapValue === 1 && !isBuildableOverlay) ||
+        (mapValue === 2 && isBuildableOverlay)
+      ) {
+        existingOverlay.remove();
+        this.overlays[key] = this.createOverlay(key, mapValue);
+      }
+    }
+
+    for (const key in this.overlays) {
+      if (!this.map[key]) {
+        this.overlays[key].remove();
+        delete this.overlays[key];
+      }
+    }
+  }
+
+  private createOverlay(key: string, mapValue: number): GameObject {
+    const [tileX, tileY] = key.split(",").map((val) => parseInt(val, 10));
+    let overlay: GameObject;
+
+    if (mapValue === 1) {
+      overlay = new BuildableTileOverlay(tileX, tileY);
+    } else {
+      overlay = new UnbuildableTileOverlay(tileX, tileY);
+    }
+
+    this.append(overlay);
+    return overlay;
+  }
+
+  public clearAll() {
+    this.clear();
+    this.overlays = {};
+    this.map = {};
+    this.updateAreaDebouncer.cancel();
   }
 }
 
