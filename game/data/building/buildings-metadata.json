@@ -4,21 +4,24 @@
   "description": "The Castle is the main building of your city. It allows you to build other buildings and train knights.",
   "sprites": {
     "base": "buildings/castle-lv1.png"
-  }
+  },
+  "constructionRange": 3
 }, {
   "id": 2,
   "name": "Castle Level 2",
   "description": "The Castle is the main building of your city. It allows you to build other buildings and train knights.",
   "sprites": {
     "base": "buildings/castle-lv2.png"
-  }
+  },
+  "constructionRange": 5
 }, {
   "id": 3,
   "name": "Castle Level 3",
   "description": "The Castle is the main building of your city. It allows you to build other buildings and train knights.",
   "sprites": {
     "base": "buildings/castle-lv3.png"
-  }
+  },
+  "constructionRange": 7
 }, {
   "id": 4,
   "name": "Training Camp",

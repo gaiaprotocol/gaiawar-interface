@@ -97,6 +97,8 @@ class GameConfig {
   }
 
   public tileSize = 256;
+  public headquartersSearchRange = 7;
+  public enemyBuildingSearchRange = 3;
 
   public init(config: IGameConfig) {
     Object.assign(this, config);

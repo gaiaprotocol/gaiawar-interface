@@ -1,18 +1,9 @@
 import { Sprite } from "@gaiaengine/2d";
-import GameConfig from "../../GameConfig.js";
+import TileBase from "../TileBase.js";
 
-class TileSelectedOverlay extends Sprite {
+class TileSelectedOverlay extends TileBase {
   constructor() {
-    super(-999999, -999999, "/assets/tile/selected.png");
-  }
-
-  public setPosition(x: number, y: number): this {
-    this.zIndex = -y;
-    return super.setPosition(x, y);
-  }
-
-  public setTilePosition(x: number, y: number): this {
-    return super.setPosition(x * GameConfig.tileSize, y * GameConfig.tileSize);
+    super(-999999, -999999, new Sprite(0, 0, "/assets/tile/selected.png"));
   }
 }
 

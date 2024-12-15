@@ -5,7 +5,7 @@ import { WalletLoginManager } from "@common-module/wallet-login";
 import { MapIcon } from "@gaiaprotocol/svg-icons";
 import ChatRoom from "./ChatRoom.js";
 import CommandPanel from "./command/CommandPanel.js";
-import HistoryPanel from "./HistoryPanel.js";
+import HistoryPanel from "./history/HistoryPanel.js";
 import UserMaterialList from "./material/UserMaterialList.js";
 import WorldMapModal from "./worldmap/WorldMapModal.js";
 

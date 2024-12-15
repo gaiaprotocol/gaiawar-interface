@@ -1,19 +1,12 @@
-import { GameObject, Sprite } from "@gaiaengine/2d";
+import { Sprite } from "@gaiaengine/2d";
 import BuildingManager from "../../data/building/BuildingManager.js";
+import TileBase from "../TileBase.js";
 
-class TileHoverOverlay extends GameObject {
+class TileHoverOverlay extends TileBase {
   private buildingPreview: Sprite | undefined;
 
   constructor() {
-    super(-999999, -999999);
-    this.append(
-      new Sprite(0, 0, "/assets/tile/hover.png"),
-    );
-  }
-
-  public setPosition(x: number, y: number): this {
-    this.zIndex = -y;
-    return super.setPosition(x, y);
+    super(-999999, -999999, new Sprite(0, 0, "/assets/tile/hover.png"));
   }
 
   public async setBuildingPreview(buildingId: number) {

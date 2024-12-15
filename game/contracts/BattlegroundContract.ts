@@ -3,7 +3,7 @@ import { Coordinates } from "@gaiaengine/2d";
 import { GaiaProtocolConfig } from "gaiaprotocol";
 import GameConfig from "../GameConfig.js";
 import BattlegroundArtifact from "./artifacts/Battleground.json" assert {
-  type: "json"
+  type: "json",
 };
 
 class BattlegroundContract {
@@ -15,6 +15,16 @@ class BattlegroundContract {
       functionName: "getTiles",
       args: [coordinates],
     }) as { occupant: `0x${string}`; buildingId: number }[];
+  }
+
+  public async hasHeadquarters(user: string) {
+    return await WalletLoginManager.readContract({
+      chainId: GaiaProtocolConfig.getChainId(),
+      address: GameConfig.getContractAddress("Battleground"),
+      abi: BattlegroundArtifact.abi,
+      functionName: "hasHeadquarters",
+      args: [user],
+    }) as boolean;
   }
 }
 

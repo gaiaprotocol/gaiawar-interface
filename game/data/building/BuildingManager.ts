@@ -82,6 +82,13 @@ class BuildingManager {
       buildingMetadataSet.map((metadata) => this.getBuilding(metadata.id)),
     );
   }
+
+  public getConstructionRange(buildingId: number) {
+    const metadata = buildingMetadataSet.find((metadata) =>
+      metadata.id === buildingId
+    );
+    return metadata?.constructionRange ?? 0;
+  }
 }
 
 export default new BuildingManager();
