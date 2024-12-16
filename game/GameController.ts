@@ -1,6 +1,7 @@
 import { WalletLoginManager } from "@common-module/wallet-login";
 import { Coordinates } from "@gaiaengine/2d";
 import ConstructionCommand from "./commands/ConstructionCommand.js";
+import TrainingCommand from "./commands/TrainingCommand.js";
 import CommandPanelController from "./ui/command/CommandPanelController.js";
 import TileHoverOverlay from "./world/tile-overlays/TileHoverOverlay.js";
 import TileSelectedOverlay from "./world/tile-overlays/TileSelectedOverlay.js";
@@ -49,6 +50,20 @@ class GameController {
     CommandPanelController.changePanel("world");
   }
 
+  public get buildingToConstruct() {
+    return this._buildingToConstruct;
+  }
+
+  public set buildingToConstruct(buildingId: number | undefined) {
+    this._buildingToConstruct = buildingId;
+    if (buildingId) {
+      TileHoverOverlay.setBuildingPreview(buildingId);
+    } else {
+      TileHoverOverlay.clearBuildingPreview();
+      World.hideBuildableArea();
+    }
+  }
+
   private async constructBuilding() {
     if (!this._buildingToConstruct || !this.selectedTile) return;
 
@@ -58,7 +73,7 @@ class GameController {
     const walletAddress = WalletLoginManager.getLoggedInAddress();
     if (!walletAddress) return;
 
-    tile.showConstructing();
+    tile.showConstructing("player");
     try {
       const buildingId = this._buildingToConstruct;
       if (
@@ -71,7 +86,7 @@ class GameController {
         tile.setBuilding(walletAddress, buildingId);
       }
     } finally {
-      tile.hideConstructing();
+      tile.hideProgressObject();
     }
   }
 
@@ -84,7 +99,7 @@ class GameController {
     const walletAddress = WalletLoginManager.getLoggedInAddress();
     if (!walletAddress) return;
 
-    tile.showConstructing();
+    tile.showConstructing("player");
     try {
       if (
         await ConstructionCommand.upgradeBuilding(
@@ -96,21 +111,29 @@ class GameController {
         tile.setBuilding(walletAddress, buildingId);
       }
     } finally {
-      tile.hideConstructing();
+      tile.hideProgressObject();
     }
   }
 
-  public get buildingToConstruct() {
-    return this._buildingToConstruct;
-  }
+  public async trainUnits(unitId: number, quantity: number) {
+    if (!this.selectedTile) return;
 
-  public set buildingToConstruct(buildingId: number | undefined) {
-    this._buildingToConstruct = buildingId;
-    if (buildingId) {
-      TileHoverOverlay.setBuildingPreview(buildingId);
-    } else {
-      TileHoverOverlay.clearBuildingPreview();
-      World.hideBuildableArea();
+    const tile = World.getTile(this.selectedTile.x, this.selectedTile.y);
+    if (!tile) return;
+
+    const walletAddress = WalletLoginManager.getLoggedInAddress();
+    if (!walletAddress) return;
+
+    tile.showTraining("player");
+    try {
+      await TrainingCommand.trainUnits(
+        this.selectedTile.x,
+        this.selectedTile.y,
+        unitId,
+        quantity,
+      );
+    } finally {
+      tile.hideProgressObject();
     }
   }
 }

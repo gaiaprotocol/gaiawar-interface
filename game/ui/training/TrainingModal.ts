@@ -33,7 +33,8 @@ export default class TrainingModal extends StructuredModal {
     this.unitList.on(
       "unitSelected",
       (unitId) => {
-        //TODO: GameController.createUnit(unitId);
+        //TEST
+        GameController.trainUnits(unitId, 1);
         this.remove();
       },
     );

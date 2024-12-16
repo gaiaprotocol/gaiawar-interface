@@ -40,6 +40,7 @@ class ConstructionCommand extends CommandBase {
   ): Promise<boolean> {
     if (!(await this.checkMaterials(buildingId))) return false;
     await ConstructionContract.constructBuilding(x, y, buildingId);
+    await UserMaterialManager.reloadBalances();
     return true;
   }
 
@@ -50,6 +51,7 @@ class ConstructionCommand extends CommandBase {
   ): Promise<boolean> {
     if (!(await this.checkMaterials(buildingId))) return false;
     await ConstructionContract.upgradeBuilding(x, y, buildingId);
+    await UserMaterialManager.reloadBalances();
     return true;
   }
 }

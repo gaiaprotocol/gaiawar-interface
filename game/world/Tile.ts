@@ -1,13 +1,15 @@
 import { WalletLoginManager } from "@common-module/wallet-login";
+import { GameObject } from "@gaiaengine/2d";
 import Building from "./Building.js";
 import Constructing from "./Constructing.js";
 import TileBase from "./TileBase.js";
+import TrainingFlag from "./flags/TrainingFlag.js";
 
 export default class Tile extends TileBase {
   private _owner!: `0x${string}`;
   private _buildingId!: number;
 
-  private constructing: Constructing | undefined;
+  private progressObject: GameObject | undefined;
   private building: Building | undefined;
 
   constructor(
@@ -51,18 +53,26 @@ export default class Tile extends TileBase {
     return this._buildingId;
   }
 
-  public showConstructing() {
+  public showConstructing(faction: "player" | "enemy") {
     this.building?.remove();
     this.building = undefined;
 
-    this.constructing?.remove();
-    this.constructing = new Constructing().appendTo(this);
+    this.progressObject?.remove();
+    this.progressObject = new Constructing(faction).appendTo(this);
   }
 
-  public hideConstructing() {
+  public showTraining(faction: "player" | "enemy") {
+    this.building?.remove();
+    this.building = undefined;
+
+    this.progressObject?.remove();
+    this.progressObject = new TrainingFlag(faction).appendTo(this);
+  }
+
+  public hideProgressObject() {
     this.setBuilding(this._owner, this._buildingId);
 
-    this.constructing?.remove();
-    this.constructing = undefined;
+    this.progressObject?.remove();
+    this.progressObject = undefined;
   }
 }
