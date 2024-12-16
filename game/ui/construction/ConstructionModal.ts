@@ -52,6 +52,8 @@ export default class ConstructionModal extends StructuredModal {
 
   private async loadBuildings() {
     const buildings = await BuildingManager.loadAllBuildings();
-    this.buildingList.setBuildings(buildings);
+    this.buildingList.setBuildings(
+      buildings.filter((b) => b.canBeConstructed && b.previousBuildingId === 0),
+    );
   }
 }

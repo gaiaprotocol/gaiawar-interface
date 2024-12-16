@@ -28,7 +28,7 @@ class BuildableArea extends GameObject {
 
     if (hasHeadquarters) {
       for (const tile of Object.values(tiles)) {
-        if (tile.getOccupant() === walletAddress) {
+        if (tile.getOwner() === walletAddress) {
           const constructionRange = BuildingManager.getConstructionRange(
             tile.getBuildingId(),
           );
@@ -45,8 +45,8 @@ class BuildableArea extends GameObject {
     } else {
       for (const tile of Object.values(tiles)) {
         if (
-          tile.getOccupant() !== zeroAddress &&
-          tile.getOccupant() !== walletAddress
+          tile.getOwner() !== zeroAddress &&
+          tile.getOwner() !== walletAddress
         ) {
           const searchRange = GameConfig.enemyBuildingSearchRange;
           for (let x = -searchRange; x <= searchRange; x++) {

@@ -1,5 +1,4 @@
 import { ConfirmDialog } from "@common-module/app-components";
-import { WalletLoginManager } from "@common-module/wallet-login";
 import { ErrorIcon } from "@gaiaprotocol/svg-icons";
 import { TradeMaterialModal } from "gaiaprotocol";
 import { formatEther } from "viem";
@@ -11,14 +10,7 @@ import GameConfig from "../GameConfig.js";
 import CommandBase from "./CommandBase.js";
 
 class ConstructionCommand extends CommandBase {
-  public async constructBuilding(
-    x: number,
-    y: number,
-    buildingId: number,
-  ): Promise<boolean> {
-    const walletAddress = WalletLoginManager.getLoggedInAddress();
-    if (!walletAddress) throw new Error("Not logged in");
-
+  private async checkMaterials(buildingId: number) {
     const building = await BuildingManager.getBuilding(buildingId);
     await UserMaterialManager.reloadBalances();
 
@@ -38,8 +30,26 @@ class ConstructionCommand extends CommandBase {
         return false;
       }
     }
+    return true;
+  }
 
+  public async constructBuilding(
+    x: number,
+    y: number,
+    buildingId: number,
+  ): Promise<boolean> {
+    if (!(await this.checkMaterials(buildingId))) return false;
     await ConstructionContract.constructBuilding(x, y, buildingId);
+    return true;
+  }
+
+  public async upgradeBuilding(
+    x: number,
+    y: number,
+    buildingId: number,
+  ): Promise<boolean> {
+    if (!(await this.checkMaterials(buildingId))) return false;
+    await ConstructionContract.upgradeBuilding(x, y, buildingId);
     return true;
   }
 }

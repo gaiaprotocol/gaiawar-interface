@@ -15,6 +15,16 @@ class ConstructionContract {
       args: [x, y, buildingId],
     });
   }
+
+  public async upgradeBuilding(x: number, y: number, buildingId: number) {
+    await WalletLoginManager.writeContract({
+      chainId: GaiaProtocolConfig.getChainId(),
+      address: GameConfig.getContractAddress("Construction"),
+      abi: ConstructionArtifact.abi,
+      functionName: "upgradeBuilding",
+      args: [x, y, buildingId],
+    });
+  }
 }
 
 export default new ConstructionContract();
