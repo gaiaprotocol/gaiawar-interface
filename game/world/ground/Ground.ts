@@ -1,4 +1,5 @@
 import { RectTerrainMap, RectTerrainMapOptions } from "@gaiaengine/2d";
+import GameConfig from "../../GameConfig.js";
 import mapData from "./map.json" with { type: "json" };
 import spritesheetWithAlphaData from "./spritesheet-with-alpha.json" with {
   type: "json",
@@ -10,7 +11,7 @@ import spritesheetWithoutAlphaData from "./spritesheet-without-alpha.json" with 
 export default class Ground extends RectTerrainMap {
   constructor(options: RectTerrainMapOptions) {
     super(
-      256,
+      GameConfig.tileSize,
       {
         "spritesheet-with-alpha": {
           src: "/assets/map/spritesheet-with-alpha.png",

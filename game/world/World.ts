@@ -14,8 +14,7 @@ class World extends GameObject {
     super(0, 0);
     this.append(
       new Ground({
-        extraLoadSize: GameConfig.headquartersSearchRange *
-          GameConfig.tileSize,
+        extraLoadTileCount: GameConfig.headquartersSearchRange,
         debounceDelay: 200,
         tileFadeDuration: 0.2,
         onLoadTiles: (coordinates) => this.loadTiles(coordinates),

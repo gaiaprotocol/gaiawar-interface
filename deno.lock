@@ -106,6 +106,7 @@
   "workspace": {
     "packageJson": {
       "dependencies": [
+        "npm:@gaiaengine/2d-spine@~0.1.6",
         "npm:@gaiaengine/2d@~0.1.6",
         "npm:@gaiaprotocol/ui-preset@^0.0.2",
         "npm:@types/node@^22.7.5",

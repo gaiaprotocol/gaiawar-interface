@@ -8,7 +8,7 @@ import TileSelectedOverlay from "./world/tile-overlays/TileSelectedOverlay.js";
 
 class GameScreen extends Fullscreen {
   private static readonly MIN_ZOOM = 0.2;
-  private static readonly MAX_ZOOM = 2.0;
+  private static readonly MAX_ZOOM = 5;
   private static readonly DRAG_THRESHOLD = 5;
   private static readonly ZOOM_SENSITIVITY = 1000;
 
@@ -37,8 +37,7 @@ class GameScreen extends Fullscreen {
       -(this.store.get<number>("cameraX") ?? 0),
       -(this.store.get<number>("cameraY") ?? 0),
     );
-    //this.camera.scale = this.store.get<number>("cameraZoom") ?? 0.5;
-    this.camera.scale = GameScreen.MAX_ZOOM;
+    this.camera.scale = this.store.get<number>("cameraZoom") ?? 0.5;
   }
 
   private attachEventListeners(): void {
@@ -70,7 +69,9 @@ class GameScreen extends Fullscreen {
   }
 
   private handleDragMove(mouseX: number, mouseY: number): void {
-    const { scale, x: cameraX, y: cameraY } = this.camera;
+    const cameraX = this.camera.getX();
+    const cameraY = this.camera.getY();
+    const scale = this.camera.scale;
 
     const distanceMoved = Math.sqrt(
       (mouseX - this.initialDragX) ** 2 + (mouseY - this.initialDragY) ** 2,
@@ -86,8 +87,8 @@ class GameScreen extends Fullscreen {
 
       this.camera.setPosition(cameraX - deltaX, cameraY - deltaY);
 
-      this.store.setPermanent("cameraX", -this.camera.x);
-      this.store.setPermanent("cameraY", -this.camera.y);
+      this.store.setPermanent("cameraX", -this.camera.getX());
+      this.store.setPermanent("cameraY", -this.camera.getY());
 
       this.previousMouseX = mouseX;
       this.previousMouseY = mouseY;
@@ -124,7 +125,9 @@ class GameScreen extends Fullscreen {
   }
 
   private updateHoverOverlay(mouseX: number, mouseY: number): void {
-    const { scale, x: cameraX, y: cameraY } = this.camera;
+    const cameraX = this.camera.getX();
+    const cameraY = this.camera.getY();
+    const scale = this.camera.scale;
 
     const worldX = ((mouseX - this.width / 2) / scale) + cameraX;
     const worldY = ((mouseY - this.height / 2) / scale) + cameraY;
@@ -132,10 +135,7 @@ class GameScreen extends Fullscreen {
     const tileX = Math.round(worldX / GameConfig.tileSize);
     const tileY = Math.round(worldY / GameConfig.tileSize);
 
-    TileHoverOverlay.setPosition(
-      tileX * GameConfig.tileSize,
-      tileY * GameConfig.tileSize,
-    );
+    TileHoverOverlay.setTilePosition(tileX, tileY);
   }
 }
 
