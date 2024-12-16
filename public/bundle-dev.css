@@ -2413,7 +2413,7 @@ li.chat-content-list-item.temp {
   bottom: 14px;
   left: 14px;
 }
-.hud > .command-panel {
+.hud > .command-panel-container {
   position: fixed;
   bottom: 14px;
   left: 50%;
@@ -2519,6 +2519,28 @@ li.chat-content-list-item.temp {
   justify-content: center !important;
 }
 .construction-modal > footer > .user-material-list {
+  flex-direction: row;
+}
+.upgrade-building-modal > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.upgrade-building-modal > main {
+  padding: 0 !important;
+}
+.upgrade-building-modal > main > p {
+  padding: 0 34px 34px 34px;
+}
+@container (width <= 520px) {
+  .upgrade-building-modal > main > p {
+    padding: 0 24px 24px 24px;
+  }
+}
+.upgrade-building-modal > footer {
+  justify-content: center !important;
+}
+.upgrade-building-modal > footer > .user-material-list {
   flex-direction: row;
 }
 .construction-building-list {

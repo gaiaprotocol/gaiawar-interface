@@ -7,7 +7,8 @@
     "player": "buildings/castle-lv1-player.png",
     "enemy": "buildings/castle-lv1-enemy.png"
   },
-  "constructionRange": 3
+  "constructionRange": 3,
+  "canBeUpgraded": true
 }, {
   "id": 2,
   "name": "Castle Level 2",
@@ -17,7 +18,8 @@
     "player": "buildings/castle-lv2-player.png",
     "enemy": "buildings/castle-lv2-enemy.png"
   },
-  "constructionRange": 5
+  "constructionRange": 5,
+  "canBeUpgraded": true
 }, {
   "id": 3,
   "name": "Castle Level 3",

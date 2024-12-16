@@ -18,7 +18,7 @@ export default class ConstructionModal extends StructuredModal {
     super(".construction-modal");
 
     this.appendToHeader(
-      el("h2", "Build Buildings"),
+      el("h2", "Construct a Building"),
       new Button({
         type: ButtonType.Circle,
         icon: new CloseIcon(),

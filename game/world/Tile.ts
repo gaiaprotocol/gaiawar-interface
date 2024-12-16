@@ -30,9 +30,7 @@ export default class Tile extends TileBase {
     if (buildingId !== 0) {
       this.building = new Building(
         buildingId,
-        owner === WalletLoginManager.getLoggedInAddress()
-          ? "player"
-          : "enemy",
+        owner === WalletLoginManager.getLoggedInAddress() ? "player" : "enemy",
       ).appendTo(this);
     }
   }
@@ -54,11 +52,16 @@ export default class Tile extends TileBase {
   }
 
   public showConstructing() {
+    this.building?.remove();
+    this.building = undefined;
+
     this.constructing?.remove();
     this.constructing = new Constructing().appendTo(this);
   }
 
   public hideConstructing() {
+    this.setBuilding(this._owner, this._buildingId);
+
     this.constructing?.remove();
     this.constructing = undefined;
   }

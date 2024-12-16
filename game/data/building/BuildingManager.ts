@@ -87,6 +87,13 @@ class BuildingManager {
     );
     return metadata?.constructionRange ?? 0;
   }
+
+  public canBeUpgraded(buildingId: number) {
+    const metadata = buildingMetadataSet.find((metadata) =>
+      metadata.id === buildingId
+    );
+    return metadata?.canBeUpgraded ?? false;
+  }
 }
 
 export default new BuildingManager();
