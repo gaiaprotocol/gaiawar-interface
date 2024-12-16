@@ -44,7 +44,7 @@ export default class Tile extends TileBase {
     this.unitGroup?.remove();
 
     //TEST
-    units = [{ unitId: 2, quantity: 20 }];
+    units = [{ unitId: 2, quantity: 10 }];
 
     if (units.length > 0) {
       this.unitGroup = new UnitGroup(units).appendTo(this);
