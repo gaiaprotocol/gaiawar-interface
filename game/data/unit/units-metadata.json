@@ -6,7 +6,8 @@
     "atlas": "",
     "json": "",
     "png": ""
-  }
+  },
+  "previewImage": ""
 }, {
   "id": 2,
   "name": "Swordsman",
@@ -15,7 +16,8 @@
     "atlas": "units/swordsman.atlas.txt",
     "json": "units/swordsman.json.txt",
     "png": "units/swordsman.png"
-  }
+  },
+  "previewImage": "units/swordsman-preview.png"
 }, {
   "id": 3,
   "name": "Archer",
@@ -24,7 +26,8 @@
     "atlas": "",
     "json": "",
     "png": ""
-  }
+  },
+  "previewImage": ""
 }, {
   "id": 4,
   "name": "Cavalry",
@@ -33,5 +36,6 @@
     "atlas": "",
     "json": "",
     "png": ""
-  }
+  },
+  "previewImage": ""
 }]

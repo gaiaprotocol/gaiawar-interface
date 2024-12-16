@@ -53,8 +53,9 @@ class UnitManager {
     const pendingRequest = this.pendingRequests.get(unitId);
     if (pendingRequest) return pendingRequest;
 
-    const [unitInfo, trainingCosts] = await Promise.all([
+    const [unitInfo, trainingBuildingIds, trainingCosts] = await Promise.all([
       await UnitsContract.getUnit(unitId),
+      await UnitsContract.getTrainingBuildingIds(unitId),
       await UnitsContract.getTrainingCosts(unitId),
     ]);
 
@@ -65,8 +66,10 @@ class UnitManager {
         name: `Unit ${unitId}`,
         description: `Description of unit ${unitId}`,
         spine: { atlas: "", json: "", png: "" },
+        previewImage: "",
       }),
       ...unitInfo,
+      trainingBuildingIds,
       trainingCosts,
     };
     this.setUnit(unit);
@@ -76,6 +79,15 @@ class UnitManager {
   public async loadAllUnits(): Promise<UnitData[]> {
     return await Promise.all(
       unitMetadataSet.map((metadata) => this.getUnit(metadata.id)),
+    );
+  }
+
+  public async getTrainingBuildingUnits(
+    buildingId: number,
+  ): Promise<UnitData[]> {
+    const units = await this.loadAllUnits();
+    return units.filter((unit) =>
+      unit.trainingBuildingIds.includes(buildingId)
     );
   }
 }

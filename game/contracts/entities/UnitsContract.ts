@@ -8,7 +8,6 @@ import UnitsArtifact from "../artifacts/entities/Units.json" assert {
 class UnitsContract {
   public async getUnit(unitId: number) {
     const [
-      trainingBuildingIds,
       healthPoints,
       attackDamage,
       attackRange,
@@ -20,15 +19,24 @@ class UnitsContract {
       abi: UnitsArtifact.abi,
       functionName: "units",
       args: [unitId],
-    }) as [number[], number, number, number, number, boolean];
+    }) as [number, number, number, number, boolean];
     return {
-      trainingBuildingIds,
       healthPoints,
       attackDamage,
       attackRange,
       movementRange,
       canBeTrained,
     };
+  }
+
+  public async getTrainingBuildingIds(unitId: number) {
+    return await WalletLoginManager.readContract({
+      chainId: GaiaProtocolConfig.getChainId(),
+      address: GameConfig.getContractAddress("Units"),
+      abi: UnitsArtifact.abi,
+      functionName: "getTrainingBuildingIds",
+      args: [unitId],
+    }) as number[];
   }
 
   public async getTrainingCosts(unitId: number) {

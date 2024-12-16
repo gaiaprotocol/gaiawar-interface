@@ -7,6 +7,7 @@ export default interface UnitData {
     json: string;
     png: string;
   };
+  previewImage: string;
 
   trainingBuildingIds: number[];
   healthPoints: number;

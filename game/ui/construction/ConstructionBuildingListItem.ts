@@ -1,6 +1,6 @@
 import { DomNode, el } from "@common-module/app";
 import BuildingData from "../../data/building/BuildingData.js";
-import ConstructionCostList from "./ConstructionCostList.js";
+import CostList from "../cost/CostList.js";
 
 export default class ConstructionBuildingListItem extends DomNode {
   constructor(building: BuildingData) {
@@ -11,7 +11,7 @@ export default class ConstructionBuildingListItem extends DomNode {
         ".image-container",
         el("img", { src: `/assets/${building.sprites.base}` }),
       ),
-      new ConstructionCostList(building.constructionCosts),
+      new CostList(building.constructionCosts),
     );
   }
 }
