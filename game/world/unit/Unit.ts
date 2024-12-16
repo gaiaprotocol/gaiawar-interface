@@ -15,6 +15,7 @@ export default class Unit extends GameObject {
         skins: ["green"],
         loop: true,
       });
+      spine.scale = 0.5;
       this.append(spine);
     }
   }

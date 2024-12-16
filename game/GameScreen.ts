@@ -8,7 +8,7 @@ import TileSelectedOverlay from "./world/tile-overlays/TileSelectedOverlay.js";
 
 class GameScreen extends Fullscreen {
   private static readonly MIN_ZOOM = 0.2;
-  private static readonly MAX_ZOOM = 10.0;
+  private static readonly MAX_ZOOM = 2.0;
   private static readonly DRAG_THRESHOLD = 5;
   private static readonly ZOOM_SENSITIVITY = 1000;
 
@@ -37,7 +37,8 @@ class GameScreen extends Fullscreen {
       -(this.store.get<number>("cameraX") ?? 0),
       -(this.store.get<number>("cameraY") ?? 0),
     );
-    this.camera.scale = this.store.get<number>("cameraZoom") ?? 0.5;
+    //this.camera.scale = this.store.get<number>("cameraZoom") ?? 0.5;
+    this.camera.scale = GameScreen.MAX_ZOOM;
   }
 
   private attachEventListeners(): void {
