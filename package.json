@@ -7,6 +7,7 @@
   "type": "module",
   "dependencies": {
     "@gaiaengine/2d": "^0.1.6",
+    "@gaiaengine/2d-spine": "^0.1.6",
     "@gaiaprotocol/ui-preset": "^0.0.2",
     "gaiaprotocol": "^0.2.3"
   },

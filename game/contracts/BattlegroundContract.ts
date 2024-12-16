@@ -1,6 +1,7 @@
 import { WalletLoginManager } from "@common-module/wallet-login";
 import { Coordinates } from "@gaiaengine/2d";
 import { GaiaProtocolConfig } from "gaiaprotocol";
+import TileData from "../data/TileData.js";
 import GameConfig from "../GameConfig.js";
 import BattlegroundArtifact from "./artifacts/Battleground.json" assert {
   type: "json",
@@ -14,7 +15,7 @@ class BattlegroundContract {
       abi: BattlegroundArtifact.abi,
       functionName: "getTiles",
       args: [coordinates],
-    }) as { owner: `0x${string}`; buildingId: number }[];
+    }) as TileData[];
   }
 
   public async hasHeadquarters(user: string) {

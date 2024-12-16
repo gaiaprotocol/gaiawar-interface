@@ -82,6 +82,10 @@ class UnitManager {
     );
   }
 
+  public getUnitMetadata(unitId: number) {
+    return unitMetadataSet.find((metadata) => metadata.id === unitId);
+  }
+
   public async getTrainingBuildingUnits(
     buildingId: number,
   ): Promise<UnitData[]> {

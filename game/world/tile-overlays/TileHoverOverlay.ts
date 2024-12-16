@@ -70,11 +70,16 @@ class TileHoverOverlay extends TileBase {
   }
 
   public async setBuildingPreview(buildingId: number) {
-    const building = await BuildingManager.getBuilding(buildingId);
-
-    this.buildingPreview?.remove();
-    this.buildingPreview = new Sprite(0, 0, `/assets/${building.sprites.base}`);
-    this.append(this.buildingPreview);
+    const metadata = BuildingManager.getBuildingMetadata(buildingId);
+    if (metadata) {
+      this.buildingPreview?.remove();
+      this.buildingPreview = new Sprite(
+        0,
+        0,
+        `/assets/${metadata.sprites.base}`,
+      );
+      this.append(this.buildingPreview);
+    }
   }
 
   public clearBuildingPreview() {

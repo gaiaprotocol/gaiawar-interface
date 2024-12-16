@@ -1,9 +1,11 @@
 import { WalletLoginManager } from "@common-module/wallet-login";
 import { GameObject } from "@gaiaengine/2d";
+import TileData, { UnitQuantity } from "../data/TileData.js";
 import Building from "./Building.js";
 import Constructing from "./Constructing.js";
-import TileBase from "./TileBase.js";
 import TrainingFlag from "./flags/TrainingFlag.js";
+import TileBase from "./TileBase.js";
+import UnitGroup from "./unit/UnitGroup.js";
 
 export default class Tile extends TileBase {
   private _owner!: `0x${string}`;
@@ -11,15 +13,16 @@ export default class Tile extends TileBase {
 
   private progressObject: GameObject | undefined;
   private building: Building | undefined;
+  private unitGroup: UnitGroup | undefined;
 
   constructor(
     private tileX: number,
     private tileY: number,
-    owner: `0x${string}`,
-    buildingId: number,
+    data: TileData,
   ) {
     super(tileX, tileY);
-    this.setBuilding(owner, buildingId);
+    this.setBuilding(data.owner, data.buildingId);
+    this.setUnitGroup(data.units);
   }
 
   public setBuilding(owner: `0x${string}`, buildingId: number) {
@@ -34,6 +37,17 @@ export default class Tile extends TileBase {
         buildingId,
         owner === WalletLoginManager.getLoggedInAddress() ? "player" : "enemy",
       ).appendTo(this);
+    }
+  }
+
+  public setUnitGroup(units: UnitQuantity[]) {
+    this.unitGroup?.remove();
+
+    //TEST
+    units = [{ unitId: 2, quantity: 10 }];
+
+    if (units.length > 0) {
+      this.unitGroup = new UnitGroup(units).appendTo(this);
     }
   }
 
