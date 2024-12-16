@@ -37,7 +37,9 @@ class GameScreen extends Fullscreen {
       -(this.store.get<number>("cameraX") ?? 0),
       -(this.store.get<number>("cameraY") ?? 0),
     );
-    this.camera.scale = this.store.get<number>("cameraZoom") ?? 0.5;
+    //this.camera.scale = this.store.get<number>("cameraZoom") ?? 0.5;
+    //TEST
+    this.camera.scale = GameScreen.MIN_ZOOM;
   }
 
   private attachEventListeners(): void {
