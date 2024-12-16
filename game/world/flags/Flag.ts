@@ -1,4 +1,5 @@
-import { GameObject, Sprite } from "@gaiaengine/2d";
+import { el } from "@common-module/app";
+import { DomWrapperNode, GameObject, Sprite } from "@gaiaengine/2d";
 
 export default abstract class Flag extends GameObject {
   constructor(faction: "player" | "enemy") {
@@ -7,5 +8,9 @@ export default abstract class Flag extends GameObject {
       -19,
       64,
     );
+
+    this.scale = 2;
+    this.rotation = Math.PI / 4;
+    this.append(new DomWrapperNode(0, 0, "", el("", "TEST!")));
   }
 }

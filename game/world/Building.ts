@@ -1,5 +1,6 @@
 import { Fadeable, Sprite } from "@gaiaengine/2d";
 import BuildingManager from "../data/building/BuildingManager.js";
+import ConstructingFlag from "./flags/ConstructingFlag.js";
 
 export default class Building extends Fadeable {
   constructor(buildingId: number, faction: "player" | "enemy") {
@@ -9,6 +10,8 @@ export default class Building extends Fadeable {
       this.append(
         new Sprite(0, 0, `/assets/${metadata.sprites.base}`),
         new Sprite(0, 0, `/assets/${metadata.sprites[faction]}`),
+        //TEST
+        new ConstructingFlag("player"),
       );
       this.alpha = 0;
       this.fadeIn(0.2);
