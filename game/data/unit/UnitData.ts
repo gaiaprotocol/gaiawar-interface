@@ -1,0 +1,21 @@
+export default interface UnitData {
+  id: number;
+  name: string;
+  description: string;
+  spine: {
+    atlas: string;
+    json: string;
+    png: string;
+  };
+
+  trainingBuildingIds: number[];
+  healthPoints: number;
+  attackDamage: number;
+  attackRange: number;
+  movementRange: number;
+  canBeTrained: boolean;
+
+  trainingCosts: {
+    [material: string]: bigint;
+  };
+}
