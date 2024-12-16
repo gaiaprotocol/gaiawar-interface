@@ -2,7 +2,7 @@ import { WalletLoginManager } from "@common-module/wallet-login";
 import { GaiaProtocolConfig } from "gaiaprotocol";
 import GameConfig from "../../GameConfig.js";
 import UnitsArtifact from "../artifacts/entities/Units.json" assert {
-  type: "json"
+  type: "json",
 };
 
 class UnitsContract {
@@ -31,13 +31,13 @@ class UnitsContract {
     };
   }
 
-  public async getTraningCosts(unitId: number) {
+  public async getTrainingCosts(unitId: number) {
     const tokenCosts: { tokenAddress: string; amount: bigint }[] =
       await WalletLoginManager.readContract({
         chainId: GaiaProtocolConfig.getChainId(),
         address: GameConfig.getContractAddress("Units"),
         abi: UnitsArtifact.abi,
-        functionName: "getConstructionCosts",
+        functionName: "getTrainingCosts",
         args: [unitId],
       }) as { tokenAddress: string; amount: bigint }[];
 

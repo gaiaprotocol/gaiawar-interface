@@ -44,7 +44,7 @@ class GameConfig {
       Battleground: "0x2C87b00E0436fB2f36c6a053bf4cB28D1fADF091",
       Buildings: "0xC911108F80B792A0E1f69FEd013b720CA1e49Dcd",
       Construction: "0xCb3428bA809B47d0cA7eC766d7d476986CF4fC10",
-      Units: "0x2EEa1c806e7B56Fa1fb4E56Aa49F7Ada2D6bE294",
+      Units: "0xa0eD07fe9aD94CAC832C10b78794D46859C6582D",
     },
   };
 

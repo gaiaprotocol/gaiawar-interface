@@ -55,7 +55,7 @@ class UnitManager {
 
     const [unitInfo, trainingCosts] = await Promise.all([
       await UnitsContract.getUnit(unitId),
-      await UnitsContract.getTraningCosts(unitId),
+      await UnitsContract.getTrainingCosts(unitId),
     ]);
 
     const metadata = unitMetadataSet.find((metadata) => metadata.id === unitId);
