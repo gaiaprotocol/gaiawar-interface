@@ -1,5 +1,6 @@
 import { BodyNode, Router, SPAInitializer } from "@common-module/app";
 import { WalletLoginManager } from "@common-module/wallet-login";
+import { FPSDisplay } from "@gaiaengine/2d";
 import BuildingManager from "./data/building/BuildingManager.js";
 import UserMaterialManager from "./data/material/UserMaterialManager.js";
 import UnitManager from "./data/unit/UnitManager.js";
@@ -17,5 +18,10 @@ export default async function init(config: IGameConfig) {
   UserMaterialManager.reloadBalances();
 
   GameScreen.appendTo(BodyNode);
+
+  if (GameConfig.isDevMode) {
+    GameScreen.root.append(new FPSDisplay());
+  }
+
   Router.add("/", GameView);
 }
