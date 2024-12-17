@@ -83,43 +83,72 @@ async function processImages() {
           continue;
         }
 
-        const frameWidth = metadata.width / frameCount;
-        const frameHeight = metadata.height;
+        const imageWidth = metadata.width;
+        const imageHeight = metadata.height;
+        const baseFrameWidth = Math.floor(imageWidth / frameCount);
 
         for (let frameIndex = 0; frameIndex < frameCount; frameIndex++) {
-          const frame = image.extract({
-            left: Math.floor(frameIndex * frameWidth),
-            top: 0,
-            width: Math.floor(frameWidth),
-            height: frameHeight,
-          });
+          let left = frameIndex * baseFrameWidth;
+          let frameWidth = baseFrameWidth;
 
-          const buffer = await frame.toBuffer();
+          // Adjust the last frame to include any remaining pixels
+          if (frameIndex === frameCount - 1) {
+            frameWidth = imageWidth - left;
+          }
 
-          framesInfo.push({
-            id: `${unit}_${type}_${animation}_${frameIndex}`,
-            unit,
-            type,
-            animation,
-            frameIndex,
-            width: Math.floor(frameWidth),
-            height: frameHeight,
-            buffer,
-          });
+          // Ensure we don't extract beyond the image boundaries
+          if (left + frameWidth > imageWidth) {
+            frameWidth = imageWidth - left;
+          }
+
+          // Handle cases where frameWidth becomes zero or negative
+          if (frameWidth <= 0) {
+            console.warn(
+              `Skipping frame ${frameIndex} for ${imagePath} - frameWidth <= 0`,
+            );
+            continue;
+          }
+
+          try {
+            const frame = image.extract({
+              left,
+              top: 0,
+              width: frameWidth,
+              height: imageHeight,
+            });
+
+            const buffer = await frame.toBuffer();
+
+            framesInfo.push({
+              id: `${unit}_${type}_${animation}_${frameIndex}`,
+              unit,
+              type,
+              animation,
+              frameIndex,
+              width: frameWidth,
+              height: imageHeight,
+              buffer,
+            });
+          } catch (error) {
+            console.error(
+              `Error extracting frame ${frameIndex} for ${imagePath}:`,
+              error,
+            );
+          }
         }
       }
     }
   }
 
   // Use MaxRectsPacker to pack frames efficiently
-  const packer = new MaxRectsPacker(0, 0, 2, {
+  const packer = new MaxRectsPacker(2048, 2048, 2, {
     smart: true,
-    pot: false,
+    pot: true, // Force power of two dimensions if needed
     square: false,
     allowRotation: false,
   });
 
-  packer.addArray(framesInfo as any);
+  packer.addArray(framesInfo);
 
   let spritesheetIndex = 0;
 
@@ -133,7 +162,7 @@ async function processImages() {
       },
     });
 
-    const compositeOperations = bin.rects.map((rect: any) => ({
+    const compositeOperations = bin.rects.map((rect) => ({
       input: rect.buffer,
       left: rect.x,
       top: rect.y,
@@ -142,9 +171,7 @@ async function processImages() {
     await spritesheetImage
       .composite(compositeOperations)
       .png()
-      .toFile(
-        path.join(outputPath, `unit_spritesheet_${spritesheetIndex}.png`),
-      );
+      .toFile(path.join(outputPath, `unit_spritesheet_${spritesheetIndex}.png`));
 
     const spritesheetData: SpritesheetData = {
       frames: {},
@@ -154,7 +181,7 @@ async function processImages() {
       },
     };
 
-    for (const rect of bin.rects as any) {
+    for (const rect of bin.rects) {
       spritesheetData.frames[rect.id] = {
         frame: {
           x: rect.x,
@@ -182,9 +209,7 @@ async function processImages() {
       JSON.stringify(spritesheetData, null, 2),
     );
 
-    console.log(
-      `Created unit_spritesheet_${spritesheetIndex}.png and JSON data.`,
-    );
+    console.log(`Created unit_spritesheet_${spritesheetIndex}.png and JSON data.`);
     spritesheetIndex++;
   }
 
