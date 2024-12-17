@@ -1,31 +1,26 @@
 import { AnimatedSprite, GameObject } from "@gaiaengine/2d";
 import UnitManager from "../../data/unit/UnitManager.js";
+import spritesheets from "./unit-spritesheets.json" with { type: "json" };
 
 export default class SpriteUnit extends GameObject {
-  constructor(x: number, y: number, unitId: number) {
+  constructor(
+    x: number,
+    y: number,
+    unitId: number,
+    faction: "player" | "enemy",
+  ) {
     super(x, y);
 
     const metadata = UnitManager.getUnitMetadata(unitId);
     if (metadata) {
-      const frames: any = {};
-      for (let i = 0; i < 27; i++) {
-        frames[`idle${i}`] = {
-          frame: { x: i * 42, y: 0, w: 42, h: 80 },
-        };
-      }
+      const animation = "idle";
 
       const sprite = new AnimatedSprite(
         0,
         0,
-        "/assets/units/test-swordsman-sprite.png",
-        {
-          frames,
-          meta: { scale: 1 },
-          animations: {
-            idle: Array.from({ length: 27 }, (_, i) => `idle${i}`),
-          },
-        },
-        "idle",
+        `/assets/units/sprites/${metadata.key}/${faction}/${animation}.png`,
+        (spritesheets as any)[metadata.key][animation],
+        animation,
         24,
       );
       this.append(sprite);

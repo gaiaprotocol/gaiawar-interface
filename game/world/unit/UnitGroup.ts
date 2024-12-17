@@ -4,14 +4,14 @@ import GameConfig from "../../GameConfig.js";
 import SpriteUnit from "./SpriteUnit.js";
 
 export default class UnitGroup extends GameObject {
-  constructor(units: UnitQuantity[]) {
+  constructor(units: UnitQuantity[], faction: "player" | "enemy") {
     super(0, 0);
 
     const unitInstances: GameObject[] = [];
     for (const { unitId, quantity } of units) {
       for (let i = 0; i < quantity; i++) {
-        //unitInstances.push(new SpineUnit(0, 0, unitId));
-        unitInstances.push(new SpriteUnit(0, 0, unitId));
+        //unitInstances.push(new SpineUnit(0, 0, unitId, faction));
+        unitInstances.push(new SpriteUnit(0, 0, unitId, faction));
       }
     }
 

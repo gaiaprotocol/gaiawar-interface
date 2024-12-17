@@ -47,7 +47,12 @@ export default class Tile extends TileBase {
     units = [{ unitId: 2, quantity: 10 }];
 
     if (units.length > 0) {
-      this.unitGroup = new UnitGroup(units).appendTo(this);
+      this.unitGroup = new UnitGroup(
+        units,
+        this._owner === WalletLoginManager.getLoggedInAddress()
+          ? "player"
+          : "enemy",
+      ).appendTo(this);
     }
   }
 
