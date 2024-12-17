@@ -7,8 +7,7 @@
     "atlas": "units/spine/knight.atlas",
     "json": "units/spine/knight.json",
     "png": "units/spine/knight.png"
-  },
-  "previewImage": "units/knight-preview.png"
+  }
 }, {
   "id": 2,
   "key": "swordsman",
@@ -18,8 +17,7 @@
     "atlas": "units/spine/swordsman.atlas",
     "json": "units/spine/swordsman.json",
     "png": "units/spine/swordsman.png"
-  },
-  "previewImage": "units/swordsman-preview.png"
+  }
 }, {
   "id": 3,
   "key": "archer",
@@ -29,8 +27,7 @@
     "atlas": "units/spine/archer.atlas",
     "json": "units/spine/archer.json",
     "png": "units/spine/archer.png"
-  },
-  "previewImage": "units/archer-preview.png"
+  }
 }, {
   "id": 4,
   "key": "cavalry",
@@ -40,6 +37,5 @@
     "atlas": "units/spine/cavalry.atlas",
     "json": "units/spine/cavalry.json",
     "png": "units/spine/cavalry.png"
-  },
-  "previewImage": "units/cavalry-preview.png"
+  }
 }]

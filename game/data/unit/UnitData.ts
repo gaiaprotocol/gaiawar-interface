@@ -1,5 +1,6 @@
 export default interface UnitData {
   id: number;
+  key: string;
   name: string;
   description: string;
   spine: {
@@ -7,7 +8,6 @@ export default interface UnitData {
     json: string;
     png: string;
   };
-  previewImage: string;
 
   trainingBuildingIds: number[];
   healthPoints: number;

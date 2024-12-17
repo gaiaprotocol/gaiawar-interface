@@ -18,7 +18,7 @@ export default class Tile extends TileBase {
   constructor(
     private tileX: number,
     private tileY: number,
-    data: TileData,
+    public data: TileData,
   ) {
     super(tileX, tileY);
     this.setBuilding(data.owner, data.buildingId);
@@ -42,9 +42,6 @@ export default class Tile extends TileBase {
 
   public setUnitGroup(units: UnitQuantity[]) {
     this.unitGroup?.remove();
-
-    //TEST
-    units = [{ unitId: 2, quantity: 10 }];
 
     if (units.length > 0) {
       this.unitGroup = new UnitGroup(

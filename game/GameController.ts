@@ -34,9 +34,7 @@ class GameController {
     if (tile) {
       if (tile.getBuildingId() !== 0) {
         if (tile.getOwner() === WalletLoginManager.getLoggedInAddress()) {
-          CommandPanelController.changePanel("player-building", {
-            buildingId: tile.getBuildingId(),
-          });
+          CommandPanelController.changePanel("tile", tile.data);
           return;
         }
       }

@@ -34,6 +34,11 @@ interface SpritesheetData {
 const directoryPath = "./raw-unit-images";
 const outputPath = "./unit-images";
 
+let maxWidth = 0;
+let maxWidthUnit = "";
+let maxHeight = 0;
+let maxHeightUnit = "";
+
 async function processImages() {
   const fullSpriteData: {
     [unit: string]: { [animation: string]: SpritesheetData };
@@ -82,6 +87,15 @@ async function processImages() {
           path.join(directoryPath, unitPath, type, `${prefix}${animation}.png`),
         );
         const metadata = await sharpImage.metadata();
+
+        if (metadata.width! / frameCount > maxWidth) {
+          maxWidth = metadata.width! / frameCount;
+          maxWidthUnit = unit;
+        }
+        if (metadata.height! > maxHeight) {
+          maxHeight = metadata.height!;
+          maxHeightUnit = unit;
+        }
 
         let newAnimation = animation;
         if (animation === "attack") {
@@ -150,6 +164,10 @@ async function processImages() {
   fs.writeFileSync(
     path.join(outputPath, "spritesheets.json"),
     JSON.stringify(fullSpriteData, null, 2),
+  );
+
+  console.log(
+    `Max width: ${maxWidth} (${maxWidthUnit}) Max height: ${maxHeight} (${maxHeightUnit})`,
   );
 }
 

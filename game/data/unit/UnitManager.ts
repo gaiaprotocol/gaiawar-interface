@@ -63,10 +63,10 @@ class UnitManager {
     const unit: UnitData = {
       ...(metadata ? metadata : {
         id: unitId,
+        key: `unit-${unitId}`,
         name: `Unit ${unitId}`,
         description: `Description of unit ${unitId}`,
         spine: { atlas: "", json: "", png: "" },
-        previewImage: "",
       }),
       ...unitInfo,
       trainingBuildingIds,

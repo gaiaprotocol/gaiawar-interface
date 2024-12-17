@@ -1,5 +1,5 @@
 import { DomNode } from "@common-module/app";
-import BuildingCommandPanel from "./BuildingCommandPanel.js";
+import TileCommandPanel from "./TileCommandPanel.js";
 import WorldCommandPanel from "./WorldCommandPanel.js";
 
 class CommandPanelController {
@@ -11,7 +11,7 @@ class CommandPanelController {
   }
 
   public changePanel(
-    type: "world" | "player-building" | "enemy-building",
+    type: "world" | "tile",
     data?: any,
   ) {
     if (!this.panelContainer) return;
@@ -19,8 +19,8 @@ class CommandPanelController {
     this.panelContainer.clear();
 
     if (type === "world") this.panelContainer.append(new WorldCommandPanel());
-    else if (type === "player-building") {
-      this.panelContainer.append(new BuildingCommandPanel(data.buildingId));
+    else if (type === "tile") {
+      this.panelContainer.append(new TileCommandPanel(data));
     }
   }
 }

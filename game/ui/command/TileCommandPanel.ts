@@ -1,0 +1,57 @@
+import { WalletLoginManager } from "@common-module/wallet-login";
+import { zeroAddress } from "viem";
+import BuildingManager from "../../data/building/BuildingManager.js";
+import TileData from "../../data/TileData.js";
+import UnitManager from "../../data/unit/UnitManager.js";
+import ConstructionModal from "../construction/ConstructionModal.js";
+import UpgradeBuildingModal from "../construction/UpgradeBuildingModal.js";
+import TrainingModal from "../training/TrainingModal.js";
+import CommandButton from "./CommandButton.js";
+import CommandPanel from "./CommandPanel.js";
+import ConstructionIcon from "./icons/ConstructionIcon.js";
+import TrainIcon from "./icons/TrainIcon.js";
+import UpgradeIcon from "./icons/UpgradeIcon.js";
+
+export default class TileCommandPanel extends CommandPanel {
+  constructor(private tileData: TileData) {
+    super(".tile-command-panel");
+
+    if (tileData.owner === zeroAddress) {
+      this.append(
+        new CommandButton(
+          new ConstructionIcon(),
+          "Build",
+          () => new ConstructionModal(),
+        ),
+      );
+    } else if (tileData.owner === WalletLoginManager.getLoggedInAddress()) {
+      if (BuildingManager.canBeUpgraded(tileData.buildingId)) {
+        this.append(
+          new CommandButton(
+            new UpgradeIcon(),
+            "Upgrade",
+            () => new UpgradeBuildingModal(tileData.buildingId),
+          ),
+        );
+      }
+      this.loadTrainableUnits();
+    } else {
+      //TODO:
+    }
+  }
+
+  private async loadTrainableUnits() {
+    const trainableUnits = await UnitManager.getTrainingBuildingUnits(
+      this.tileData.buildingId,
+    );
+    if (trainableUnits.length) {
+      this.append(
+        new CommandButton(
+          new TrainIcon(),
+          "Train",
+          () => new TrainingModal(this.tileData.buildingId),
+        ),
+      );
+    }
+  }
+}
