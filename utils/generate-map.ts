@@ -1,10 +1,10 @@
 import fs from "fs";
-import keyToSpritesheet from "../public/assets/optimized-tiles/key-to-spritesheet.json" with {
-  type: "json",
-};
 import mapObjects from "./data/map-objects.json" with { type: "json" };
 import objectsData from "./data/objects.json" with { type: "json" };
 import tilesData from "./data/tiles.json" with { type: "json" };
+import keyToSpritesheet from "./optimized-tiles/key-to-spritesheet.json" with {
+  type: "json",
+};
 
 enum TerrainDirection {
   // Single directions
@@ -150,6 +150,6 @@ for (const mapObject of mapObjects as any) {
 }
 
 fs.writeFileSync(
-  "../public/assets/optimized-tiles/map.json",
+  "./optimized-tiles/map.json",
   JSON.stringify(mapData, null, 2),
 );

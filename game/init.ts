@@ -20,7 +20,7 @@ export default async function init(config: IGameConfig) {
   GameScreen.appendTo(BodyNode);
 
   if (GameConfig.isDevMode) {
-    GameScreen.root.append(new FPSDisplay());
+    GameScreen.root.append(new FPSDisplay(0, 110));
   }
 
   Router.add("/", GameView);

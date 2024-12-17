@@ -1,17 +1,16 @@
 import { GameObject } from "@gaiaengine/2d";
 import { UnitQuantity } from "../../data/TileData.js";
 import GameConfig from "../../GameConfig.js";
-import SpineUnit from "./SpineUnit.js";
 import SpriteUnit from "./SpriteUnit.js";
 
 export default class UnitGroup extends GameObject {
   constructor(units: UnitQuantity[]) {
     super(0, 0);
 
-    const unitInstances: SpineUnit[] = [];
+    const unitInstances: GameObject[] = [];
     for (const { unitId, quantity } of units) {
       for (let i = 0; i < quantity; i++) {
-        //unitInstances.push(new Unit(0, 0, unitId));
+        //unitInstances.push(new SpineUnit(0, 0, unitId));
         unitInstances.push(new SpriteUnit(0, 0, unitId));
       }
     }

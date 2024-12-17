@@ -43,8 +43,8 @@ for (const object of Object.values(objectsData)) {
   }
 }
 
-const directoryPath = "../public/assets/raw-tiles";
-const outputPath = "../public/assets/optimized-tiles";
+const directoryPath = "./raw-tiles";
+const outputPath = "./optimized-tiles";
 const noAlphaSpritesheets: string[] = [];
 const hasAlphaSpritesheets: string[] = [];
 const uniqueImages: string[] = [];
