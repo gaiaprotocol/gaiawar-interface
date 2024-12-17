@@ -25,18 +25,42 @@ export default class TileCommandPanel extends CommandPanel {
         ),
       );
     } else if (tileData.owner === WalletLoginManager.getLoggedInAddress()) {
-      if (BuildingManager.canBeUpgraded(tileData.buildingId)) {
-        this.append(
-          new CommandButton(
-            new UpgradeIcon(),
-            "Upgrade",
-            () => new UpgradeBuildingModal(tileData.buildingId),
-          ),
-        );
-      }
-      this.loadTrainableUnits();
+      this.renderLoginUserCommands();
     } else {
       //TODO:
+    }
+  }
+
+  private async renderLoginUserCommands() {
+    if (BuildingManager.canBeUpgraded(this.tileData.buildingId)) {
+      this.append(
+        new CommandButton(
+          new UpgradeIcon(),
+          "Upgrade",
+          () => new UpgradeBuildingModal(this.tileData.buildingId),
+        ),
+      );
+    }
+    await this.loadTrainableUnits();
+
+    if (this.tileData.units.length > 0) {
+      this.append(
+        new CommandButton(
+          new UpgradeIcon(),
+          "Move & Attack",
+          () => {},
+        ),
+        new CommandButton(
+          new UpgradeIcon(),
+          "Ranged Attack",
+          () => {},
+        ),
+        new CommandButton(
+          new UpgradeIcon(),
+          "Select Unit",
+          () => {},
+        ),
+      );
     }
   }
 
