@@ -1,10 +1,12 @@
-import fs from "fs";
 import path from "path";
 import sharp from "sharp";
 import frameData from "./raw-unit-images/framecounts.json" with {
   type: "json",
 };
-import { MaxRectsPacker } from "maxrects-packer";
+import unitCenters from "./raw-unit-images/unitcenters.json" with {
+  type: "json",
+};
+import fs from "fs";
 
 interface SpritesheetData {
   frames: {
@@ -15,38 +17,42 @@ interface SpritesheetData {
         w: number;
         h: number;
       };
-      rotated: boolean;
-      trimmed: boolean;
-      spriteSourceSize: { x: number; y: number; w: number; h: number };
-      sourceSize: { w: number; h: number };
+      anchor: {
+        x: number;
+        y: number;
+      };
     };
   };
   meta: {
     scale: number | string;
-    image: string;
+  };
+  animations: {
+    [animation: string]: string[];
   };
 }
 
 const directoryPath = "./raw-unit-images";
-const outputPath = "./optimized-unit-images";
+const outputPath = "./unit-images";
 
 async function processImages() {
-  if (!fs.existsSync(outputPath)) {
-    fs.mkdirSync(outputPath, { recursive: true });
-  }
-
-  const framesInfo: {
-    id: string;
-    unit: string;
-    type: string;
-    animation: string;
-    frameIndex: number;
-    width: number;
-    height: number;
-    buffer: Buffer;
-  }[] = [];
+  const fullSpriteData: {
+    [unit: string]: { [animation: string]: SpritesheetData };
+  } = {};
 
   for (const [unit, frameCounts] of Object.entries(frameData)) {
+    let newUnit = unit;
+    if (unit === "axeman") {
+      newUnit = "axe-warrior";
+    } else if (unit === "shieldman") {
+      newUnit = "shield-bearer";
+    } else if (unit === "spy") {
+      newUnit = "scout";
+    } else if (unit === "camelry") {
+      newUnit = "camel-rider";
+    } else if (unit === "warelephant") {
+      newUnit = "war-elephant";
+    }
+
     let unitPath;
     let types: string[];
     let prefix: string;
@@ -63,157 +69,88 @@ async function processImages() {
 
     for (const [animation, frameCount] of Object.entries(frameCounts)) {
       for (const type of types) {
-        const imagePath = path.join(
-          directoryPath,
-          unitPath,
-          type,
-          `${prefix}${animation}.png`,
+        let newType = type;
+        if (type === "green") {
+          newType = "player";
+        } else if (type === "red") {
+          newType = "enemy";
+        } else if (type === "blue" || type === "gray" || type === "yellow") {
+          continue;
+        }
+
+        const sharpImage = sharp(
+          path.join(directoryPath, unitPath, type, `${prefix}${animation}.png`),
         );
+        const metadata = await sharpImage.metadata();
 
-        if (!fs.existsSync(imagePath)) {
-          console.warn(`Image not found: ${imagePath}`);
-          continue;
+        let newAnimation = animation;
+        if (animation === "attack") {
+          newAnimation = "ranged-attack";
+        } else if (animation === "battle") {
+          newAnimation = "attack";
         }
 
-        const image = sharp(imagePath);
-        const metadata = await image.metadata();
+        const spritesheetData: SpritesheetData = {
+          frames: {},
+          meta: {
+            scale: 1,
+          },
+          animations: {
+            [newAnimation]: [],
+          },
+        };
 
-        if (!metadata.width || !metadata.height) {
-          console.warn(`Invalid metadata for image: ${imagePath}`);
-          continue;
+        for (let i = 0; i < frameCount; i++) {
+          const frameId = `${newAnimation}${i}`;
+          const frame = {
+            x: i * metadata.width! / frameCount,
+            y: 0,
+            w: metadata.width! / frameCount,
+            h: metadata.height!,
+          };
+          const anchor = (unitCenters as any)[unit][animation];
+          spritesheetData.frames[frameId] = { frame, anchor };
+          spritesheetData.animations[newAnimation].push(frameId);
         }
 
-        const imageWidth = metadata.width;
-        const imageHeight = metadata.height;
-        const baseFrameWidth = Math.floor(imageWidth / frameCount);
-
-        for (let frameIndex = 0; frameIndex < frameCount; frameIndex++) {
-          let left = frameIndex * baseFrameWidth;
-          let frameWidth = baseFrameWidth;
-
-          // Adjust the last frame to include any remaining pixels
-          if (frameIndex === frameCount - 1) {
-            frameWidth = imageWidth - left;
-          }
-
-          // Ensure we don't extract beyond the image boundaries
-          if (left + frameWidth > imageWidth) {
-            frameWidth = imageWidth - left;
-          }
-
-          // Handle cases where frameWidth becomes zero or negative
-          if (frameWidth <= 0) {
-            console.warn(
-              `Skipping frame ${frameIndex} for ${imagePath} - frameWidth <= 0`,
-            );
-            continue;
-          }
-
-          try {
-            const frame = image.extract({
-              left,
-              top: 0,
-              width: frameWidth,
-              height: imageHeight,
-            });
-
-            const buffer = await frame.toBuffer();
-
-            framesInfo.push({
-              id: `${unit}_${type}_${animation}_${frameIndex}`,
-              unit,
+        if (newUnit.startsWith("heroknight")) {
+          fs.mkdirSync(path.join(outputPath, newUnit), { recursive: true });
+          fs.copyFileSync(
+            path.join(
+              directoryPath,
+              unitPath,
               type,
-              animation,
-              frameIndex,
-              width: frameWidth,
-              height: imageHeight,
-              buffer,
-            });
-          } catch (error) {
-            console.error(
-              `Error extracting frame ${frameIndex} for ${imagePath}:`,
-              error,
-            );
-          }
+              `${prefix}${animation}.png`,
+            ),
+            path.join(outputPath, newUnit, `${newAnimation}.png`),
+          );
+        } else {
+          fs.mkdirSync(path.join(outputPath, newUnit, newType), {
+            recursive: true,
+          });
+          fs.copyFileSync(
+            path.join(
+              directoryPath,
+              unitPath,
+              type,
+              `${prefix}${animation}.png`,
+            ),
+            path.join(outputPath, newUnit, newType, `${newAnimation}.png`),
+          );
         }
+
+        if (fullSpriteData[newUnit] === undefined) {
+          fullSpriteData[newUnit] = {};
+        }
+        fullSpriteData[newUnit][newAnimation] = spritesheetData;
       }
     }
   }
 
-  // Use MaxRectsPacker to pack frames efficiently
-  const packer = new MaxRectsPacker(2048, 2048, 2, {
-    smart: true,
-    pot: true, // Force power of two dimensions if needed
-    square: false,
-    allowRotation: false,
-  });
-
-  packer.addArray(framesInfo);
-
-  let spritesheetIndex = 0;
-
-  for (const bin of packer.bins) {
-    const spritesheetImage = sharp({
-      create: {
-        width: bin.width,
-        height: bin.height,
-        channels: 4,
-        background: { r: 0, g: 0, b: 0, alpha: 0 },
-      },
-    });
-
-    const compositeOperations = bin.rects.map((rect) => ({
-      input: rect.buffer,
-      left: rect.x,
-      top: rect.y,
-    }));
-
-    await spritesheetImage
-      .composite(compositeOperations)
-      .png()
-      .toFile(path.join(outputPath, `unit_spritesheet_${spritesheetIndex}.png`));
-
-    const spritesheetData: SpritesheetData = {
-      frames: {},
-      meta: {
-        scale: 1,
-        image: `unit_spritesheet_${spritesheetIndex}.png`,
-      },
-    };
-
-    for (const rect of bin.rects) {
-      spritesheetData.frames[rect.id] = {
-        frame: {
-          x: rect.x,
-          y: rect.y,
-          w: rect.width,
-          h: rect.height,
-        },
-        rotated: false,
-        trimmed: false,
-        spriteSourceSize: {
-          x: 0,
-          y: 0,
-          w: rect.width,
-          h: rect.height,
-        },
-        sourceSize: {
-          w: rect.width,
-          h: rect.height,
-        },
-      };
-    }
-
-    fs.writeFileSync(
-      path.join(outputPath, `unit_spritesheet_${spritesheetIndex}.json`),
-      JSON.stringify(spritesheetData, null, 2),
-    );
-
-    console.log(`Created unit_spritesheet_${spritesheetIndex}.png and JSON data.`);
-    spritesheetIndex++;
-  }
-
-  console.log("All unit images have been processed and packed.");
+  fs.writeFileSync(
+    path.join(outputPath, "spritesheets.json"),
+    JSON.stringify(fullSpriteData, null, 2),
+  );
 }
 
 await processImages();

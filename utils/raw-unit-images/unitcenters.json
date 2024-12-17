@@ -1,0 +1,143 @@
+{
+  "swordsman": {
+    "idle": { "x": 20, "y": 74 },
+    "walk": { "x": 19, "y": 80 },
+    "battle": { "x": 50, "y": 83 },
+    "death": { "x": 66, "y": 71 }
+  },
+  "axeman": {
+    "idle": { "x": 13, "y": 58 },
+    "walk": { "x": 21, "y": 60 },
+    "battle": { "x": 25, "y": 78 },
+    "death": { "x": 55, "y": 58 }
+  },
+  "spearman": {
+    "idle": { "x": 13, "y": 83 },
+    "walk": { "x": 35, "y": 60 },
+    "battle": { "x": 48, "y": 58 },
+    "death": { "x": 69, "y": 83 }
+  },
+  "shieldman": {
+    "idle": { "x": 10, "y": 59 },
+    "walk": { "x": 19, "y": 60 },
+    "battle": { "x": 33, "y": 82 },
+    "death": { "x": 71, "y": 59 }
+  },
+  "spy": {
+    "idle": { "x": 21, "y": 54 },
+    "walk": { "x": 26, "y": 54 },
+    "battle": { "x": 32, "y": 53 },
+    "death": { "x": 64, "y": 55 }
+  },
+  "archer": {
+    "idle": { "x": 18, "y": 57 },
+    "walk": { "x": 26, "y": 58 },
+    "attack": { "x": 19, "y": 73 },
+    "battle": { "x": 61, "y": 56 },
+    "death": { "x": 16, "y": 77 }
+  },
+  "crossbowman": {
+    "idle": { "x": 13, "y": 58 },
+    "walk": { "x": 19, "y": 60 },
+    "attack": { "x": 26, "y": 58 },
+    "battle": { "x": 52, "y": 58 },
+    "death": { "x": 27, "y": 58 }
+  },
+  "ballista": {
+    "idle": { "x": 29, "y": 63 },
+    "attack": { "x": 36, "y": 63 },
+    "battle": { "x": 39, "y": 70 },
+    "death": { "x": 37, "y": 89 }
+  },
+  "catapult": {
+    "idle": { "x": 68, "y": 62 },
+    "walk": { "x": 71, "y": 62 },
+    "attack": { "x": 76, "y": 95 },
+    "battle": { "x": 101, "y": 85 },
+    "death": { "x": 81, "y": 95 }
+  },
+  "cavalry": {
+    "idle": { "x": 45, "y": 74 },
+    "walk": { "x": 54, "y": 74 },
+    "battle": { "x": 58, "y": 75 },
+    "death": { "x": 77, "y": 86 }
+  },
+  "camelry": {
+    "idle": { "x": 37, "y": 87 },
+    "walk": { "x": 41, "y": 107 },
+    "battle": { "x": 60, "y": 87 },
+    "death": { "x": 78, "y": 107 }
+  },
+  "warelephant": {
+    "idle": { "x": 50, "y": 101 },
+    "walk": { "x": 55, "y": 120 },
+    "battle": { "x": 75, "y": 101 },
+    "death": { "x": 95, "y": 130 }
+  },
+  "knight": {
+    "idle": { "x": 19, "y": 66 },
+    "walk": { "x": 27, "y": 69 },
+    "battle": { "x": 53, "y": 103 },
+    "death": { "x": 60, "y": 85 }
+  },
+  "heroknight1": {
+    "idle": { "x": 23, "y": 66 },
+    "walk": { "x": 28, "y": 67 },
+    "battle": { "x": 33, "y": 96 },
+    "death": { "x": 57, "y": 83 }
+  },
+  "heroknight2": {
+    "idle": { "x": 22, "y": 70 },
+    "walk": { "x": 29, "y": 72 },
+    "battle": { "x": 46, "y": 98 },
+    "death": { "x": 65, "y": 78 }
+  },
+  "heroknight3": {
+    "idle": { "x": 17, "y": 65 },
+    "walk": { "x": 21, "y": 67 },
+    "battle": { "x": 63, "y": 110 },
+    "death": { "x": 60, "y": 95 }
+  },
+  "heroknight4": {
+    "idle": { "x": 21, "y": 63 },
+    "walk": { "x": 28, "y": 65 },
+    "battle": { "x": 51, "y": 99 },
+    "death": { "x": 58, "y": 83 }
+  },
+  "heroknight5": {
+    "idle": { "x": 18, "y": 73 },
+    "walk": { "x": 20, "y": 75 },
+    "battle": { "x": 39, "y": 100 },
+    "death": { "x": 68, "y": 88 }
+  },
+  "heroknight6": {
+    "idle": { "x": 54, "y": 62 },
+    "walk": { "x": 54, "y": 68 },
+    "battle": { "x": 52, "y": 103 },
+    "death": { "x": 58, "y": 86 }
+  },
+  "heroknight7": {
+    "idle": { "x": 39, "y": 64 },
+    "walk": { "x": 36, "y": 68 },
+    "battle": { "x": 43, "y": 95 },
+    "death": { "x": 57, "y": 84 }
+  },
+  "heroknight8": {
+    "idle": { "x": 21, "y": 62 },
+    "walk": { "x": 28, "y": 64 },
+    "battle": { "x": 60, "y": 108 },
+    "death": { "x": 57, "y": 92 }
+  },
+  "heroknight9": {
+    "idle": { "x": 22, "y": 70 },
+    "walk": { "x": 25, "y": 71 },
+    "battle": { "x": 37, "y": 102 },
+    "death": { "x": 63, "y": 85 }
+  },
+  "heroknight10": {
+    "idle": { "x": 17, "y": 68 },
+    "walk": { "x": 20, "y": 70 },
+    "battle": { "x": 62, "y": 111 },
+    "death": { "x": 62, "y": 95 }
+  }
+}
