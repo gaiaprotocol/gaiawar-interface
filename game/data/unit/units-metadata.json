@@ -3,18 +3,18 @@
   "name": "Knight",
   "description": "A noble warrior clad in heavy armor, the Knight serves as both a formidable combatant and an inspiring leader on the battlefield. Their mere presence bolsters the morale of nearby soldiers, enhancing their combat effectiveness. These mounted warriors combine martial prowess with tactical command, making them invaluable assets in any army.",
   "spine": {
-    "atlas": "",
-    "json": "",
-    "png": ""
+    "atlas": "units/knight.atlas",
+    "json": "units/knight.json",
+    "png": "units/knight.png"
   },
-  "previewImage": ""
+  "previewImage": "units/knight-preview.png"
 }, {
   "id": 2,
   "name": "Swordsman",
   "description": "Trained in the art of close combat, Swordsmen form the backbone of any army. Their well-balanced combination of offense and defense makes them adaptable warriors in various combat situations. With sword and shield in hand, these disciplined soldiers excel in frontline combat.",
   "spine": {
-    "atlas": "units/swordsman.atlas.txt",
-    "json": "units/swordsman.json.txt",
+    "atlas": "units/swordsman.atlas",
+    "json": "units/swordsman.json",
     "png": "units/swordsman.png"
   },
   "previewImage": "units/swordsman-preview.png"
@@ -23,19 +23,19 @@
   "name": "Archer",
   "description": "Masters of the longbow, Archers provide crucial ranged support in battle. Their ability to rain arrows upon enemies from considerable distances makes them essential for both offensive strikes and defensive positions. While vulnerable in close combat, their long-range capabilities can turn the tide of battle before the enemy can close the gap.",
   "spine": {
-    "atlas": "",
-    "json": "",
-    "png": ""
+    "atlas": "units/archer.atlas",
+    "json": "units/archer.json",
+    "png": "units/archer.png"
   },
-  "previewImage": ""
+  "previewImage": "units/archer-preview.png"
 }, {
   "id": 4,
   "name": "Cavalry",
   "description": "These skilled horsemen combine speed with striking power, capable of covering vast distances across the battlefield. Their superior mobility allows them to quickly respond to threats or exploit weaknesses in enemy lines. Perfect for harassment tactics, flanking maneuvers, and pursuing retreating forces, Cavalry units can rapidly shift the momentum of battle.",
   "spine": {
-    "atlas": "",
-    "json": "",
-    "png": ""
+    "atlas": "units/cavalry.atlas",
+    "json": "units/cavalry.json",
+    "png": "units/cavalry.png"
   },
-  "previewImage": ""
+  "previewImage": "units/cavalry-preview.png"
 }]
