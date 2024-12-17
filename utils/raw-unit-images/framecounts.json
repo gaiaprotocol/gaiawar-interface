@@ -1,0 +1,143 @@
+{
+  "swordsman": {
+    "idle": 27,
+    "walk": 24,
+    "battle": 29,
+    "death": 16
+  },
+  "axeman": {
+    "idle": 26,
+    "walk": 24,
+    "battle": 29,
+    "death": 14
+  },
+  "spearman": {
+    "idle": 36,
+    "walk": 24,
+    "battle": 29,
+    "death": 14
+  },
+  "shieldman": {
+    "idle": 29,
+    "walk": 24,
+    "battle": 29,
+    "death": 17
+  },
+  "spy": {
+    "idle": 32,
+    "walk": 20,
+    "battle": 29,
+    "death": 17
+  },
+  "archer": {
+    "idle": 29,
+    "walk": 24,
+    "attack": 36,
+    "battle": 28,
+    "death": 17
+  },
+  "crossbowman": {
+    "idle": 27,
+    "walk": 24,
+    "attack": 29,
+    "battle": 29,
+    "death": 17
+  },
+  "ballista": {
+    "idle": 1,
+    "attack": 29,
+    "battle": 29,
+    "death": 13
+  },
+  "catapult": {
+    "idle": 1,
+    "walk": 39,
+    "attack": 40,
+    "battle": 40,
+    "death": 25
+  },
+  "cavalry": {
+    "idle": 32,
+    "walk": 16,
+    "battle": 28,
+    "death": 25
+  },
+  "camelry": {
+    "idle": 39,
+    "walk": 16,
+    "battle": 26,
+    "death": 25
+  },
+  "warelephant": {
+    "idle": 36,
+    "walk": 24,
+    "battle": 24,
+    "death": 25
+  },
+  "knight": {
+    "idle": 24,
+    "walk": 24,
+    "battle": 29,
+    "death": 17
+  },
+  "heroknight1": {
+    "idle": 15,
+    "walk": 24,
+    "battle": 29,
+    "death": 17
+  },
+  "heroknight2": {
+    "idle": 24,
+    "walk": 24,
+    "battle": 29,
+    "death": 17
+  },
+  "heroknight3": {
+    "idle": 24,
+    "walk": 24,
+    "battle": 29,
+    "death": 17
+  },
+  "heroknight4": {
+    "idle": 24,
+    "walk": 24,
+    "battle": 29,
+    "death": 17
+  },
+  "heroknight5": {
+    "idle": 24,
+    "walk": 24,
+    "battle": 29,
+    "death": 17
+  },
+  "heroknight6": {
+    "idle": 14,
+    "walk": 24,
+    "battle": 29,
+    "death": 17
+  },
+  "heroknight7": {
+    "idle": 24,
+    "walk": 24,
+    "battle": 29,
+    "death": 17
+  },
+  "heroknight8": {
+    "idle": 24,
+    "walk": 24,
+    "battle": 29,
+    "death": 17
+  },
+  "heroknight9": {
+    "idle": 24,
+    "walk": 24,
+    "battle": 29,
+    "death": 17
+  },
+  "heroknight10": {
+    "idle": 24,
+    "walk": 24,
+    "battle": 29,
+    "death": 17
+  }
+}
