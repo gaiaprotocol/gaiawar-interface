@@ -5,7 +5,7 @@ import BuildingManager from "./data/building/BuildingManager.js";
 import UserMaterialManager from "./data/material/UserMaterialManager.js";
 import UnitManager from "./data/unit/UnitManager.js";
 import GameConfig, { IGameConfig } from "./GameConfig.js";
-import GameScreen from "./GameScreen.js";
+import GameScreen from "./core/GameScreen.js";
 import GameView from "./views/GameView.js";
 
 export default async function init(config: IGameConfig) {

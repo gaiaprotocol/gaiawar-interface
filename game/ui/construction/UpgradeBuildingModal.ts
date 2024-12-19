@@ -6,7 +6,7 @@ import {
 } from "@common-module/app-components";
 import { CloseIcon } from "@gaiaprotocol/svg-icons";
 import BuildingManager from "../../data/building/BuildingManager.js";
-import GameController from "../../GameController.js";
+import GameController from "../../core/GameController.js";
 import UserMaterialList from "../material/UserMaterialList.js";
 import ConstructionBuildingList from "./ConstructionBuildingList.js";
 

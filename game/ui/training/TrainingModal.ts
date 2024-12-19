@@ -6,7 +6,7 @@ import {
 } from "@common-module/app-components";
 import { CloseIcon } from "@gaiaprotocol/svg-icons";
 import UnitManager from "../../data/unit/UnitManager.js";
-import GameController from "../../GameController.js";
+import GameController from "../../core/GameController.js";
 import UserMaterialList from "../material/UserMaterialList.js";
 import TrainingUnitList from "./TrainingUnitList.js";
 
