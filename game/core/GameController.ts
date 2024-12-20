@@ -10,7 +10,7 @@ import World from "../world/World.js";
 
 class GameController {
   private _buildingToConstruct: number | undefined;
-  private selectedTile: Coordinates | undefined;
+  private selectedTileCoordinates: Coordinates | undefined;
 
   constructor() {
     window.addEventListener("keydown", (event) => {
@@ -21,20 +21,20 @@ class GameController {
     });
   }
 
-  public selectTile(x: number, y: number) {
-    this.selectedTile = { x, y };
+  public selectTile(coordinates: Coordinates) {
+    this.selectedTileCoordinates = coordinates;
 
-    TileSelectedOverlay.setTilePosition(x, y);
+    TileSelectedOverlay.setTilePosition(coordinates);
 
     if (this._buildingToConstruct) {
       this.constructBuilding();
       this.buildingToConstruct = undefined;
     }
 
-    const tile = World.getTile(x, y);
+    const tile = World.getTile(coordinates);
     if (tile) {
       if (tile.getBuildingId() !== 0) {
-        if (tile.getOwner() === WalletLoginManager.getLoggedInAddress()) {
+        if (tile.getOccupant() === WalletLoginManager.getLoggedInAddress()) {
           CommandPanelController.changePanel("tile", tile.data);
           return;
         }
@@ -45,7 +45,7 @@ class GameController {
   }
 
   public deselectTile() {
-    TileSelectedOverlay.setTilePosition(-999999, -999999);
+    TileSelectedOverlay.setTilePosition({ x: -999999, y: -999999 });
     CommandPanelController.changePanel("world");
   }
 
@@ -64,9 +64,9 @@ class GameController {
   }
 
   private async constructBuilding() {
-    if (!this._buildingToConstruct || !this.selectedTile) return;
+    if (!this._buildingToConstruct || !this.selectedTileCoordinates) return;
 
-    const tile = World.getTile(this.selectedTile.x, this.selectedTile.y);
+    const tile = World.getTile(this.selectedTileCoordinates);
     if (!tile) return;
 
     const walletAddress = WalletLoginManager.getLoggedInAddress();
@@ -77,8 +77,7 @@ class GameController {
       const buildingId = this._buildingToConstruct;
       if (
         await ConstructionCommand.constructBuilding(
-          this.selectedTile.x,
-          this.selectedTile.y,
+          this.selectedTileCoordinates,
           buildingId,
         )
       ) {
@@ -90,9 +89,9 @@ class GameController {
   }
 
   public async upgradeBuilding(buildingId: number) {
-    if (!this.selectedTile) return;
+    if (!this.selectedTileCoordinates) return;
 
-    const tile = World.getTile(this.selectedTile.x, this.selectedTile.y);
+    const tile = World.getTile(this.selectedTileCoordinates);
     if (!tile) return;
 
     const walletAddress = WalletLoginManager.getLoggedInAddress();
@@ -102,8 +101,8 @@ class GameController {
     try {
       if (
         await UpgradeBuildingCommand.upgradeBuilding(
-          this.selectedTile.x,
-          this.selectedTile.y,
+          this.selectedTileCoordinates.x,
+          this.selectedTileCoordinates.y,
           buildingId,
         )
       ) {
@@ -115,9 +114,9 @@ class GameController {
   }
 
   public async trainUnits(unitId: number, quantity: number) {
-    if (!this.selectedTile) return;
+    if (!this.selectedTileCoordinates) return;
 
-    const tile = World.getTile(this.selectedTile.x, this.selectedTile.y);
+    const tile = World.getTile(this.selectedTileCoordinates);
     if (!tile) return;
 
     const walletAddress = WalletLoginManager.getLoggedInAddress();
@@ -126,8 +125,8 @@ class GameController {
     tile.showTraining("player");
     try {
       await TrainingCommand.trainUnits(
-        this.selectedTile.x,
-        this.selectedTile.y,
+        this.selectedTileCoordinates.x,
+        this.selectedTileCoordinates.y,
         unitId,
         quantity,
       );

@@ -1,4 +1,4 @@
-import { GameNode, GameObject } from "@gaiaengine/2d";
+import { Coordinates, GameNode, GameObject } from "@gaiaengine/2d";
 import GameConfig from "../core/GameConfig.js";
 
 export default abstract class TileBase extends GameObject {
@@ -18,10 +18,10 @@ export default abstract class TileBase extends GameObject {
     return super.setPosition(x, y);
   }
 
-  public setTilePosition(tileX: number, tileY: number): this {
+  public setTilePosition(coordinates: Coordinates): this {
     return super.setPosition(
-      tileX * GameConfig.tileSize,
-      tileY * GameConfig.tileSize,
+      coordinates.x * GameConfig.tileSize,
+      coordinates.y * GameConfig.tileSize,
     );
   }
 }

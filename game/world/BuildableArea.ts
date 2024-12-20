@@ -28,7 +28,7 @@ class BuildableArea extends GameObject {
 
     if (hasHeadquarters) {
       for (const tile of Object.values(tiles)) {
-        if (tile.getOwner() === walletAddress) {
+        if (tile.getOccupant() === walletAddress) {
           const constructionRange = BuildingManager.getConstructionRange(
             tile.getBuildingId(),
           );
@@ -45,8 +45,8 @@ class BuildableArea extends GameObject {
     } else {
       for (const tile of Object.values(tiles)) {
         if (
-          tile.getOwner() !== zeroAddress &&
-          tile.getOwner() !== walletAddress
+          tile.getOccupant() !== zeroAddress &&
+          tile.getOccupant() !== walletAddress
         ) {
           const searchRange = GameConfig.enemyBuildingSearchRange;
           for (let x = -searchRange; x <= searchRange; x++) {
@@ -59,6 +59,12 @@ class BuildableArea extends GameObject {
           }
         }
       }
+
+      for (const tile of Object.values(tiles)) {
+        if (tile.getOccupant() === zeroAddress) {
+          this.map[`${tile.getTileX()},${tile.getTileY()}`] = 1;
+        }
+      }
     }
 
     for (const key in this.map) {
@@ -66,7 +72,8 @@ class BuildableArea extends GameObject {
       const existingOverlay = this.overlays[key];
 
       if (!existingOverlay) {
-        this.overlays[key] = this.createOverlay(key, mapValue);
+        const overlay = this.createOverlay(key, mapValue);
+        if (overlay) this.overlays[key] = overlay;
         continue;
       }
 
@@ -77,7 +84,8 @@ class BuildableArea extends GameObject {
         (mapValue === 2 && isBuildableOverlay)
       ) {
         existingOverlay.remove();
-        this.overlays[key] = this.createOverlay(key, mapValue);
+        const overlay = this.createOverlay(key, mapValue);
+        if (overlay) this.overlays[key] = overlay;
       }
     }
 
@@ -89,17 +97,17 @@ class BuildableArea extends GameObject {
     }
   }
 
-  private createOverlay(key: string, mapValue: number): GameObject {
+  private createOverlay(key: string, mapValue: number): GameObject | undefined {
     const [tileX, tileY] = key.split(",").map((val) => parseInt(val, 10));
-    let overlay: GameObject;
+    let overlay: GameObject | undefined;
 
     if (mapValue === 1) {
       overlay = new BuildableTileOverlay(tileX, tileY);
-    } else {
+    } else if (mapValue === 2) {
       overlay = new UnbuildableTileOverlay(tileX, tileY);
     }
 
-    this.append(overlay);
+    if (overlay) this.append(overlay);
     return overlay;
   }
 

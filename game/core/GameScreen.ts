@@ -102,7 +102,7 @@ class GameScreen extends Fullscreen {
       const tileX = Math.round(TileHoverOverlay.x / GameConfig.tileSize);
       const tileY = Math.round(TileHoverOverlay.y / GameConfig.tileSize);
 
-      GameController.selectTile(tileX, tileY);
+      GameController.selectTile({ x: tileX, y: tileY });
     }
 
     this.isMousePressed = false;
@@ -135,7 +135,7 @@ class GameScreen extends Fullscreen {
     const tileX = Math.round(worldX / GameConfig.tileSize);
     const tileY = Math.round(worldY / GameConfig.tileSize);
 
-    TileHoverOverlay.setTilePosition(tileX, tileY);
+    TileHoverOverlay.setTilePosition({ x: tileX, y: tileY });
   }
 }
 

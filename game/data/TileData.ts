@@ -3,8 +3,21 @@ export interface UnitQuantity {
   quantity: number;
 }
 
+enum TokenType {
+  ERC20,
+  ERC1155,
+}
+
+interface TokenAmount {
+  tokenType: TokenType;
+  tokenAddress: string;
+  tokenId: bigint;
+  amount: bigint;
+}
+
 export default interface TileData {
-  owner: `0x${string}`;
+  occupant: `0x${string}`;
   buildingId: number;
   units: UnitQuantity[];
+  loot: TokenAmount[];
 }

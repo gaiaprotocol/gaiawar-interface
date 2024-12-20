@@ -8,7 +8,7 @@ import TileBase from "./TileBase.js";
 import UnitGroup from "./unit/UnitGroup.js";
 
 export default class Tile extends TileBase {
-  private _owner!: `0x${string}`;
+  private _occupant!: `0x${string}`;
   private _buildingId!: number;
 
   private progressObject: GameObject | undefined;
@@ -21,12 +21,12 @@ export default class Tile extends TileBase {
     public data: TileData,
   ) {
     super(tileX, tileY);
-    this.setBuilding(data.owner, data.buildingId);
+    this.setBuilding(data.occupant, data.buildingId);
     this.setUnitGroup(data.units);
   }
 
-  public setBuilding(owner: `0x${string}`, buildingId: number) {
-    this._owner = owner;
+  public setBuilding(occupant: `0x${string}`, buildingId: number) {
+    this._occupant = occupant;
     this._buildingId = buildingId;
 
     this.building?.remove();
@@ -35,7 +35,7 @@ export default class Tile extends TileBase {
     if (buildingId !== 0) {
       this.building = new Building(
         buildingId,
-        owner === WalletLoginManager.getLoggedInAddress() ? "player" : "enemy",
+        occupant === WalletLoginManager.getLoggedInAddress() ? "player" : "enemy",
       ).appendTo(this);
     }
   }
@@ -46,7 +46,7 @@ export default class Tile extends TileBase {
     if (units.length > 0) {
       this.unitGroup = new UnitGroup(
         units,
-        this._owner === WalletLoginManager.getLoggedInAddress()
+        this._occupant === WalletLoginManager.getLoggedInAddress()
           ? "player"
           : "enemy",
       ).appendTo(this);
@@ -61,8 +61,8 @@ export default class Tile extends TileBase {
     return this.tileY;
   }
 
-  public getOwner() {
-    return this._owner;
+  public getOccupant() {
+    return this._occupant;
   }
 
   public getBuildingId() {
@@ -86,7 +86,7 @@ export default class Tile extends TileBase {
   }
 
   public hideProgressObject() {
-    this.setBuilding(this._owner, this._buildingId);
+    this.setBuilding(this._occupant, this._buildingId);
 
     this.progressObject?.remove();
     this.progressObject = undefined;

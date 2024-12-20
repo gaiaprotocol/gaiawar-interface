@@ -16,7 +16,7 @@ export default class TileCommandPanel extends CommandPanel {
   constructor(private tileData: TileData) {
     super(".tile-command-panel");
 
-    if (tileData.owner === zeroAddress) {
+    if (tileData.occupant === zeroAddress) {
       this.append(
         new CommandButton(
           new ConstructionIcon(),
@@ -24,7 +24,7 @@ export default class TileCommandPanel extends CommandPanel {
           () => new ConstructionModal(),
         ),
       );
-    } else if (tileData.owner === WalletLoginManager.getLoggedInAddress()) {
+    } else if (tileData.occupant === WalletLoginManager.getLoggedInAddress()) {
       this.renderLoginUserCommands();
     } else {
       //TODO:

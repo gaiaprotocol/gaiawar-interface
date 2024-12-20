@@ -41,8 +41,8 @@ class World extends GameObject {
     }
   }
 
-  public getTile(x: number, y: number): Tile | undefined {
-    return this.tiles[`${x},${y}`];
+  public getTile(coordinates: Coordinates): Tile | undefined {
+    return this.tiles[`${coordinates.x},${coordinates.y}`];
   }
 
   private deleteTiles(coordinates: Coordinates[]) {
