@@ -17,7 +17,7 @@ export default class SpineUnit extends GameObject {
         json: `/assets/${metadata.spine.json}`,
         png: `/assets/${metadata.spine.png}`,
         animation: "idle",
-        skins: [faction ? "green" : "red"],
+        skins: [faction == "player" ? "green" : "red"],
         loop: true,
       });
       spine.scale = 0.5;
