@@ -2478,8 +2478,8 @@ li.chat-content-list-item.temp {
 .command-button {
   background-color: rgba(0, 0, 0, 0.6);
   border-radius: 20px;
-  width: 80px;
-  height: 80px;
+  width: 90px;
+  height: 90px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -2489,8 +2489,12 @@ li.chat-content-list-item.temp {
   padding-top: 4px;
   transition: background-color 0.2s linear;
 }
+.command-button > .icon {
+  width: 36px;
+  height: 36px;
+}
 .command-button > .title {
-  font-size: 14px;
+  font-size: 12px;
 }
 @media (pointer: fine) {
   .command-button:hover {

@@ -4,11 +4,11 @@ import ContractAddressManager from "../../core/ContractAddressManager.js";
 import TrainingArtifact from "../artifacts/commands/Train.json" assert {
   type: "json",
 };
+import { Coordinates } from "@gaiaengine/2d";
 
 class TrainContract {
   public async trainUnits(
-    x: number,
-    y: number,
+    coordinates: Coordinates,
     unitId: number,
     quantity: number,
   ) {
@@ -17,7 +17,7 @@ class TrainContract {
       address: ContractAddressManager.getContractAddress("Train"),
       abi: TrainingArtifact.abi,
       functionName: "train",
-      args: [x, y, unitId, quantity],
+      args: [coordinates, { unitId, quantity }],
     });
   }
 }

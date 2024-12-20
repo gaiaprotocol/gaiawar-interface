@@ -101,8 +101,7 @@ class GameController {
     try {
       if (
         await UpgradeBuildingCommand.upgradeBuilding(
-          this.selectedTileCoordinates.x,
-          this.selectedTileCoordinates.y,
+          this.selectedTileCoordinates,
           buildingId,
         )
       ) {
@@ -125,8 +124,7 @@ class GameController {
     tile.showTraining("player");
     try {
       await TrainingCommand.trainUnits(
-        this.selectedTileCoordinates.x,
-        this.selectedTileCoordinates.y,
+        this.selectedTileCoordinates,
         unitId,
         quantity,
       );

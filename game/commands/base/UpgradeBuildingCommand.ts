@@ -8,6 +8,7 @@ import BuildingManager from "../../data/building/BuildingManager.js";
 import MaterialType from "../../data/material/MaterialType.js";
 import UserMaterialManager from "../../data/material/UserMaterialManager.js";
 import CommandBase from "./CommandBase.js";
+import { Coordinates } from "@gaiaengine/2d";
 
 class UpgradeBuildingCommand extends CommandBase {
   private async checkMaterials(buildingId: number) {
@@ -36,12 +37,11 @@ class UpgradeBuildingCommand extends CommandBase {
   }
 
   public async upgradeBuilding(
-    x: number,
-    y: number,
+    coordinates: Coordinates,
     buildingId: number,
   ): Promise<boolean> {
     if (!(await this.checkMaterials(buildingId))) return false;
-    await UpgradeBuildingContract.upgradeBuilding(x, y, buildingId);
+    await UpgradeBuildingContract.upgradeBuilding(coordinates, buildingId);
     await UserMaterialManager.reloadBalances();
     return true;
   }

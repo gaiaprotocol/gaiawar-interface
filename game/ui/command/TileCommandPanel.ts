@@ -9,6 +9,10 @@ import TrainingModal from "../training/TrainingModal.js";
 import CommandButton from "./CommandButton.js";
 import CommandPanel from "./CommandPanel.js";
 import ConstructionIcon from "./icons/ConstructionIcon.js";
+import MoveAndAttackIcon from "./icons/MoveAndAttackIcon.js";
+import MoveIcon from "./icons/MoveIcon.js";
+import RangedAttackIcon from "./icons/RangedAttackIcon.js";
+import SelectUnitIcon from "./icons/SelectUnitIcon.js";
 import TrainIcon from "./icons/TrainIcon.js";
 import UpgradeIcon from "./icons/UpgradeIcon.js";
 
@@ -46,17 +50,22 @@ export default class TileCommandPanel extends CommandPanel {
     if (this.tileData.units.length > 0) {
       this.append(
         new CommandButton(
-          new UpgradeIcon(),
+          new MoveIcon(),
+          "Move",
+          () => {},
+        ),
+        new CommandButton(
+          new MoveAndAttackIcon(),
           "Move & Attack",
           () => {},
         ),
         new CommandButton(
-          new UpgradeIcon(),
+          new RangedAttackIcon(),
           "Ranged Attack",
           () => {},
         ),
         new CommandButton(
-          new UpgradeIcon(),
+          new SelectUnitIcon(),
           "Select Unit",
           () => {},
         ),

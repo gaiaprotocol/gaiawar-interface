@@ -4,15 +4,16 @@ import ContractAddressManager from "../../core/ContractAddressManager.js";
 import UpgradeBuildingionArtifact from "../artifacts/commands/UpgradeBuilding.json" assert {
   type: "json",
 };
+import { Coordinates } from "@gaiaengine/2d";
 
 class UpgradeBuildingContract {
-  public async upgradeBuilding(x: number, y: number, buildingId: number) {
+  public async upgradeBuilding(coordinates: Coordinates, buildingId: number) {
     await WalletLoginManager.writeContract({
       chainId: GaiaProtocolConfig.getChainId(),
       address: ContractAddressManager.getContractAddress("UpgradeBuilding"),
       abi: UpgradeBuildingionArtifact.abi,
       functionName: "upgradeBuilding",
-      args: [x, y, buildingId],
+      args: [coordinates, buildingId],
     });
   }
 }
