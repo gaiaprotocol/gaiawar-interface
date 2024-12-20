@@ -1,7 +1,7 @@
 import { ShapeNode, Sprite } from "@gaiaengine/2d";
 import { StrokeInput } from "../../../../pixi.js/lib/index.js";
+import GameConfig from "../../core/GameConfig.js";
 import BuildingManager from "../../data/building/BuildingManager.js";
-import GameConfig from "../../GameConfig.js";
 import TileBase from "../TileBase.js";
 
 class TargetingShape extends ShapeNode {

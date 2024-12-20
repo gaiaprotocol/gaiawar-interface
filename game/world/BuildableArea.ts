@@ -1,9 +1,9 @@
 import { WalletLoginManager } from "@common-module/wallet-login";
 import { GameObject } from "@gaiaengine/2d";
 import { zeroAddress } from "viem";
-import BattlegroundContract from "../contracts/BattlegroundContract.js";
+import BattlegroundContract from "../contracts/core/BattlegroundContract.js";
+import GameConfig from "../core/GameConfig.js";
 import BuildingManager from "../data/building/BuildingManager.js";
-import GameConfig from "../GameConfig.js";
 import BuildableTileOverlay from "./tile-overlays/BuildableTileOverlay.js";
 import UnbuildableTileOverlay from "./tile-overlays/UnbuildableTileOverlay.js";
 import Tile from "./Tile.js";

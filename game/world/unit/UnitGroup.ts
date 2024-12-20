@@ -1,6 +1,6 @@
 import { GameObject } from "@gaiaengine/2d";
+import GameConfig from "../../core/GameConfig.js";
 import { UnitQuantity } from "../../data/TileData.js";
-import GameConfig from "../../GameConfig.js";
 import SpriteUnit from "./SpriteUnit.js";
 
 export default class UnitGroup extends GameObject {

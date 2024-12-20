@@ -1,5 +1,5 @@
 import { ObjectUtils } from "@common-module/ts";
-import UnitsContract from "../../contracts/entities/UnitsContract.js";
+import UnitManagerContract from "../../contracts/data/UnitManagerContract.js";
 import UnitData from "./UnitData.js";
 import unitMetadataSet from "./units-metadata.json" assert {
   type: "json",
@@ -19,7 +19,7 @@ class UnitManager {
     return {
       ...unit,
       trainingCosts: Object.fromEntries(
-        Object.entries(unit.trainingCosts).map((
+        Object.entries(unit.trainingCost).map((
           [key, value],
         ) => [key, value.toString()]),
       ),
@@ -29,7 +29,7 @@ class UnitManager {
   private denormalizeUnit(unit: NormalizedUnit): UnitData {
     return {
       ...unit,
-      trainingCosts: Object.fromEntries(
+      trainingCost: Object.fromEntries(
         Object.entries(unit.trainingCosts).map((
           [key, value],
         ) => [key, BigInt(value)]),
@@ -54,9 +54,9 @@ class UnitManager {
     if (pendingRequest) return pendingRequest;
 
     const [unitInfo, trainingBuildingIds, trainingCosts] = await Promise.all([
-      await UnitsContract.getUnit(unitId),
-      await UnitsContract.getTrainingBuildingIds(unitId),
-      await UnitsContract.getTrainingCosts(unitId),
+      await UnitManagerContract.getUnit(unitId),
+      await UnitManagerContract.getTrainingBuildingIds(unitId),
+      await UnitManagerContract.getTrainingCost(unitId),
     ]);
 
     const metadata = unitMetadataSet.find((metadata) => metadata.id === unitId);
@@ -70,7 +70,7 @@ class UnitManager {
       }),
       ...unitInfo,
       trainingBuildingIds,
-      trainingCosts,
+      trainingCost: trainingCosts,
     };
     this.setUnit(unit);
     return unit;

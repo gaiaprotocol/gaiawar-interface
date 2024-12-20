@@ -3,9 +3,9 @@ import { Button, ButtonType } from "@common-module/app-components";
 import { AddIcon } from "@gaiaprotocol/svg-icons";
 import { TradeMaterialModal } from "gaiaprotocol";
 import { formatEther } from "viem";
+import MaterialContractManager from "../../core/MaterialContractManager.js";
 import MaterialType from "../../data/material/MaterialType.js";
 import UserMaterialManager from "../../data/material/UserMaterialManager.js";
-import GameConfig from "../../GameConfig.js";
 import materialIcons from "./materialIcons.js";
 
 export default class UserMaterialListItem extends DomNode {
@@ -21,7 +21,7 @@ export default class UserMaterialListItem extends DomNode {
         icon: new AddIcon(),
         onClick: () => {
           const modal = new TradeMaterialModal(
-            GameConfig.getMaterialAddress(type),
+            MaterialContractManager.getMaterialAddress(type),
           );
           modal.on("traded", () => UserMaterialManager.reloadBalances());
         },

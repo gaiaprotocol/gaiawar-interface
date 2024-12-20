@@ -4,12 +4,12 @@ export default interface BuildingData {
   description: string;
   sprites: { base: string; player: string; enemy: string };
 
-  previousBuildingId: number;
+  prerequisiteBuildingId: number;
   isHeadquarters: boolean;
   constructionRange: number;
   canBeConstructed: boolean;
 
-  constructionCosts: {
+  constructionCost: {
     [material: string]: bigint;
   };
 }

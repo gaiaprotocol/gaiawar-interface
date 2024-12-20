@@ -1,5 +1,5 @@
 import { GameNode, GameObject } from "@gaiaengine/2d";
-import GameConfig from "../GameConfig.js";
+import GameConfig from "../core/GameConfig.js";
 
 export default abstract class TileBase extends GameObject {
   constructor(

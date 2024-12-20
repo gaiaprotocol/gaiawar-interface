@@ -1,5 +1,6 @@
 import { WalletLoginManager } from "@common-module/wallet-login";
 import { Coordinates } from "@gaiaengine/2d";
+import UpgradeBuildingCommand from "../commands/base/UpgradeBuildingCommand.js";
 import ConstructionCommand from "../commands/ConstructionCommand.js";
 import TrainingCommand from "../commands/TrainingCommand.js";
 import CommandPanelController from "../ui/command/CommandPanelController.js";
@@ -100,7 +101,7 @@ class GameController {
     tile.showConstructing("player");
     try {
       if (
-        await ConstructionCommand.upgradeBuilding(
+        await UpgradeBuildingCommand.upgradeBuilding(
           this.selectedTile.x,
           this.selectedTile.y,
           buildingId,

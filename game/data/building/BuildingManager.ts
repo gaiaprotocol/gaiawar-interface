@@ -1,5 +1,5 @@
 import { ObjectUtils } from "@common-module/ts";
-import BuildingsContract from "../../contracts/entities/BuildingsContract.js";
+import BuildingManagerContract from "../../contracts/data/BuildingManagerContract.js";
 import BuildingData from "./BuildingData.js";
 import buildingMetadataSet from "./buildings-metadata.json" assert {
   type: "json",
@@ -19,7 +19,7 @@ class BuildingManager {
     return {
       ...building,
       constructionCosts: Object.fromEntries(
-        Object.entries(building.constructionCosts).map((
+        Object.entries(building.constructionCost).map((
           [key, value],
         ) => [key, value.toString()]),
       ),
@@ -29,7 +29,7 @@ class BuildingManager {
   private denormalizeBuilding(building: NormalizedBuilding): BuildingData {
     return {
       ...building,
-      constructionCosts: Object.fromEntries(
+      constructionCost: Object.fromEntries(
         Object.entries(building.constructionCosts).map((
           [key, value],
         ) => [key, BigInt(value)]),
@@ -54,8 +54,8 @@ class BuildingManager {
     if (pendingRequest) return pendingRequest;
 
     const [buildingInfo, constructionCosts] = await Promise.all([
-      await BuildingsContract.getBuilding(buildingId),
-      await BuildingsContract.getConstructionCosts(buildingId),
+      await BuildingManagerContract.getBuilding(buildingId),
+      await BuildingManagerContract.getConstructionCost(buildingId),
     ]);
 
     const metadata = buildingMetadataSet.find((metadata) =>
@@ -69,7 +69,7 @@ class BuildingManager {
         sprites: { base: "", player: "", enemy: "" },
       }),
       ...buildingInfo,
-      constructionCosts,
+      constructionCost: constructionCosts,
     };
     this.setBuilding(building);
     return building;

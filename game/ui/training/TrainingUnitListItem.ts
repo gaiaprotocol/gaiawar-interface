@@ -26,7 +26,7 @@ export default class TrainingUnitListItem extends DomNode {
           ),
         ),
       ),
-      new CostList(unit.trainingCosts),
+      new CostList(unit.trainingCost),
     );
   }
 }

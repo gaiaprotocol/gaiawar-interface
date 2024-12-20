@@ -1,6 +1,6 @@
 import { Coordinates, GameObject } from "@gaiaengine/2d";
-import BattlegroundContract from "../contracts/BattlegroundContract.js";
-import GameConfig from "../GameConfig.js";
+import BattlegroundContract from "../contracts/core/BattlegroundContract.js";
+import GameConfig from "../core/GameConfig.js";
 import BuildableArea from "./BuildableArea.js";
 import Ground from "./ground/Ground.js";
 import Tile from "./Tile.js";

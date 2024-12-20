@@ -16,7 +16,7 @@ export default interface UnitData {
   movementRange: number;
   canBeTrained: boolean;
 
-  trainingCosts: {
+  trainingCost: {
     [material: string]: bigint;
   };
 }

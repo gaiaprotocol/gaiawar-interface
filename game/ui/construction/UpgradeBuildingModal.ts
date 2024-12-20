@@ -45,7 +45,7 @@ export default class UpgradeBuildingModal extends StructuredModal {
     const buildings = await BuildingManager.loadAllBuildings();
     this.buildingList.setBuildings(
       buildings.filter((b) =>
-        b.canBeConstructed && b.previousBuildingId === this.previousBuildingId
+        b.canBeConstructed && b.prerequisiteBuildingId === this.previousBuildingId
       ),
     );
   }

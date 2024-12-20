@@ -1,5 +1,5 @@
 import { RectTerrainMap, RectTerrainMapOptions } from "@gaiaengine/2d";
-import GameConfig from "../../GameConfig.js";
+import GameConfig from "../../core/GameConfig.js";
 import mapData from "./map.json" with { type: "json" };
 import spritesheetWithAlphaData from "./spritesheet-with-alpha.json" with {
   type: "json",

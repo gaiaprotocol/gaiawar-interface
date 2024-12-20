@@ -1,10 +1,10 @@
 import { Store } from "@common-module/app";
 import { Fullscreen, GameObject } from "@gaiaengine/2d";
-import GameConfig from "../GameConfig.js";
-import GameController from "./GameController.js";
 import World from "../world/World.js";
 import TileHoverOverlay from "../world/tile-overlays/TileHoverOverlay.js";
 import TileSelectedOverlay from "../world/tile-overlays/TileSelectedOverlay.js";
+import GameConfig from "./GameConfig.js";
+import GameController from "./GameController.js";
 
 class GameScreen extends Fullscreen {
   private static readonly MIN_ZOOM = 0.2;

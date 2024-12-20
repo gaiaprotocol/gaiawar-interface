@@ -11,7 +11,7 @@ export default class ConstructionBuildingListItem extends DomNode {
         ".image-container",
         el("img", { src: `/assets/${building.sprites.base}` }),
       ),
-      new CostList(building.constructionCosts),
+      new CostList(building.constructionCost),
     );
   }
 }

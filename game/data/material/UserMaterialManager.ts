@@ -1,6 +1,6 @@
 import { EventContainer } from "@common-module/ts";
 import { WalletLoginManager } from "@common-module/wallet-login";
-import GameConfig from "../../GameConfig.js";
+import MaterialContractManager from "../../core/MaterialContractManager.js";
 
 class UserMaterialManager extends EventContainer<{
   balanceUpdated: (material: string, balance: bigint) => void;
@@ -21,7 +21,7 @@ class UserMaterialManager extends EventContainer<{
     const walletAddress = WalletLoginManager.getLoggedInAddress();
     if (walletAddress) {
       await Promise.all(
-        Object.entries(GameConfig.materialContracts).map(
+        Object.entries(MaterialContractManager.materialContracts).map(
           async ([material, contract]) => {
             const balance = await contract.balanceOf(walletAddress);
             this.userMaterialBalances[material] = balance;

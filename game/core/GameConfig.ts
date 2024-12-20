@@ -9,11 +9,11 @@ import { GaiaEngineConfig } from "@gaiaengine/2d";
 import { EthereumIcon, ProfileIcon } from "@gaiaprotocol/svg-icons";
 import { GaiaUIPreset } from "@gaiaprotocol/ui-preset";
 import { base, baseSepolia } from "@wagmi/core/chains";
-import { GaiaProtocolConfig, MaterialContract } from "gaiaprotocol";
+import { GaiaProtocolConfig } from "gaiaprotocol";
 import { WalletModuleConfig } from "../../../wallet-module/lib/index.js";
 import ChatMessageRepository from "../data/chat/ChatMessageRepository.js";
-import MaterialType from "../data/material/MaterialType.js";
 import UserInfoModal from "../ui/user/UserInfoModal.js";
+import MaterialContractManager from "./MaterialContractManager.js";
 
 export interface IGameConfig {
   isDevMode: boolean;
@@ -41,6 +41,7 @@ class GameConfig {
   public init(config: IGameConfig) {
     Object.assign(this, config);
     GaiaUIPreset.init();
+    MaterialContractManager.init();
 
     const authTokenManager = new AuthTokenManager("gaiawar-auth-token");
 
