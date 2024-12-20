@@ -9,7 +9,7 @@ class ConstructionCommand extends BuildingCommandBase {
     buildingId: number,
   ): Promise<boolean> {
     if (!(await this.hasConstructionCost(buildingId))) return false;
-    await ConstructContract.constructBuilding(coordinates, buildingId);
+    await ConstructContract.construct(coordinates, buildingId);
     await UserMaterialManager.reloadBalances();
     return true;
   }

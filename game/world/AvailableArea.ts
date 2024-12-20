@@ -1,9 +1,11 @@
 import { WalletLoginManager } from "@common-module/wallet-login";
-import { GameObject } from "@gaiaengine/2d";
+import { Coordinates, GameObject } from "@gaiaengine/2d";
 import { zeroAddress } from "viem";
 import BattlegroundContract from "../contracts/core/BattlegroundContract.js";
 import GameConfig from "../core/GameConfig.js";
 import BuildingManager from "../data/building/BuildingManager.js";
+import { UnitQuantity } from "../data/TileData.js";
+import UnitManager from "../data/unit/UnitManager.js";
 import AvailableTileOverlay from "./tile-overlays/AvailableTileOverlay.js";
 import UnavailableTileOverlay from "./tile-overlays/UnavailableTileOverlay.js";
 import Tile from "./Tile.js";
@@ -16,57 +18,21 @@ class AvailableArea extends GameObject {
     super(0, 0);
   }
 
-  public async updateBuildableArea(tiles: { [key: string]: Tile }) {
-    const walletAddress = WalletLoginManager.getLoggedInAddress();
-    if (!walletAddress) return;
+  private createOverlay(key: string, mapValue: number): GameObject | undefined {
+    const [tileX, tileY] = key.split(",").map((val) => parseInt(val, 10));
+    let overlay: GameObject | undefined;
 
-    const hasHeadquarters = await BattlegroundContract.hasHeadquarters(
-      walletAddress,
-    );
-
-    this.map = {};
-
-    if (hasHeadquarters) {
-      for (const tile of Object.values(tiles)) {
-        if (tile.getOccupant() === walletAddress) {
-          const constructionRange = BuildingManager.getConstructionRange(
-            tile.getBuildingId(),
-          );
-          for (let x = -constructionRange; x <= constructionRange; x++) {
-            for (let y = -constructionRange; y <= constructionRange; y++) {
-              const tileX = tile.getTileX() + x;
-              const tileY = tile.getTileY() + y;
-              const key = `${tileX},${tileY}`;
-              this.map[key] = 1;
-            }
-          }
-        }
-      }
-    } else {
-      for (const tile of Object.values(tiles)) {
-        if (
-          tile.getOccupant() !== zeroAddress &&
-          tile.getOccupant() !== walletAddress
-        ) {
-          const searchRange = GameConfig.enemyBuildingSearchRange;
-          for (let x = -searchRange; x <= searchRange; x++) {
-            for (let y = -searchRange; y <= searchRange; y++) {
-              const tileX = tile.getTileX() + x;
-              const tileY = tile.getTileY() + y;
-              const key = `${tileX},${tileY}`;
-              this.map[key] = 2;
-            }
-          }
-        }
-      }
-
-      for (const tile of Object.values(tiles)) {
-        if (tile.getOccupant() === zeroAddress) {
-          this.map[`${tile.getTileX()},${tile.getTileY()}`] = 1;
-        }
-      }
+    if (mapValue === 1) {
+      overlay = new AvailableTileOverlay(tileX, tileY);
+    } else if (mapValue === 2) {
+      overlay = new UnavailableTileOverlay(tileX, tileY);
     }
 
+    if (overlay) this.append(overlay);
+    return overlay;
+  }
+
+  private updateOverlays() {
     for (const key in this.map) {
       const mapValue = this.map[key];
       const existingOverlay = this.overlays[key];
@@ -77,11 +43,11 @@ class AvailableArea extends GameObject {
         continue;
       }
 
-      const isBuildableOverlay = existingOverlay instanceof
+      const isAvailableOverlay = existingOverlay instanceof
         AvailableTileOverlay;
       if (
-        (mapValue === 1 && !isBuildableOverlay) ||
-        (mapValue === 2 && isBuildableOverlay)
+        (mapValue === 1 && !isAvailableOverlay) ||
+        (mapValue === 2 && isAvailableOverlay)
       ) {
         existingOverlay.remove();
         const overlay = this.createOverlay(key, mapValue);
@@ -97,18 +63,115 @@ class AvailableArea extends GameObject {
     }
   }
 
-  private createOverlay(key: string, mapValue: number): GameObject | undefined {
-    const [tileX, tileY] = key.split(",").map((val) => parseInt(val, 10));
-    let overlay: GameObject | undefined;
+  public async updateConstructableArea(tiles: { [key: string]: Tile }) {
+    const walletAddress = WalletLoginManager.getLoggedInAddress();
+    if (!walletAddress) return;
 
-    if (mapValue === 1) {
-      overlay = new AvailableTileOverlay(tileX, tileY);
-    } else if (mapValue === 2) {
-      overlay = new UnavailableTileOverlay(tileX, tileY);
+    const hasHeadquarters = await BattlegroundContract.hasHeadquarters(
+      walletAddress,
+    );
+
+    this.map = {};
+
+    if (hasHeadquarters) {
+      for (const tile of Object.values(tiles)) {
+        if (tile.getOccupant() === walletAddress) {
+          const building = await BuildingManager.getBuilding(
+            tile.getBuildingId(),
+          );
+          for (
+            let dx = -building.constructionRange;
+            dx <= building.constructionRange;
+            dx++
+          ) {
+            for (
+              let dy = -building.constructionRange;
+              dy <= building.constructionRange;
+              dy++
+            ) {
+              const tileX = tile.getTileX() + dx;
+              const tileY = tile.getTileY() + dy;
+              const key = `${tileX},${tileY}`;
+              this.map[key] = 1;
+            }
+          }
+        }
+      }
+    } else {
+      for (const tile of Object.values(tiles)) {
+        if (
+          tile.getOccupant() !== zeroAddress &&
+          tile.getOccupant() !== walletAddress
+        ) {
+          const searchRange = GameConfig.enemyBuildingSearchRange;
+          for (let dx = -searchRange; dx <= searchRange; dx++) {
+            for (let dy = -searchRange; dy <= searchRange; dy++) {
+              const tileX = tile.getTileX() + dx;
+              const tileY = tile.getTileY() + dy;
+              const key = `${tileX},${tileY}`;
+              this.map[key] = 2;
+            }
+          }
+        }
+      }
+
+      for (const tile of Object.values(tiles)) {
+        if (tile.getOccupant() === zeroAddress) {
+          this.map[`${tile.getTileX()},${tile.getTileY()}`] = 1;
+        }
+      }
     }
 
-    if (overlay) this.append(overlay);
-    return overlay;
+    this.updateOverlays();
+  }
+
+  public async updateMovableArea(
+    unitTileCoord: Coordinates,
+    _units: UnitQuantity[],
+    tiles: { [key: string]: Tile },
+  ) {
+    const walletAddress = WalletLoginManager.getLoggedInAddress();
+    if (!walletAddress) return;
+
+    this.map = {};
+
+    const unitTile = tiles[`${unitTileCoord.x},${unitTileCoord.y}`];
+    if (!unitTile) return;
+
+    const units = await Promise.all(
+      _units.map((unit) => UnitManager.getUnit(unit.unitId)),
+    );
+    const minMovementRange = Math.min(
+      ...units.map((unit) => unit.movementRange),
+    );
+
+    if (
+      unitTile.getOccupant() === zeroAddress ||
+      unitTile.getOccupant() === walletAddress
+    ) {
+      for (let dx = -minMovementRange; dx <= minMovementRange; dx++) {
+        const remainingRange = minMovementRange - Math.abs(dx);
+        for (let dy = -remainingRange; dy <= remainingRange; dy++) {
+          const tileX = unitTile.getTileX() + dx;
+          const tileY = unitTile.getTileY() + dy;
+          const key = `${tileX},${tileY}`;
+
+          const tile = tiles[key];
+          if (tile) {
+            if (
+              tile.getOccupant() === zeroAddress ||
+              tile.getOccupant() === walletAddress
+            ) {
+              this.map[key] = 1;
+            } else {
+              this.map[key] = 2;
+            }
+          }
+        }
+      }
+    }
+
+    this.updateOverlays();
   }
 
   public clearAll() {

@@ -3,23 +3,24 @@ import { Coordinates } from "@gaiaengine/2d";
 import { GaiaProtocolConfig } from "gaiaprotocol";
 import ContractAddressManager from "../../core/ContractAddressManager.js";
 import { UnitQuantity } from "../../data/TileData.js";
-import TrainArtifact from "../artifacts/commands/Train.json" assert {
-  type: "json"
+import MoveArtifact from "../artifacts/commands/Move.json" assert {
+  type: "json",
 };
 
-class TrainContract {
-  public async train(
-    coordinates: Coordinates,
-    unitQuantity: UnitQuantity,
+class MoveContract {
+  public async move(
+    from: Coordinates,
+    to: Coordinates,
+    units: UnitQuantity[],
   ) {
     await WalletLoginManager.writeContract({
       chainId: GaiaProtocolConfig.getChainId(),
-      address: ContractAddressManager.getContractAddress("Train"),
-      abi: TrainArtifact.abi,
-      functionName: "train",
-      args: [coordinates, unitQuantity],
+      address: ContractAddressManager.getContractAddress("Move"),
+      abi: MoveArtifact.abi,
+      functionName: "move",
+      args: [from, to, units],
     });
   }
 }
 
-export default new TrainContract();
+export default new MoveContract();

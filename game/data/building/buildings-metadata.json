@@ -7,7 +7,6 @@
     "player": "buildings/castle-lv1-player.png",
     "enemy": "buildings/castle-lv1-enemy.png"
   },
-  "constructionRange": 3,
   "canBeUpgraded": true
 }, {
   "id": 2,
@@ -18,7 +17,6 @@
     "player": "buildings/castle-lv2-player.png",
     "enemy": "buildings/castle-lv2-enemy.png"
   },
-  "constructionRange": 5,
   "canBeUpgraded": true
 }, {
   "id": 3,
@@ -28,8 +26,7 @@
     "base": "buildings/castle-lv3.png",
     "player": "buildings/castle-lv3-player.png",
     "enemy": "buildings/castle-lv3-enemy.png"
-  },
-  "constructionRange": 7
+  }
 }, {
   "id": 4,
   "name": "Training Camp",

@@ -85,13 +85,6 @@ class BuildingManager {
     return buildingMetadataSet.find((metadata) => metadata.id === buildingId);
   }
 
-  public getConstructionRange(buildingId: number) {
-    const metadata = buildingMetadataSet.find((metadata) =>
-      metadata.id === buildingId
-    );
-    return metadata?.constructionRange ?? 0;
-  }
-
   public canBeUpgraded(buildingId: number) {
     const metadata = buildingMetadataSet.find((metadata) =>
       metadata.id === buildingId

@@ -3,16 +3,19 @@ import { GaiaProtocolConfig } from "gaiaprotocol";
 import ContractAddressManager from "../../core/ContractAddressManager.js";
 import MaterialContractManager from "../../core/MaterialContractManager.js";
 import UnitManagerArtifact from "../artifacts/data/UnitManager.json" assert {
-  type: "json",
+  type: "json"
 };
 
 class UnitManagerContract {
   public async getUnit(unitId: number) {
     const [
+      prerequisiteUnitId,
       healthPoints,
       attackDamage,
       attackRange,
       movementRange,
+      healthBoostPercentage,
+      damageBoostPercentage,
       canBeTrained,
     ] = await WalletLoginManager.readContract({
       chainId: GaiaProtocolConfig.getChainId(),
@@ -20,12 +23,15 @@ class UnitManagerContract {
       abi: UnitManagerArtifact.abi,
       functionName: "units",
       args: [unitId],
-    }) as [number, number, number, number, boolean];
+    }) as [number, number, number, number, number, number, number, boolean];
     return {
+      prerequisiteUnitId,
       healthPoints,
       attackDamage,
       attackRange,
       movementRange,
+      healthBoostPercentage,
+      damageBoostPercentage,
       canBeTrained,
     };
   }

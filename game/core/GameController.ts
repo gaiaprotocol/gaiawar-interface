@@ -3,6 +3,8 @@ import { Coordinates } from "@gaiaengine/2d";
 import UpgradeBuildingCommand from "../commands/base/UpgradeBuildingCommand.js";
 import ConstructionCommand from "../commands/ConstructionCommand.js";
 import TrainingCommand from "../commands/TrainingCommand.js";
+import MoveContract from "../contracts/commands/MoveContract.js";
+import { UnitQuantity } from "../data/TileData.js";
 import CommandPanelController from "../ui/command/CommandPanelController.js";
 import TileHoverOverlay from "../world/tile-overlays/TileHoverOverlay.js";
 import TileSelectedOverlay from "../world/tile-overlays/TileSelectedOverlay.js";
@@ -10,6 +12,7 @@ import World from "../world/World.js";
 
 class GameController {
   private _buildingToConstruct: number | undefined;
+  private _unitsToMove: UnitQuantity[] | undefined;
   private selectedTileCoordinates: Coordinates | undefined;
 
   constructor() {
@@ -22,20 +25,28 @@ class GameController {
   }
 
   public selectTile(coordinates: Coordinates) {
-    this.selectedTileCoordinates = coordinates;
+    if (this._unitsToMove) {
+      this.moveUnits(coordinates);
+      this.unitsToMove = undefined;
+    }
 
-    TileSelectedOverlay.setTilePosition(coordinates);
+    this.selectedTileCoordinates = coordinates;
 
     if (this._buildingToConstruct) {
       this.constructBuilding();
       this.buildingToConstruct = undefined;
     }
 
+    TileSelectedOverlay.setTilePosition(coordinates);
+
     const tile = World.getTile(coordinates);
     if (tile) {
       if (tile.getBuildingId() !== 0) {
         if (tile.getOccupant() === WalletLoginManager.getLoggedInAddress()) {
-          CommandPanelController.changePanel("tile", tile.data);
+          CommandPanelController.changePanel("tile", {
+            coordinates,
+            tileData: tile.data,
+          });
           return;
         }
       }
@@ -59,12 +70,12 @@ class GameController {
       TileHoverOverlay.setBuildingPreview(buildingId);
     } else {
       TileHoverOverlay.clearBuildingPreview();
-      World.hideBuildableArea();
+      World.hideConstructableArea();
     }
   }
 
   private async constructBuilding() {
-    if (!this._buildingToConstruct || !this.selectedTileCoordinates) return;
+    if (!this.selectedTileCoordinates || !this._buildingToConstruct) return;
 
     const tile = World.getTile(this.selectedTileCoordinates);
     if (!tile) return;
@@ -112,7 +123,7 @@ class GameController {
     }
   }
 
-  public async trainUnits(unitId: number, quantity: number) {
+  public async trainUnits(unitQuantity: UnitQuantity) {
     if (!this.selectedTileCoordinates) return;
 
     const tile = World.getTile(this.selectedTileCoordinates);
@@ -125,11 +136,45 @@ class GameController {
     try {
       await TrainingCommand.trainUnits(
         this.selectedTileCoordinates,
-        unitId,
-        quantity,
+        unitQuantity,
       );
     } finally {
       tile.hideProgressObject();
+    }
+  }
+
+  public get unitsToMove() {
+    return this._unitsToMove;
+  }
+
+  public set unitsToMove(units: UnitQuantity[] | undefined) {
+    this._unitsToMove = units;
+    if (units) {
+      //TODO:
+    } else {
+      //TODO:
+      World.hideMovableArea();
+    }
+  }
+
+  public async moveUnits(to: Coordinates) {
+    if (!this.selectedTileCoordinates || !this._unitsToMove) return;
+
+    const tile = World.getTile(to);
+    if (!tile) return;
+
+    const walletAddress = WalletLoginManager.getLoggedInAddress();
+    if (!walletAddress) return;
+
+    //TODO:
+    try {
+      await MoveContract.move(
+        this.selectedTileCoordinates,
+        to,
+        this._unitsToMove,
+      );
+    } finally {
+      //TODO:
     }
   }
 }

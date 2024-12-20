@@ -1,6 +1,7 @@
 import { Coordinates, GameObject } from "@gaiaengine/2d";
 import BattlegroundContract from "../contracts/core/BattlegroundContract.js";
 import GameConfig from "../core/GameConfig.js";
+import { UnitQuantity } from "../data/TileData.js";
 import AvailableArea from "./AvailableArea.js";
 import Ground from "./ground/Ground.js";
 import Tile from "./Tile.js";
@@ -8,7 +9,10 @@ import Tile from "./Tile.js";
 class World extends GameObject {
   private tileContainer = new GameObject(0, 0);
   private tiles: { [key: string]: Tile } = {};
-  private showingBuildableArea = false;
+
+  private showingAreaType: "constructable" | "movable" | undefined;
+  private showingAreaUnitTileCoord: Coordinates | undefined;
+  private showingAreaUnits: UnitQuantity[] | undefined;
 
   constructor() {
     super(0, 0);
@@ -36,9 +40,7 @@ class World extends GameObject {
       this.tileContainer.append(tile);
     }
 
-    if (this.showingBuildableArea) {
-      AvailableArea.updateBuildableArea(this.tiles);
-    }
+    this.updateArea();
   }
 
   public getTile(coordinates: Coordinates): Tile | undefined {
@@ -55,19 +57,47 @@ class World extends GameObject {
       }
     }
 
-    if (this.showingBuildableArea) {
-      AvailableArea.updateBuildableArea(this.tiles);
+    this.updateArea();
+  }
+
+  private updateArea() {
+    if (this.showingAreaType === "constructable") {
+      AvailableArea.updateConstructableArea(this.tiles);
+    } else if (this.showingAreaType === "movable") {
+      AvailableArea.updateMovableArea(
+        this.showingAreaUnitTileCoord!,
+        this.showingAreaUnits!,
+        this.tiles,
+      );
     }
   }
 
-  public showBuildableArea() {
-    this.showingBuildableArea = true;
-    AvailableArea.updateBuildableArea(this.tiles);
+  public showConstructableArea() {
+    this.showingAreaType = "constructable";
+    AvailableArea.updateConstructableArea(this.tiles);
   }
 
-  public hideBuildableArea() {
-    this.showingBuildableArea = false;
-    AvailableArea.clearAll();
+  public hideConstructableArea() {
+    if (this.showingAreaType === "constructable") {
+      this.showingAreaType = undefined;
+      AvailableArea.clearAll();
+    }
+  }
+
+  public showMovableArea(unitTileCoord: Coordinates, units: UnitQuantity[]) {
+    this.showingAreaType = "movable";
+    this.showingAreaUnitTileCoord = unitTileCoord;
+    this.showingAreaUnits = units;
+    AvailableArea.updateMovableArea(unitTileCoord, units, this.tiles);
+  }
+
+  public hideMovableArea() {
+    if (this.showingAreaType === "movable") {
+      this.showingAreaType = undefined;
+      this.showingAreaUnitTileCoord = undefined;
+      this.showingAreaUnits = undefined;
+      AvailableArea.clearAll();
+    }
   }
 }
 

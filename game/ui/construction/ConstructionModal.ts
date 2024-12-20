@@ -41,11 +41,11 @@ export default class ConstructionModal extends StructuredModal {
 
     this.loadBuildings();
 
-    World.showBuildableArea();
+    World.showConstructableArea();
 
     this.on("remove", () => {
       if (!GameController.buildingToConstruct) {
-        World.hideBuildableArea();
+        World.hideConstructableArea();
       }
     });
   }

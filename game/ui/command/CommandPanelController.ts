@@ -20,7 +20,9 @@ class CommandPanelController {
 
     if (type === "world") this.panelContainer.append(new WorldCommandPanel());
     else if (type === "tile") {
-      this.panelContainer.append(new TileCommandPanel(data));
+      this.panelContainer.append(
+        new TileCommandPanel(data.coordinates, data.tileData),
+      );
     }
   }
 }

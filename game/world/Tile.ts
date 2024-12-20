@@ -69,6 +69,10 @@ export default class Tile extends TileBase {
     return this._buildingId;
   }
 
+  public getUnits() {
+    return this.data.units;
+  }
+
   public showConstructing(faction: "player" | "enemy") {
     this.building?.remove();
     this.building = undefined;
