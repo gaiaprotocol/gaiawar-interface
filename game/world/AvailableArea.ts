@@ -4,11 +4,11 @@ import { zeroAddress } from "viem";
 import BattlegroundContract from "../contracts/core/BattlegroundContract.js";
 import GameConfig from "../core/GameConfig.js";
 import BuildingManager from "../data/building/BuildingManager.js";
-import BuildableTileOverlay from "./tile-overlays/BuildableTileOverlay.js";
-import UnbuildableTileOverlay from "./tile-overlays/UnbuildableTileOverlay.js";
+import AvailableTileOverlay from "./tile-overlays/AvailableTileOverlay.js";
+import UnavailableTileOverlay from "./tile-overlays/UnavailableTileOverlay.js";
 import Tile from "./Tile.js";
 
-class BuildableArea extends GameObject {
+class AvailableArea extends GameObject {
   private map: { [key: string]: number } = {};
   private overlays: { [key: string]: GameObject } = {};
 
@@ -16,7 +16,7 @@ class BuildableArea extends GameObject {
     super(0, 0);
   }
 
-  public async updateArea(tiles: { [key: string]: Tile }) {
+  public async updateBuildableArea(tiles: { [key: string]: Tile }) {
     const walletAddress = WalletLoginManager.getLoggedInAddress();
     if (!walletAddress) return;
 
@@ -78,7 +78,7 @@ class BuildableArea extends GameObject {
       }
 
       const isBuildableOverlay = existingOverlay instanceof
-        BuildableTileOverlay;
+        AvailableTileOverlay;
       if (
         (mapValue === 1 && !isBuildableOverlay) ||
         (mapValue === 2 && isBuildableOverlay)
@@ -102,9 +102,9 @@ class BuildableArea extends GameObject {
     let overlay: GameObject | undefined;
 
     if (mapValue === 1) {
-      overlay = new BuildableTileOverlay(tileX, tileY);
+      overlay = new AvailableTileOverlay(tileX, tileY);
     } else if (mapValue === 2) {
-      overlay = new UnbuildableTileOverlay(tileX, tileY);
+      overlay = new UnavailableTileOverlay(tileX, tileY);
     }
 
     if (overlay) this.append(overlay);
@@ -118,4 +118,4 @@ class BuildableArea extends GameObject {
   }
 }
 
-export default new BuildableArea();
+export default new AvailableArea();

@@ -1,7 +1,7 @@
 import { Coordinates, GameObject } from "@gaiaengine/2d";
 import BattlegroundContract from "../contracts/core/BattlegroundContract.js";
 import GameConfig from "../core/GameConfig.js";
-import BuildableArea from "./BuildableArea.js";
+import AvailableArea from "./AvailableArea.js";
 import Ground from "./ground/Ground.js";
 import Tile from "./Tile.js";
 
@@ -20,7 +20,7 @@ class World extends GameObject {
         onLoadTiles: (coordinates) => this.loadTiles(coordinates),
         onDeleteTiles: (coordinates) => this.deleteTiles(coordinates),
       }),
-      BuildableArea,
+      AvailableArea,
       this.tileContainer,
     );
   }
@@ -37,7 +37,7 @@ class World extends GameObject {
     }
 
     if (this.showingBuildableArea) {
-      BuildableArea.updateArea(this.tiles);
+      AvailableArea.updateBuildableArea(this.tiles);
     }
   }
 
@@ -56,18 +56,18 @@ class World extends GameObject {
     }
 
     if (this.showingBuildableArea) {
-      BuildableArea.updateArea(this.tiles);
+      AvailableArea.updateBuildableArea(this.tiles);
     }
   }
 
   public showBuildableArea() {
     this.showingBuildableArea = true;
-    BuildableArea.updateArea(this.tiles);
+    AvailableArea.updateBuildableArea(this.tiles);
   }
 
   public hideBuildableArea() {
     this.showingBuildableArea = false;
-    BuildableArea.clearAll();
+    AvailableArea.clearAll();
   }
 }
 
