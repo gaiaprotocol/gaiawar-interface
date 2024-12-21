@@ -19,16 +19,17 @@ export default abstract class PulseTileOverlay extends TileBase {
     super(tileX, tileY, ...gameNodes);
 
     this.isPulsing = true;
-    this.alpha = 0;
     this.fadeIn();
   }
 
   private fadeIn(): void {
-    this.fadingSpeed = (1 - this.alpha) / this.pulseDuration;
+    this.alpha = 0;
+    this.fadingSpeed = 1 / this.pulseDuration;
   }
 
   private fadeOut(): void {
-    this.fadingSpeed = (0 - this.alpha) / this.pulseDuration;
+    this.alpha = 1;
+    this.fadingSpeed = -1 / this.pulseDuration;
   }
 
   protected update(deltaTime: number): void {

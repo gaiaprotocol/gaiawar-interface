@@ -1,10 +1,9 @@
-import { GameObject } from "@gaiaengine/2d";
+import { Fadeable, GameObject } from "@gaiaengine/2d";
 import GameConfig from "../../core/GameConfig.js";
 import { UnitQuantity } from "../../data/TileData.js";
 import SpriteUnit from "./SpriteUnit.js";
-import SpineUnit from "./SpineUnit.js";
 
-export default class UnitGroup extends GameObject {
+export default class UnitGroup extends Fadeable {
   constructor(units: UnitQuantity[], faction: "player" | "enemy") {
     super(0, 0);
 
@@ -35,5 +34,7 @@ export default class UnitGroup extends GameObject {
         index++;
       }
     }
+
+    this.fadeIn(0.2);
   }
 }

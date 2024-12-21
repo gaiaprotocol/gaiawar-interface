@@ -1,18 +1,8 @@
+import TokenAmount from "../core/TokenAmount.js";
+
 export interface UnitQuantity {
   unitId: number;
   quantity: number;
-}
-
-enum TokenType {
-  ERC20,
-  ERC1155,
-}
-
-interface TokenAmount {
-  tokenType: TokenType;
-  tokenAddress: string;
-  tokenId: bigint;
-  amount: bigint;
 }
 
 export default interface TileData {

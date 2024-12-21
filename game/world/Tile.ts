@@ -1,9 +1,11 @@
 import { WalletLoginManager } from "@common-module/wallet-login";
 import { GameObject } from "@gaiaengine/2d";
+import TokenAmount from "../core/TokenAmount.js";
 import TileData, { UnitQuantity } from "../data/TileData.js";
 import Building from "./Building.js";
 import Constructing from "./Constructing.js";
 import TrainingFlag from "./flags/TrainingFlag.js";
+import Loot from "./Loot.js";
 import TileBase from "./TileBase.js";
 import UnitGroup from "./unit/UnitGroup.js";
 
@@ -14,6 +16,7 @@ export default class Tile extends TileBase {
   private progressObject: GameObject | undefined;
   private building: Building | undefined;
   private unitGroup: UnitGroup | undefined;
+  private loot: Loot | undefined;
 
   constructor(
     private tileX: number,
@@ -23,6 +26,7 @@ export default class Tile extends TileBase {
     super(tileX, tileY);
     this.setBuilding(data.occupant, data.buildingId);
     this.setUnitGroup(data.units);
+    this.setLoot(data.loot);
   }
 
   public setBuilding(occupant: `0x${string}`, buildingId: number) {
@@ -35,7 +39,9 @@ export default class Tile extends TileBase {
     if (buildingId !== 0) {
       this.building = new Building(
         buildingId,
-        occupant === WalletLoginManager.getLoggedInAddress() ? "player" : "enemy",
+        occupant === WalletLoginManager.getLoggedInAddress()
+          ? "player"
+          : "enemy",
       ).appendTo(this);
     }
   }
@@ -50,6 +56,14 @@ export default class Tile extends TileBase {
           ? "player"
           : "enemy",
       ).appendTo(this);
+    }
+  }
+
+  public setLoot(loot: TokenAmount[]) {
+    this.loot?.remove();
+
+    if (loot.length > 0) {
+      this.loot = new Loot(loot).appendTo(this);
     }
   }
 

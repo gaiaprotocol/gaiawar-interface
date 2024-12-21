@@ -8,7 +8,6 @@ export default class Constructing extends Fadeable {
       new Sprite(0, 0, "/assets/buildings/constructing.png"),
       new ConstructingFlag(faction),
     );
-    this.alpha = 0;
     this.fadeIn(0.2);
   }
 }

@@ -10,7 +10,6 @@ export default class Building extends Fadeable {
         new Sprite(0, 0, `/assets/${metadata.sprites.base}`),
         new Sprite(0, 0, `/assets/${metadata.sprites[faction]}`),
       );
-      this.alpha = 0;
       this.fadeIn(0.2);
     }
   }
