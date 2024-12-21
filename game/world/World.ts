@@ -10,7 +10,12 @@ class World extends GameObject {
   private tileContainer = new GameObject(0, 0);
   private tiles: { [key: string]: Tile } = {};
 
-  private showingAreaType: "constructable" | "movable" | undefined;
+  private showingAreaType:
+    | "constructable"
+    | "movable"
+    | "attackable"
+    | "rangedAttackable"
+    | undefined;
   private showingAreaUnitTileCoord: Coordinates | undefined;
   private showingAreaUnits: UnitQuantity[] | undefined;
 
@@ -93,6 +98,41 @@ class World extends GameObject {
 
   public hideMovableArea() {
     if (this.showingAreaType === "movable") {
+      this.showingAreaType = undefined;
+      this.showingAreaUnitTileCoord = undefined;
+      this.showingAreaUnits = undefined;
+      AvailableArea.clearAll();
+    }
+  }
+
+  public showAttackableArea(unitTileCoord: Coordinates, units: UnitQuantity[]) {
+    this.showingAreaType = "attackable";
+    this.showingAreaUnitTileCoord = unitTileCoord;
+    this.showingAreaUnits = units;
+    AvailableArea.updateAttackableArea(unitTileCoord, units, this.tiles);
+  }
+
+  public hideAttackableArea() {
+    if (this.showingAreaType === "attackable") {
+      this.showingAreaType = undefined;
+      this.showingAreaUnitTileCoord = undefined;
+      this.showingAreaUnits = undefined;
+      AvailableArea.clearAll();
+    }
+  }
+
+  public showRangedAttackableArea(
+    unitTileCoord: Coordinates,
+    units: UnitQuantity[],
+  ) {
+    this.showingAreaType = "rangedAttackable";
+    this.showingAreaUnitTileCoord = unitTileCoord;
+    this.showingAreaUnits = units;
+    AvailableArea.updateRangedAttackableArea(unitTileCoord, units, this.tiles);
+  }
+
+  public hideRangedAttackableArea() {
+    if (this.showingAreaType === "rangedAttackable") {
       this.showingAreaType = undefined;
       this.showingAreaUnitTileCoord = undefined;
       this.showingAreaUnits = undefined;

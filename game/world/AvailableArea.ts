@@ -185,6 +185,104 @@ class AvailableArea extends GameObject {
     this.updateOverlays();
   }
 
+  public async updateAttackableArea(
+    unitTileCoord: Coordinates,
+    _units: UnitQuantity[],
+    tiles: { [key: string]: Tile },
+  ) {
+    const walletAddress = WalletLoginManager.getLoggedInAddress();
+    if (!walletAddress) return;
+
+    this.map = {};
+
+    const unitTile = tiles[`${unitTileCoord.x},${unitTileCoord.y}`];
+    if (!unitTile) return;
+
+    const units = await Promise.all(
+      _units.map((unit) => UnitManager.getUnit(unit.unitId)),
+    );
+    const minMovementRange = Math.min(
+      ...units.map((unit) => unit.movementRange),
+    );
+
+    if (
+      unitTile.getOccupant() === zeroAddress ||
+      unitTile.getOccupant() === walletAddress
+    ) {
+      for (let dx = -minMovementRange; dx <= minMovementRange; dx++) {
+        const remainingRange = minMovementRange - Math.abs(dx);
+        for (let dy = -remainingRange; dy <= remainingRange; dy++) {
+          const tileX = unitTile.getTileX() + dx;
+          const tileY = unitTile.getTileY() + dy;
+          const key = `${tileX},${tileY}`;
+
+          const tile = tiles[key];
+          if (tile) {
+            if (
+              tile.getOccupant() === zeroAddress ||
+              tile.getOccupant() === walletAddress
+            ) {
+              this.map[key] = 2;
+            } else {
+              this.map[key] = 1;
+            }
+          }
+        }
+      }
+    }
+
+    this.updateOverlays();
+  }
+
+  public async updateRangedAttackableArea(
+    unitTileCoord: Coordinates,
+    _units: UnitQuantity[],
+    tiles: { [key: string]: Tile },
+  ) {
+    const walletAddress = WalletLoginManager.getLoggedInAddress();
+    if (!walletAddress) return;
+
+    this.map = {};
+
+    const unitTile = tiles[`${unitTileCoord.x},${unitTileCoord.y}`];
+    if (!unitTile) return;
+
+    const units = await Promise.all(
+      _units.map((unit) => UnitManager.getUnit(unit.unitId)),
+    );
+    const minAttackRange = Math.min(
+      ...units.map((unit) => unit.attackRange),
+    );
+
+    if (
+      unitTile.getOccupant() === zeroAddress ||
+      unitTile.getOccupant() === walletAddress
+    ) {
+      for (let dx = -minAttackRange; dx <= minAttackRange; dx++) {
+        const remainingRange = minAttackRange - Math.abs(dx);
+        for (let dy = -remainingRange; dy <= remainingRange; dy++) {
+          const tileX = unitTile.getTileX() + dx;
+          const tileY = unitTile.getTileY() + dy;
+          const key = `${tileX},${tileY}`;
+
+          const tile = tiles[key];
+          if (tile) {
+            if (
+              tile.getOccupant() === zeroAddress ||
+              tile.getOccupant() === walletAddress
+            ) {
+              this.map[key] = 2;
+            } else {
+              this.map[key] = 1;
+            }
+          }
+        }
+      }
+    }
+
+    this.updateOverlays();
+  }
+
   public clearAll() {
     this.clear();
     this.overlays = {};

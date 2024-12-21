@@ -24,6 +24,9 @@ class GameController {
       if (event.key === "Escape") {
         this.deselectTile();
         this.buildingToConstruct = undefined;
+        this.unitsToMove = undefined;
+        this.unitsToMoveAndAttack = undefined;
+        this.unitsToRangedAttack = undefined;
       }
     });
   }
@@ -200,7 +203,7 @@ class GameController {
       //TODO:
     } else {
       //TODO:
-      World.hideMovableArea();
+      World.hideAttackableArea();
     }
   }
 
@@ -235,7 +238,7 @@ class GameController {
       //TODO:
     } else {
       //TODO:
-      World.hideMovableArea();
+      World.hideRangedAttackableArea();
     }
   }
 

@@ -4,7 +4,7 @@ import { GaiaProtocolConfig } from "gaiaprotocol";
 import ContractAddressManager from "../../core/ContractAddressManager.js";
 import { UnitQuantity } from "../../data/TileData.js";
 import MoveAndAttackArtifact from "../artifacts/commands/MoveAndAttack.json" assert {
-  type: "json",
+  type: "json"
 };
 
 class MoveAndAttackContract {
