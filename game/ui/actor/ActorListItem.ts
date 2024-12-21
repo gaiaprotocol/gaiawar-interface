@@ -1,14 +1,15 @@
 import { DomNode, el } from "@common-module/app";
 import { Button, ButtonType } from "@common-module/app-components";
 import { AnimatedSprite, GameScreen } from "@gaiaengine/dom";
+import GameController from "../../core/GameController.js";
 import BuildingManager from "../../data/building/BuildingManager.js";
 import UnitManager from "../../data/unit/UnitManager.js";
 import spritesheets from "../../world/unit/unit-spritesheets.json" with {
   type: "json",
 };
+import World from "../../world/World.js";
 import UpgradeBuildingModal from "../construction/UpgradeBuildingModal.js";
 import CostList from "../cost/CostList.js";
-import UpgradeUnitModal from "../training/UpgradeUnitModal.js";
 import Actor from "./Actor.js";
 import ActorMode from "./ActorMode.js";
 
@@ -45,6 +46,10 @@ export default class ActorListItem extends DomNode<HTMLDivElement, {
             },
           }),
         );
+      }
+
+      if (this.mode === "all") {
+        //TODO:
       }
     }
 
@@ -83,6 +88,87 @@ export default class ActorListItem extends DomNode<HTMLDivElement, {
             },
           }),
         );
+      }
+
+      if (this.mode === "all") {
+        const units = await UnitManager.loadAllUnits();
+        if (
+          units.find((u) =>
+            this.actor.type === "unit" && u.canBeTrained &&
+            u.prerequisiteUnitId === this.actor.unitId
+          ) !== undefined
+        ) {
+          this.append(
+            new Button({
+              type: ButtonType.Contained,
+              title: "Upgrade",
+              onClick: () => {
+                if (this.actor.type === "unit") {
+                  //TODO: new UpgradeUnitModal(this.actor);
+                  this.emit("proceed");
+                }
+              },
+            }),
+          );
+        }
+
+        this.append(
+          new Button({
+            type: ButtonType.Contained,
+            title: "Move",
+            onClick: () => {
+              if (
+                this.actor.type === "unit" &&
+                GameController.selectedTileCoordinates
+              ) {
+                GameController.unitsToMove = [this.actor];
+                World.showMovableArea(GameController.selectedTileCoordinates, [
+                  this.actor,
+                ]);
+                this.emit("proceed");
+              }
+            },
+          }),
+          new Button({
+            type: ButtonType.Contained,
+            title: "Move & Attack",
+            onClick: () => {
+              if (
+                this.actor.type === "unit" &&
+                GameController.selectedTileCoordinates
+              ) {
+                GameController.unitsToMoveAndAttack = [this.actor];
+                World.showAttackableArea(
+                  GameController.selectedTileCoordinates,
+                  [this.actor],
+                );
+                this.emit("proceed");
+              }
+            },
+          }),
+        );
+
+        if (unit.attackRange > 0) {
+          this.append(
+            new Button({
+              type: ButtonType.Contained,
+              title: "Ranged Attack",
+              onClick: () => {
+                if (
+                  this.actor.type === "unit" &&
+                  GameController.selectedTileCoordinates
+                ) {
+                  GameController.unitsToRangedAttack = [this.actor];
+                  World.showRangedAttackableArea(
+                    GameController.selectedTileCoordinates,
+                    [this.actor],
+                  );
+                  this.emit("proceed");
+                }
+              },
+            }),
+          );
+        }
       }
     }
   }

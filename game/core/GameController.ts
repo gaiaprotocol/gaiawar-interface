@@ -18,7 +18,8 @@ class GameController {
   private _unitsToMove: UnitQuantity[] | undefined;
   private _unitsToMoveAndAttack: UnitQuantity[] | undefined;
   private _unitsToRangedAttack: UnitQuantity[] | undefined;
-  private selectedTileCoordinates: Coordinates | undefined;
+
+  public selectedTileCoordinates: Coordinates | undefined;
 
   constructor() {
     window.addEventListener("keydown", (event) => {

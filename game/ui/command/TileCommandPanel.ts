@@ -97,12 +97,17 @@ export default class TileCommandPanel extends CommandPanel {
 
     if (this.tileData.units.length > 0) {
       const unitActors: Actor[] = [];
+
+      let totalUnits = 0;
+
       for (const unit of this.tileData.units) {
         unitActors.push({
           type: "unit",
           unitId: unit.unitId,
           quantity: unit.quantity,
         });
+
+        totalUnits += unit.quantity;
       }
 
       this.append(
@@ -133,11 +138,13 @@ export default class TileCommandPanel extends CommandPanel {
             );
           },
         ),
-        new CommandButton(
-          new SelectUnitIcon(),
-          "Select Unit",
-          () => new SelectActorInTileModal(unitActors),
-        ),
+        totalUnits > 1
+          ? new CommandButton(
+            new SelectUnitIcon(),
+            "Select Unit",
+            () => new SelectActorInTileModal(unitActors),
+          )
+          : undefined,
       );
     }
 
