@@ -7,7 +7,8 @@
     "atlas": "units/spine/knight.atlas",
     "json": "units/spine/knight.json",
     "png": "units/spine/knight.png"
-  }
+  },
+  "canBeUpgraded": true
 }, {
   "id": 2,
   "key": "swordsman",

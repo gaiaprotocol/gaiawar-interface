@@ -45,7 +45,9 @@ export default class TrainingModal extends StructuredModal {
   private async loadUnits() {
     const units = await UnitManager.loadAllUnits();
     this.unitList.setUnits(
-      units.filter((u) => u.trainingBuildingIds.includes(this.buildingId)),
+      units.filter((u) =>
+        u.canBeTrained && u.trainingBuildingIds.includes(this.buildingId)
+      ),
     );
   }
 }

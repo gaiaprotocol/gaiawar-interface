@@ -94,6 +94,11 @@ class UnitManager {
       unit.trainingBuildingIds.includes(buildingId)
     );
   }
+
+  public canBeUpgraded(unitId: number) {
+    const metadata = unitMetadataSet.find((metadata) => metadata.id === unitId);
+    return metadata?.canBeUpgraded ?? false;
+  }
 }
 
 export default new UnitManager();

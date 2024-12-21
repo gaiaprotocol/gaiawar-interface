@@ -9,6 +9,7 @@ export default interface UnitData {
     png: string;
   };
 
+  prerequisiteUnitId: number;
   trainingBuildingIds: number[];
   healthPoints: number;
   attackDamage: number;
