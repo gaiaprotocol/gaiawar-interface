@@ -56,7 +56,6 @@ export default class TileCommandPanel extends CommandPanel {
           new MoveIcon(),
           "Move",
           () => {
-            //TODO:
             GameController.unitsToMove = this.tileData.units;
             World.showMovableArea(this.coordinates, this.tileData.units);
           },
@@ -64,12 +63,18 @@ export default class TileCommandPanel extends CommandPanel {
         new CommandButton(
           new MoveAndAttackIcon(),
           "Move & Attack",
-          () => {},
+          () => {
+            GameController.unitsToMoveAndAttack = this.tileData.units;
+            World.showMovableArea(this.coordinates, this.tileData.units);
+          },
         ),
         new CommandButton(
           new RangedAttackIcon(),
           "Ranged Attack",
-          () => {},
+          () => {
+            GameController.unitsToRangedAttack = this.tileData.units;
+            World.showMovableArea(this.coordinates, this.tileData.units);
+          },
         ),
         new CommandButton(
           new SelectUnitIcon(),

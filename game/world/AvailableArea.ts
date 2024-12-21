@@ -79,45 +79,56 @@ class AvailableArea extends GameObject {
           const building = await BuildingManager.getBuilding(
             tile.getBuildingId(),
           );
+
           for (
             let dx = -building.constructionRange;
             dx <= building.constructionRange;
             dx++
           ) {
-            for (
-              let dy = -building.constructionRange;
-              dy <= building.constructionRange;
-              dy++
-            ) {
+            const remainingRange = building.constructionRange - Math.abs(dx);
+            for (let dy = -remainingRange; dy <= remainingRange; dy++) {
               const tileX = tile.getTileX() + dx;
               const tileY = tile.getTileY() + dy;
               const key = `${tileX},${tileY}`;
-              this.map[key] = 1;
+
+              const thisTile = tiles[key];
+              if (thisTile) {
+                if (
+                  thisTile.getOccupant() === zeroAddress ||
+                  thisTile.getOccupant() === walletAddress
+                ) {
+                  this.map[key] = 1;
+                } else {
+                  this.map[key] = 2;
+                }
+              }
             }
           }
         }
       }
     } else {
       for (const tile of Object.values(tiles)) {
+        if (tile.getOccupant() === zeroAddress) {
+          this.map[`${tile.getTileX()},${tile.getTileY()}`] = 1;
+        }
+      }
+
+      for (const tile of Object.values(tiles)) {
         if (
           tile.getOccupant() !== zeroAddress &&
           tile.getOccupant() !== walletAddress
         ) {
           const searchRange = GameConfig.enemyBuildingSearchRange;
+
           for (let dx = -searchRange; dx <= searchRange; dx++) {
-            for (let dy = -searchRange; dy <= searchRange; dy++) {
+            const remainingRange = searchRange - Math.abs(dx);
+            for (let dy = -remainingRange; dy <= remainingRange; dy++) {
               const tileX = tile.getTileX() + dx;
               const tileY = tile.getTileY() + dy;
               const key = `${tileX},${tileY}`;
               this.map[key] = 2;
             }
           }
-        }
-      }
-
-      for (const tile of Object.values(tiles)) {
-        if (tile.getOccupant() === zeroAddress) {
-          this.map[`${tile.getTileX()},${tile.getTileY()}`] = 1;
         }
       }
     }

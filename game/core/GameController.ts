@@ -3,7 +3,9 @@ import { Coordinates } from "@gaiaengine/2d";
 import UpgradeBuildingCommand from "../commands/base/UpgradeBuildingCommand.js";
 import ConstructionCommand from "../commands/ConstructionCommand.js";
 import TrainingCommand from "../commands/TrainingCommand.js";
+import MoveAndAttackContract from "../contracts/commands/MoveAndAttackContract.js";
 import MoveContract from "../contracts/commands/MoveContract.js";
+import RangedAttackContract from "../contracts/commands/RangedAttackContract.js";
 import { UnitQuantity } from "../data/TileData.js";
 import CommandPanelController from "../ui/command/CommandPanelController.js";
 import TileHoverOverlay from "../world/tile-overlays/TileHoverOverlay.js";
@@ -13,6 +15,8 @@ import World from "../world/World.js";
 class GameController {
   private _buildingToConstruct: number | undefined;
   private _unitsToMove: UnitQuantity[] | undefined;
+  private _unitsToMoveAndAttack: UnitQuantity[] | undefined;
+  private _unitsToRangedAttack: UnitQuantity[] | undefined;
   private selectedTileCoordinates: Coordinates | undefined;
 
   constructor() {
@@ -26,8 +30,18 @@ class GameController {
 
   public selectTile(coordinates: Coordinates) {
     if (this._unitsToMove) {
-      this.moveUnits(coordinates);
+      this.move(coordinates);
       this.unitsToMove = undefined;
+    }
+
+    if (this._unitsToMoveAndAttack) {
+      this.moveAndAttack(coordinates);
+      this.unitsToMoveAndAttack = undefined;
+    }
+
+    if (this._unitsToRangedAttack) {
+      this.rangedAttack(coordinates);
+      this.unitsToRangedAttack = undefined;
     }
 
     this.selectedTileCoordinates = coordinates;
@@ -40,16 +54,14 @@ class GameController {
     TileSelectedOverlay.setTilePosition(coordinates);
 
     const tile = World.getTile(coordinates);
-    if (tile) {
-      if (tile.getBuildingId() !== 0) {
-        if (tile.getOccupant() === WalletLoginManager.getLoggedInAddress()) {
-          CommandPanelController.changePanel("tile", {
-            coordinates,
-            tileData: tile.data,
-          });
-          return;
-        }
-      }
+    if (
+      tile && tile.getOccupant() === WalletLoginManager.getLoggedInAddress()
+    ) {
+      CommandPanelController.changePanel("tile", {
+        coordinates,
+        tileData: tile.data,
+      });
+      return;
     }
 
     CommandPanelController.changePanel("world");
@@ -157,7 +169,7 @@ class GameController {
     }
   }
 
-  public async moveUnits(to: Coordinates) {
+  public async move(to: Coordinates) {
     if (!this.selectedTileCoordinates || !this._unitsToMove) return;
 
     const tile = World.getTile(to);
@@ -172,6 +184,76 @@ class GameController {
         this.selectedTileCoordinates,
         to,
         this._unitsToMove,
+      );
+    } finally {
+      //TODO:
+    }
+  }
+
+  public get unitsToMoveAndAttack() {
+    return this._unitsToMoveAndAttack;
+  }
+
+  public set unitsToMoveAndAttack(units: UnitQuantity[] | undefined) {
+    this._unitsToMoveAndAttack = units;
+    if (units) {
+      //TODO:
+    } else {
+      //TODO:
+      World.hideMovableArea();
+    }
+  }
+
+  public async moveAndAttack(to: Coordinates) {
+    if (!this.selectedTileCoordinates || !this._unitsToMoveAndAttack) return;
+
+    const tile = World.getTile(to);
+    if (!tile) return;
+
+    const walletAddress = WalletLoginManager.getLoggedInAddress();
+    if (!walletAddress) return;
+
+    //TODO:
+    try {
+      await MoveAndAttackContract.moveAndAttack(
+        this.selectedTileCoordinates,
+        to,
+        this._unitsToMoveAndAttack,
+      );
+    } finally {
+      //TODO:
+    }
+  }
+
+  public get unitsToRangedAttack() {
+    return this._unitsToRangedAttack;
+  }
+
+  public set unitsToRangedAttack(units: UnitQuantity[] | undefined) {
+    this._unitsToRangedAttack = units;
+    if (units) {
+      //TODO:
+    } else {
+      //TODO:
+      World.hideMovableArea();
+    }
+  }
+
+  public async rangedAttack(to: Coordinates) {
+    if (!this.selectedTileCoordinates || !this._unitsToRangedAttack) return;
+
+    const tile = World.getTile(to);
+    if (!tile) return;
+
+    const walletAddress = WalletLoginManager.getLoggedInAddress();
+    if (!walletAddress) return;
+
+    //TODO:
+    try {
+      await RangedAttackContract.rangedAttack(
+        this.selectedTileCoordinates,
+        to,
+        this._unitsToRangedAttack,
       );
     } finally {
       //TODO:
