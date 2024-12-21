@@ -6,6 +6,7 @@ import TrainingCommand from "../commands/TrainingCommand.js";
 import MoveAndAttackContract from "../contracts/commands/MoveAndAttackContract.js";
 import MoveContract from "../contracts/commands/MoveContract.js";
 import RangedAttackContract from "../contracts/commands/RangedAttackContract.js";
+import BattlegroundContract from "../contracts/core/BattlegroundContract.js";
 import { UnitQuantity } from "../data/TileData.js";
 import CommandPanelController from "../ui/command/CommandPanelController.js";
 import TileHoverOverlay from "../world/tile-overlays/TileHoverOverlay.js";
@@ -149,10 +150,26 @@ class GameController {
 
     tile.showTraining("player");
     try {
-      await TrainingCommand.trainUnits(
-        this.selectedTileCoordinates,
-        unitQuantity,
-      );
+      if (
+        await TrainingCommand.trainUnits(
+          this.selectedTileCoordinates,
+          unitQuantity,
+        )
+      ) {
+        const units = tile.getUnits();
+
+        let found = false;
+        for (const unit of units) {
+          if (unit.unitId === unitQuantity.unitId) {
+            unit.quantity += unitQuantity.quantity;
+            found = true;
+            break;
+          }
+        }
+        if (!found) units.push(unitQuantity);
+
+        tile.setUnitGroup(units);
+      }
     } finally {
       tile.hideProgressObject();
     }
@@ -188,6 +205,22 @@ class GameController {
         to,
         this._unitsToMove,
       );
+
+      const units = tile.getUnits();
+
+      for (const unitToMove of this._unitsToMove) {
+        let found = false;
+        for (const unit of units) {
+          if (unit.unitId === unitToMove.unitId) {
+            unit.quantity += unitToMove.quantity;
+            found = true;
+            break;
+          }
+        }
+        if (!found) units.push(unitToMove);
+      }
+
+      tile.setUnitGroup(units);
     } finally {
       //TODO:
     }
@@ -223,6 +256,7 @@ class GameController {
         to,
         this._unitsToMoveAndAttack,
       );
+      //TODO:
     } finally {
       //TODO:
     }
@@ -258,6 +292,25 @@ class GameController {
         to,
         this._unitsToRangedAttack,
       );
+      //TODO:
+    } finally {
+      //TODO:
+    }
+  }
+
+  public async collectLoot() {
+    if (!this.selectedTileCoordinates) return;
+
+    const tile = World.getTile(this.selectedTileCoordinates);
+    if (!tile) return;
+
+    const walletAddress = WalletLoginManager.getLoggedInAddress();
+    if (!walletAddress) return;
+
+    //TODO:
+    try {
+      await BattlegroundContract.collectLoot(this.selectedTileCoordinates);
+      //TODO:
     } finally {
       //TODO:
     }

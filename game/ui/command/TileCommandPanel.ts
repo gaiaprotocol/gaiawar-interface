@@ -12,6 +12,7 @@ import TrainingModal from "../training/TrainingModal.js";
 import CommandButton from "./CommandButton.js";
 import CommandPanel from "./CommandPanel.js";
 import ConstructionIcon from "./icons/ConstructionIcon.js";
+import LootIcon from "./icons/LootIcon.js";
 import MoveAndAttackIcon from "./icons/MoveAndAttackIcon.js";
 import MoveIcon from "./icons/MoveIcon.js";
 import RangedAttackIcon from "./icons/RangedAttackIcon.js";
@@ -83,6 +84,16 @@ export default class TileCommandPanel extends CommandPanel {
           new SelectUnitIcon(),
           "Select Unit",
           () => {},
+        ),
+      );
+    }
+
+    if (this.tileData.loot.length > 0) {
+      this.append(
+        new CommandButton(
+          new LootIcon(),
+          "Collect Loot",
+          () => GameController.collectLoot(),
         ),
       );
     }

@@ -4,7 +4,7 @@ import { GaiaProtocolConfig } from "gaiaprotocol";
 import ContractAddressManager from "../../core/ContractAddressManager.js";
 import TileData from "../../data/TileData.js";
 import BattlegroundArtifact from "../artifacts/core/Battleground.json" assert {
-  type: "json",
+  type: "json"
 };
 
 class BattlegroundContract {
@@ -26,6 +26,16 @@ class BattlegroundContract {
       functionName: "hasHeadquarters",
       args: [user],
     }) as boolean;
+  }
+
+  public async collectLoot(coordinates: Coordinates) {
+    await WalletLoginManager.writeContract({
+      chainId: GaiaProtocolConfig.getChainId(),
+      address: ContractAddressManager.getContractAddress("Battleground"),
+      abi: BattlegroundArtifact.abi,
+      functionName: "collectLoot",
+      args: [coordinates],
+    });
   }
 }
 
