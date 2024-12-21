@@ -1,0 +1,14 @@
+.actor-list {
+  display   : flex;
+  overflow-x: auto;
+  gap       : 13.5px;
+  padding   : 0 34px;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  @container (width <=@phone-width) {
+    padding: 0 24px;
+  }
+}

@@ -28,5 +28,7 @@ export default class SelectActorInTileModal extends StructuredModal {
       this.actorList = new ActorList("all", actors),
     );
     this.appendToFooter(new UserMaterialList());
+
+    this.actorList.on("proceed", () => this.remove());
   }
 }

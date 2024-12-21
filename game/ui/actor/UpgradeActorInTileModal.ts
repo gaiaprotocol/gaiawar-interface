@@ -28,5 +28,7 @@ export default class UpgradeActorInTileModal extends StructuredModal {
       this.actorList = new ActorList("upgrade", actors),
     );
     this.appendToFooter(new UserMaterialList());
+
+    this.actorList.on("proceed", () => this.remove());
   }
 }

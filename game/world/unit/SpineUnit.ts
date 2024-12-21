@@ -1,4 +1,4 @@
-import { GameObject } from "@gaiaengine/2d";
+import { GameObject, Sprite } from "@gaiaengine/2d";
 import { Spine } from "@gaiaengine/2d-spine";
 import UnitManager from "../../data/unit/UnitManager.js";
 
@@ -21,7 +21,13 @@ export default class SpineUnit extends GameObject {
         loop: true,
       });
       spine.scale = 0.5;
-      this.append(spine);
+
+      this.append(
+        spine,
+        metadata.shadowSize === "large"
+          ? new Sprite(0, 0, "/assets/units/shadow-large.png")
+          : new Sprite(0, 0, "/assets/units/shadow.png"),
+      );
     }
   }
 }
