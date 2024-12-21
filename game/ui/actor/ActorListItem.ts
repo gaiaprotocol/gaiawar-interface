@@ -1,11 +1,14 @@
 import { DomNode, el } from "@common-module/app";
+import { Button, ButtonType } from "@common-module/app-components";
 import { AnimatedSprite, GameScreen } from "@gaiaengine/dom";
 import BuildingManager from "../../data/building/BuildingManager.js";
 import UnitManager from "../../data/unit/UnitManager.js";
 import spritesheets from "../../world/unit/unit-spritesheets.json" with {
   type: "json",
 };
+import UpgradeBuildingModal from "../construction/UpgradeBuildingModal.js";
 import CostList from "../cost/CostList.js";
+import UpgradeUnitModal from "../training/UpgradeUnitModal.js";
 import Actor from "./Actor.js";
 import ActorMode from "./ActorMode.js";
 
@@ -28,6 +31,21 @@ export default class ActorListItem extends DomNode<HTMLDivElement, {
         ),
         new CostList(building.constructionCost),
       );
+
+      if (this.mode === "upgrade") {
+        this.append(
+          new Button({
+            type: ButtonType.Contained,
+            title: "Upgrade",
+            onClick: () => {
+              if (this.actor.type === "building") {
+                new UpgradeBuildingModal(this.actor.buildingId);
+                this.emit("proceed");
+              }
+            },
+          }),
+        );
+      }
     }
 
     if (this.actor.type === "unit") {
@@ -51,10 +69,21 @@ export default class ActorListItem extends DomNode<HTMLDivElement, {
         ),
         new CostList(unit.trainingCost),
       );
-    }
 
-    this.onDom("click", () => {
-      this.emit("proceed");
-    });
+      if (this.mode === "upgrade") {
+        this.append(
+          new Button({
+            type: ButtonType.Contained,
+            title: "Upgrade",
+            onClick: () => {
+              if (this.actor.type === "unit") {
+                //TODO: new UpgradeUnitModal(this.actor);
+                this.emit("proceed");
+              }
+            },
+          }),
+        );
+      }
+    }
   }
 }

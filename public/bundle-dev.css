@@ -2783,7 +2783,6 @@ li.chat-content-list-item.temp {
   flex-shrink: 0;
   width: 300px;
   padding: 20px;
-  cursor: pointer;
   background-color: #2f2f2f;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 4.5px;
@@ -2802,13 +2801,5 @@ li.chat-content-list-item.temp {
 }
 .actor-list-item > .image-container > img {
   height: 200px;
-}
-@media (pointer: fine) {
-  .actor-list-item:hover {
-    background-color: #424242;
-  }
-}
-.actor-list-item:active {
-  background-color: #424242;
 }
 
