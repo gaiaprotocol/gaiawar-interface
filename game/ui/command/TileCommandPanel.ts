@@ -6,6 +6,7 @@ import BuildingManager from "../../data/building/BuildingManager.js";
 import TileData from "../../data/TileData.js";
 import UnitManager from "../../data/unit/UnitManager.js";
 import World from "../../world/World.js";
+import Actor from "../actor/Actor.js";
 import SelectActorInTileModal from "../actor/SelectActorInTileModal.js";
 import UpgradeActorInTileModal from "../actor/UpgradeActorInTileModal.js";
 import ConstructionModal from "../construction/ConstructionModal.js";
@@ -43,35 +44,42 @@ export default class TileCommandPanel extends CommandPanel {
   }
 
   private async renderLoginUserCommands() {
-    const totalUpgradableUnits = this.tileData.units.filter(
-      (u) => UnitManager.canBeUpgraded(u.unitId),
-    ).reduce((acc, u) => acc + u.quantity, 0);
+    const actors: Actor[] = [];
 
-    const totalUpgradableActors = totalUpgradableUnits +
-      (BuildingManager.canBeUpgraded(this.tileData.buildingId) ? 1 : 0);
+    if (BuildingManager.canBeUpgraded(this.tileData.buildingId)) {
+      actors.push({ type: "building", buildingId: this.tileData.buildingId });
+    }
 
-    if (totalUpgradableActors > 1) {
+    for (const unit of this.tileData.units) {
+      if (UnitManager.canBeUpgraded(unit.unitId)) {
+        actors.push({
+          type: "unit",
+          unitId: unit.unitId,
+          quantity: unit.quantity,
+        });
+      }
+    }
+
+    if (actors.length > 1) {
       this.append(
         new CommandButton(
           new UpgradeIcon(),
           "Upgrade",
-          () => new UpgradeActorInTileModal(),
+          () => new UpgradeActorInTileModal(actors),
         ),
       );
     } else {
-      if (totalUpgradableUnits === 1) {
-        const upgradableUnit = this.tileData.units.find(
-          (u) => UnitManager.canBeUpgraded(u.unitId),
+      const upgradableUnit = this.tileData.units.find(
+        (u) => UnitManager.canBeUpgraded(u.unitId),
+      );
+      if (upgradableUnit) {
+        this.append(
+          new CommandButton(
+            new UpgradeIcon(),
+            "Upgrade",
+            () => new UpgradeUnitModal(upgradableUnit),
+          ),
         );
-        if (upgradableUnit) {
-          this.append(
-            new CommandButton(
-              new UpgradeIcon(),
-              "Upgrade",
-              () => new UpgradeUnitModal(upgradableUnit.unitId),
-            ),
-          );
-        }
       }
 
       if (BuildingManager.canBeUpgraded(this.tileData.buildingId)) {
@@ -88,6 +96,15 @@ export default class TileCommandPanel extends CommandPanel {
     await this.loadTrainableUnits();
 
     if (this.tileData.units.length > 0) {
+      const unitActors: Actor[] = [];
+      for (const unit of this.tileData.units) {
+        unitActors.push({
+          type: "unit",
+          unitId: unit.unitId,
+          quantity: unit.quantity,
+        });
+      }
+
       this.append(
         new CommandButton(
           new MoveIcon(),
@@ -119,7 +136,7 @@ export default class TileCommandPanel extends CommandPanel {
         new CommandButton(
           new SelectUnitIcon(),
           "Select Unit",
-          () => new SelectActorInTileModal(),
+          () => new SelectActorInTileModal(unitActors),
         ),
       );
     }
