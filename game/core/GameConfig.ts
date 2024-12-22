@@ -16,6 +16,7 @@ import { base, baseSepolia } from "@wagmi/core/chains";
 import { GaiaProtocolConfig } from "gaiaprotocol";
 import { WalletModuleConfig } from "../../../wallet-module/lib/index.js";
 import ChatMessageRepository from "../data/chat/ChatMessageRepository.js";
+import SettingsModal from "../ui/settings/SettingsModal.js";
 import UserInfoModal from "../ui/user/UserInfoModal.js";
 import MaterialContractManager from "./MaterialContractManager.js";
 
@@ -84,6 +85,18 @@ class GameConfig {
 
     SocialCompConfig.getLoggedInUserMenu = async (menu, user) => {
       return [
+        WalletModuleConfig.chains[0].faucetUrl
+          ? new DropdownMenuGroup(
+            new DropdownMenuItem({
+              icon: new EthereumIcon(),
+              label: "Get Testnet ETH",
+              onClick: () => {
+                window.open(WalletModuleConfig.chains[0].faucetUrl);
+                menu.remove();
+              },
+            }),
+          )
+          : undefined,
         new DropdownMenuGroup(
           new DropdownMenuItem({
             icon: new ProfileIcon(),
@@ -97,23 +110,11 @@ class GameConfig {
             icon: new SettingsIcon(),
             label: "Settings",
             onClick: () => {
-              new UserInfoModal(user.id);
+              new SettingsModal();
               menu.remove();
             },
           }),
         ),
-        WalletModuleConfig.chains[0].faucetUrl
-          ? new DropdownMenuGroup(
-            new DropdownMenuItem({
-              icon: new EthereumIcon(),
-              label: "Get Testnet ETH",
-              onClick: () => {
-                window.open(WalletModuleConfig.chains[0].faucetUrl);
-                menu.remove();
-              },
-            }),
-          )
-          : undefined,
       ];
     };
   }
