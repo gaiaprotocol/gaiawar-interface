@@ -63,6 +63,6 @@ class TargetingShape extends ShapeNode {
 
 export default class TileHover extends TileObject {
   constructor() {
-    super(-999999, -999999, new TargetingShape());
+    super({ x: -999999, y: -999999 }, new TargetingShape());
   }
 }

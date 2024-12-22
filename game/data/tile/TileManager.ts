@@ -4,7 +4,7 @@ import BattlegroundContract from "../../contracts/core/BattlegroundContract.js";
 import TileData from "./TileData.js";
 
 class TileManager extends EventContainer<{
-  tilesLoaded: (tiles: TileData[]) => void;
+  tilesLoaded: (tiles: Record<number, Record<number, TileData>>) => void;
 }> {
   private currentTileRange: TileRange = {
     startX: 0,
@@ -31,7 +31,26 @@ class TileManager extends EventContainer<{
       x: this.currentTileRange.endX,
       y: this.currentTileRange.endY,
     });
-    this.emit("tilesLoaded", tiles);
+
+    const tileMap: Record<number, Record<number, TileData>> = {};
+
+    let i = 0;
+    for (
+      let x = this.currentTileRange.startX;
+      x <= this.currentTileRange.endX;
+      x++
+    ) {
+      tileMap[x] = {};
+      for (
+        let y = this.currentTileRange.startY;
+        y <= this.currentTileRange.endY;
+        y++
+      ) {
+        tileMap[x][y] = tiles[i++];
+      }
+    }
+
+    this.emit("tilesLoaded", tileMap);
   }
 }
 
