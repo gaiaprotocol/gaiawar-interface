@@ -4,6 +4,7 @@ import TileFaction from "../../data/tile/TileFaction.js";
 import UnitSquad from "./UnitSquad.js";
 
 export default class UnitPlatoon extends Fadeable {
+  private currentFaction: TileFaction = "enemy";
   private squads: UnitSquad[] = [];
 
   constructor() {
