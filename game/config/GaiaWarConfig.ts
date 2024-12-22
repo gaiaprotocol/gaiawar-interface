@@ -20,7 +20,7 @@ import SettingsModal from "../ui/settings/SettingsModal.js";
 import UserInfoModal from "../ui/user/UserInfoModal.js";
 import MaterialContractManager from "./MaterialContractManager.js";
 
-export interface IGameConfig {
+export interface IGaiaWarConfig {
   isDevMode: boolean;
   isTestnet: boolean;
 
@@ -30,7 +30,7 @@ export interface IGameConfig {
   walletConnectProjectId: string;
 }
 
-class GameConfig {
+class GaiaWarConfig {
   public isDevMode!: boolean;
   public isTestnet!: boolean;
 
@@ -43,7 +43,7 @@ class GameConfig {
   public headquartersSearchRange = 7;
   public enemyBuildingSearchRange = 3;
 
-  public init(config: IGameConfig) {
+  public init(config: IGaiaWarConfig) {
     Object.assign(this, config);
     GaiaUIPreset.init();
     MaterialContractManager.init();
@@ -120,4 +120,4 @@ class GameConfig {
   }
 }
 
-export default new GameConfig();
+export default new GaiaWarConfig();

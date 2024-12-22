@@ -1,5 +1,5 @@
 import { Fadeable, GameObject } from "@gaiaengine/2d";
-import GameConfig from "../../core/GameConfig.js";
+import GameConfig from "../../config/GaiaWarConfig.js";
 import { UnitQuantity } from "../../data/TileData.js";
 import SpriteUnit from "./SpriteUnit.js";
 

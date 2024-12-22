@@ -1,6 +1,6 @@
 import { WalletLoginManager } from "@common-module/wallet-login";
 import { GaiaProtocolConfig } from "gaiaprotocol";
-import ContractAddressManager from "../../core/ContractAddressManager.js";
+import ContractAddressManager from "../../config/ContractAddressManager.js";
 import UpgradeBuildingionArtifact from "../artifacts/commands/UpgradeBuilding.json" assert {
   type: "json",
 };

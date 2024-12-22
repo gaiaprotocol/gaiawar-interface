@@ -1,5 +1,5 @@
 import ChainType from "./ChainType.js";
-import GameConfig from "./GameConfig.js";
+import GameConfig from "./GaiaWarConfig.js";
 
 type ContractType =
   | "LootVault"

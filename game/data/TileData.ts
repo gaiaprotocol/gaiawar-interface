@@ -1,4 +1,4 @@
-import TokenAmount from "../core/TokenAmount.js";
+import TokenAmount from "./token/TokenAmount.js";
 
 export interface UnitQuantity {
   unitId: number;

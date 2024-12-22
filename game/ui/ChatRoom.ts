@@ -8,7 +8,7 @@ import { WalletLoginManager } from "@common-module/wallet-login";
 import { CollapseIcon, ExpandIcon } from "@gaiaprotocol/svg-icons";
 import { RealtimeChannel } from "@supabase/supabase-js";
 import { v4 as uuidv4 } from "uuid";
-import GameConfig from "../core/GameConfig.js";
+import GameConfig from "../config/GaiaWarConfig.js";
 import ChatMessageEntity from "../data/chat/ChatMessageEntity.js";
 import ChatMessageRepository from "../data/chat/ChatMessageRepository.js";
 

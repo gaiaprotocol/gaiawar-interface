@@ -3,7 +3,7 @@ import { Button, ButtonType } from "@common-module/app-components";
 import { AddIcon } from "@gaiaprotocol/svg-icons";
 import { TradeMaterialModal } from "gaiaprotocol";
 import { formatEther } from "viem";
-import MaterialContractManager from "../../core/MaterialContractManager.js";
+import MaterialContractManager from "../../config/MaterialContractManager.js";
 import MaterialType from "../../data/material/MaterialType.js";
 import UserMaterialManager from "../../data/material/UserMaterialManager.js";
 import materialIcons from "./materialIcons.js";

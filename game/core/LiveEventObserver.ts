@@ -1,5 +1,5 @@
 import { RealtimeChannel } from "@supabase/supabase-js";
-import GameConfig from "../core/GameConfig.js";
+import GameConfig from "../config/GaiaWarConfig.js";
 
 class LiveEventObserver {
   private channel!: RealtimeChannel;

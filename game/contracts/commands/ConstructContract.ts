@@ -1,7 +1,7 @@
 import { WalletLoginManager } from "@common-module/wallet-login";
 import { Coordinates } from "@gaiaengine/2d";
 import { GaiaProtocolConfig } from "gaiaprotocol";
-import ContractAddressManager from "../../core/ContractAddressManager.js";
+import ContractAddressManager from "../../config/ContractAddressManager.js";
 import ConstructArtifact from "../artifacts/commands/Construct.json" assert {
   type: "json",
 };

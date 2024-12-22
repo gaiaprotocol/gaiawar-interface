@@ -1,6 +1,6 @@
 import { ShapeNode, Sprite } from "@gaiaengine/2d";
 import { StrokeInput } from "../../../../pixi.js/lib/index.js";
-import GameConfig from "../../core/GameConfig.js";
+import GameConfig from "../../config/GaiaWarConfig.js";
 import BuildingManager from "../../data/building/BuildingManager.js";
 import TileBase from "../TileBase.js";
 

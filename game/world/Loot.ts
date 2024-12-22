@@ -1,7 +1,7 @@
 import { Fadeable, Sprite } from "@gaiaengine/2d";
 import { formatEther } from "viem";
-import GameConfig from "../core/GameConfig.js";
-import TokenAmount from "../core/TokenAmount.js";
+import GameConfig from "../config/GaiaWarConfig.js";
+import TokenAmount from "../data/token/TokenAmount.js";
 
 export default class Loot extends Fadeable {
   constructor(loot: TokenAmount[]) {

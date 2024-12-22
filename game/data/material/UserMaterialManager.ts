@@ -1,6 +1,6 @@
 import { EventContainer } from "@common-module/ts";
 import { WalletLoginManager } from "@common-module/wallet-login";
-import MaterialContractManager from "../../core/MaterialContractManager.js";
+import MaterialContractManager from "../../config/MaterialContractManager.js";
 
 class UserMaterialManager extends EventContainer<{
   balanceUpdated: (material: string, balance: bigint) => void;

@@ -3,7 +3,7 @@ import { Fullscreen, GameObject } from "@gaiaengine/2d";
 import World from "../world/World.js";
 import TileHoverOverlay from "../world/tile-overlays/TileHoverOverlay.js";
 import TileSelectedOverlay from "../world/tile-overlays/TileSelectedOverlay.js";
-import GameConfig from "./GameConfig.js";
+import GameConfig from "../config/GaiaWarConfig.js";
 import GameController from "./GameController.js";
 
 class GameScreen extends Fullscreen {

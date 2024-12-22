@@ -2,7 +2,7 @@ import { WalletLoginManager } from "@common-module/wallet-login";
 import { Coordinates, GameObject } from "@gaiaengine/2d";
 import { zeroAddress } from "viem";
 import BattlegroundContract from "../contracts/core/BattlegroundContract.js";
-import GameConfig from "../core/GameConfig.js";
+import GameConfig from "../config/GaiaWarConfig.js";
 import BuildingManager from "../data/building/BuildingManager.js";
 import { UnitQuantity } from "../data/TileData.js";
 import UnitManager from "../data/unit/UnitManager.js";

@@ -1,5 +1,5 @@
 import { RectangleNode } from "@gaiaengine/2d";
-import GameConfig from "../../core/GameConfig.js";
+import GameConfig from "../../config/GaiaWarConfig.js";
 import PulseTileOverlay from "./PulseTileOverlay.js";
 
 export default class AvailableTileOverlay extends PulseTileOverlay {

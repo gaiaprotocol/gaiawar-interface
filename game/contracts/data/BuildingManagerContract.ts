@@ -1,11 +1,11 @@
 import { WalletLoginManager } from "@common-module/wallet-login";
 import { GaiaProtocolConfig } from "gaiaprotocol";
-import ContractAddressManager from "../../core/ContractAddressManager.js";
-import MaterialContractManager from "../../core/MaterialContractManager.js";
+import ContractAddressManager from "../../config/ContractAddressManager.js";
+import MaterialContractManager from "../../config/MaterialContractManager.js";
 import BuildingManagerArtifact from "../artifacts/data/BuildingManager.json" assert {
   type: "json",
 };
-import TokenType from "../../core/TokenType.js";
+import TokenType from "../../data/token/TokenType.js";
 
 class BuildingManagerContract {
   public async getNextBuildingId() {

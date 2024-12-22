@@ -1,6 +1,6 @@
 import { WalletLoginManager } from "@common-module/wallet-login";
 import { GameObject } from "@gaiaengine/2d";
-import TokenAmount from "../core/TokenAmount.js";
+import TokenAmount from "../data/token/TokenAmount.js";
 import TileData, { UnitQuantity } from "../data/TileData.js";
 import Building from "./Building.js";
 import Constructing from "./Constructing.js";
