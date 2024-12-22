@@ -24,28 +24,19 @@ class TileManager extends EventContainer<{
   }
 
   private async loadTiles() {
-    const tiles = await BattlegroundContract.getTiles({
-      x: this.currentTileRange.startX,
-      y: this.currentTileRange.startY,
-    }, {
-      x: this.currentTileRange.endX,
-      y: this.currentTileRange.endY,
-    });
+    const range = this.currentTileRange;
+
+    const tiles = await BattlegroundContract.getTiles(
+      { x: range.startX, y: range.startY },
+      { x: range.endX, y: range.endY },
+    );
 
     const tileMap: Record<number, Record<number, TileData>> = {};
 
     let i = 0;
-    for (
-      let x = this.currentTileRange.startX;
-      x <= this.currentTileRange.endX;
-      x++
-    ) {
+    for (let x = range.startX; x <= range.endX; x++) {
       tileMap[x] = {};
-      for (
-        let y = this.currentTileRange.startY;
-        y <= this.currentTileRange.endY;
-        y++
-      ) {
+      for (let y = range.startY; y <= range.endY; y++) {
         tileMap[x][y] = tiles[i++];
       }
     }

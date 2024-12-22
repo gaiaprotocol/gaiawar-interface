@@ -15,7 +15,7 @@ export default class Tile extends TileObject {
   private unitPlatoon: UnitPlatoon;
   private loot: Loot;
 
-  constructor(coord: Coordinates) {
+  constructor(private coord: Coordinates) {
     super(coord);
     this.unitPlatoon = new UnitPlatoon().appendTo(this);
     this.loot = new Loot().appendTo(this);
@@ -25,11 +25,13 @@ export default class Tile extends TileObject {
     const loginUser = WalletLoginManager.getLoggedInAddress();
     const faction = tileData.occupant === loginUser ? "player" : "enemy";
 
-    if (this.building && !tileData.buildingId) {
+    if (this.building && tileData.buildingId === 0) {
       this.destroyBuilding();
     } else if (
-      this.currentData?.buildingId !== tileData.buildingId ||
-      (this.currentFaction !== faction && tileData.buildingId)
+      tileData.buildingId > 0 && (
+        this.currentData?.buildingId !== tileData.buildingId ||
+        (this.currentFaction !== faction && tileData.buildingId > 0)
+      )
     ) {
       this.createBuilding(faction, tileData.buildingId);
     }
@@ -42,8 +44,10 @@ export default class Tile extends TileObject {
   }
 
   private createBuilding(faction: TileFaction, buildingId: number) {
+    console.log("createBuilding", this.coord, faction, buildingId);
+
     this.building?.destroy();
-    this.building = new Building(faction, buildingId);
+    this.building = new Building(faction, buildingId).appendTo(this);
   }
 
   private destroyBuilding() {

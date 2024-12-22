@@ -9,6 +9,7 @@ interface WorldOptions {
 }
 
 export default class World extends GameObject {
+  private tileContainer = new GameObject(0, 0);
   private tiles: Record<number, Record<number, Tile>> = {};
 
   constructor(options: WorldOptions) {
@@ -22,6 +23,7 @@ export default class World extends GameObject {
         onDeleteTiles: (coordinates) => this.deleteTiles(coordinates),
         onTileRangeChanged: (range) => options.onTileRangeChanged(range),
       }),
+      this.tileContainer,
     );
   }
 
@@ -32,7 +34,7 @@ export default class World extends GameObject {
         this.tiles[c.x] = {};
       }
       this.tiles[c.x][c.y] = tile;
-      this.append(tile);
+      this.tileContainer.append(tile);
     }
   }
 
