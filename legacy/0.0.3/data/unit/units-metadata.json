@@ -1,0 +1,43 @@
+[{
+  "id": 1,
+  "key": "knight",
+  "name": "Knight",
+  "description": "A noble warrior clad in heavy armor, the Knight serves as both a formidable combatant and an inspiring leader on the battlefield. Their mere presence bolsters the morale of nearby soldiers, enhancing their combat effectiveness. These mounted warriors combine martial prowess with tactical command, making them invaluable assets in any army.",
+  "spine": {
+    "atlas": "units/spine/knight.atlas",
+    "json": "units/spine/knight.json",
+    "png": "units/spine/knight.png"
+  },
+  "canBeUpgraded": true,
+  "shadowSize": "small"
+}, {
+  "id": 2,
+  "key": "swordsman",
+  "name": "Swordsman",
+  "description": "Trained in the art of close combat, Swordsmen form the backbone of any army. Their well-balanced combination of offense and defense makes them adaptable warriors in various combat situations. With sword and shield in hand, these disciplined soldiers excel in frontline combat.",
+  "spine": {
+    "atlas": "units/spine/swordsman.atlas",
+    "json": "units/spine/swordsman.json",
+    "png": "units/spine/swordsman.png"
+  }
+}, {
+  "id": 3,
+  "key": "archer",
+  "name": "Archer",
+  "description": "Masters of the longbow, Archers provide crucial ranged support in battle. Their ability to rain arrows upon enemies from considerable distances makes them essential for both offensive strikes and defensive positions. While vulnerable in close combat, their long-range capabilities can turn the tide of battle before the enemy can close the gap.",
+  "spine": {
+    "atlas": "units/spine/archer.atlas",
+    "json": "units/spine/archer.json",
+    "png": "units/spine/archer.png"
+  }
+}, {
+  "id": 4,
+  "key": "cavalry",
+  "name": "Cavalry",
+  "description": "These skilled horsemen combine speed with striking power, capable of covering vast distances across the battlefield. Their superior mobility allows them to quickly respond to threats or exploit weaknesses in enemy lines. Perfect for harassment tactics, flanking maneuvers, and pursuing retreating forces, Cavalry units can rapidly shift the momentum of battle.",
+  "spine": {
+    "atlas": "units/spine/cavalry.atlas",
+    "json": "units/spine/cavalry.json",
+    "png": "units/spine/cavalry.png"
+  }
+}]
