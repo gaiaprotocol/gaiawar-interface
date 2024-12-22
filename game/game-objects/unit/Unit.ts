@@ -1,6 +1,7 @@
-import SpineUnit from "./SpineUnit.js";
-import SpriteUnit from "./SpriteUnit.js";
+import { GameObject } from "@gaiaengine/2d";
 
-type Unit = SpineUnit | SpriteUnit;
-
-export default Unit;
+export default class Unit extends GameObject {
+  constructor() {
+    super(0, 0);
+  }
+}

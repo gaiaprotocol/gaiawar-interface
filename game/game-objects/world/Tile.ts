@@ -4,7 +4,7 @@ import TileData from "../../data/tile/TileData.js";
 import TileFaction from "../../data/tile/TileFaction.js";
 import Building from "../building/Building.js";
 import UnitPlatoon from "../unit/UnitPlatoon.js";
-import Loot from "./Loot.js";
+import Loot from "../loot/Loot.js";
 import TileObject from "./TileObject.js";
 
 export default class Tile extends TileObject {
@@ -44,8 +44,6 @@ export default class Tile extends TileObject {
   }
 
   private createBuilding(faction: TileFaction, buildingId: number) {
-    console.log("createBuilding", this.coord, faction, buildingId);
-
     this.building?.destroy();
     this.building = new Building(faction, buildingId).appendTo(this);
   }
