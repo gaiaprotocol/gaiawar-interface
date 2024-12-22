@@ -6,7 +6,7 @@ import TileHover from "../game-objects/tile-overlays/TileHover.js";
 import TileSelected from "../game-objects/tile-overlays/TileSelected.js";
 import World from "../game-objects/world/World.js";
 import GaiaWarScreen from "./GaiaWarScreen.js";
-import Commander from "./command/Commander.js";
+import TileCommander from "./command/TileCommander.js";
 import PendingCommandManager from "./command/PendingCommandManager.js";
 
 class GaiaWarController {
@@ -41,7 +41,7 @@ class GaiaWarController {
 
   private selectTile(coord: Coordinates) {
     this.tileSelected.setTilePosition(coord);
-    Commander.selectTile(coord);
+    TileCommander.selectTile(coord);
   }
 }
 

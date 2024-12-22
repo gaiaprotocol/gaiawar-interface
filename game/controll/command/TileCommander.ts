@@ -1,7 +1,7 @@
 import { Coordinates } from "@gaiaengine/2d";
 import { UnitQuantity } from "../../data/tile/TileData.js";
 
-class Commander {
+class TileCommander {
   private waitingCommand:
     | "construct"
     | "move"
@@ -29,4 +29,4 @@ class Commander {
   }
 }
 
-export default new Commander();
+export default new TileCommander();
