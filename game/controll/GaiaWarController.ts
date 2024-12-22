@@ -7,6 +7,7 @@ import TileSelected from "../game-objects/tile-overlays/TileSelected.js";
 import World from "../game-objects/world/World.js";
 import GaiaWarScreen from "./GaiaWarScreen.js";
 import Commander from "./command/Commander.js";
+import PendingCommandManager from "./command/PendingCommandManager.js";
 
 class GaiaWarController {
   private screen!: GaiaWarScreen;
@@ -34,6 +35,8 @@ class GaiaWarController {
     );
 
     TileManager.on("tilesLoaded", (tiles) => this.world.updateTiles(tiles));
+
+    PendingCommandManager.init();
   }
 
   private selectTile(coord: Coordinates) {
