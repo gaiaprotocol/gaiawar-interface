@@ -6,7 +6,11 @@ import { SocialCompConfig } from "@common-module/social-components";
 import { AuthTokenManager, SupabaseConnector } from "@common-module/supabase";
 import { WalletLoginConfig } from "@common-module/wallet-login";
 import { GaiaEngineConfig } from "@gaiaengine/2d";
-import { EthereumIcon, ProfileIcon } from "@gaiaprotocol/svg-icons";
+import {
+  EthereumIcon,
+  ProfileIcon,
+  SettingsIcon,
+} from "@gaiaprotocol/svg-icons";
 import { GaiaUIPreset } from "@gaiaprotocol/ui-preset";
 import { base, baseSepolia } from "@wagmi/core/chains";
 import { GaiaProtocolConfig } from "gaiaprotocol";
@@ -84,6 +88,14 @@ class GameConfig {
           new DropdownMenuItem({
             icon: new ProfileIcon(),
             label: "Profile",
+            onClick: () => {
+              new UserInfoModal(user.id);
+              menu.remove();
+            },
+          }),
+          new DropdownMenuItem({
+            icon: new SettingsIcon(),
+            label: "Settings",
             onClick: () => {
               new UserInfoModal(user.id);
               menu.remove();
