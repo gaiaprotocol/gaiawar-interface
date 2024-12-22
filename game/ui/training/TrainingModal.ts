@@ -5,7 +5,6 @@ import {
   StructuredModal,
 } from "@common-module/app-components";
 import { CloseIcon } from "@gaiaprotocol/svg-icons";
-import GameController from "../../core/GameController.js";
 import UnitManager from "../../data/unit/UnitManager.js";
 import UserMaterialList from "../material/UserMaterialList.js";
 import TrainingUnitList from "./TrainingUnitList.js";
@@ -34,7 +33,7 @@ export default class TrainingModal extends StructuredModal {
       "unitSelected",
       (unitId) => {
         //TEST
-        GameController.trainUnits({ unitId, quantity: 1 });
+        //GameController.trainUnits({ unitId, quantity: 1 });
         this.remove();
       },
     );

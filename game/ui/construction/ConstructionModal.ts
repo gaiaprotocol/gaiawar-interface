@@ -6,8 +6,6 @@ import {
 } from "@common-module/app-components";
 import { CloseIcon } from "@gaiaprotocol/svg-icons";
 import BuildingManager from "../../data/building/BuildingManager.js";
-import GameController from "../../core/GameController.js";
-import World from "../../world/World.js";
 import UserMaterialList from "../material/UserMaterialList.js";
 import ConstructionBuildingList from "./ConstructionBuildingList.js";
 
@@ -34,20 +32,20 @@ export default class ConstructionModal extends StructuredModal {
     this.buildingList.on(
       "buildingSelected",
       (buildingId) => {
-        GameController.buildingToConstruct = buildingId;
+        //GameController.buildingToConstruct = buildingId;
         this.remove();
       },
     );
 
     this.loadBuildings();
 
-    World.showConstructableArea();
+    /*World.showConstructableArea();
 
     this.on("remove", () => {
       if (!GameController.buildingToConstruct) {
         World.hideConstructableArea();
       }
-    });
+    });*/
   }
 
   private async loadBuildings() {

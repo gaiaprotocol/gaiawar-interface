@@ -1,11 +1,9 @@
 import { WalletLoginManager } from "@common-module/wallet-login";
 import { Coordinates } from "@gaiaengine/2d";
 import { zeroAddress } from "viem";
-import GameController from "../../core/GameController.js";
 import BuildingManager from "../../data/building/BuildingManager.js";
 import TileData from "../../data/tile/TileData.js";
 import UnitManager from "../../data/unit/UnitManager.js";
-import World from "../../game-objects/world/World.js";
 import Actor from "../actor/Actor.js";
 import SelectActorInTileModal from "../actor/SelectActorInTileModal.js";
 import UpgradeActorInTileModal from "../actor/UpgradeActorInTileModal.js";
@@ -115,27 +113,27 @@ export default class TileCommandPanel extends CommandPanel {
           new MoveIcon(),
           "Move",
           () => {
-            GameController.unitsToMove = this.tileData.units;
-            World.showMovableArea(this.coordinates, this.tileData.units);
+            /*GameController.unitsToMove = this.tileData.units;
+            World.showMovableArea(this.coordinates, this.tileData.units);*/
           },
         ),
         new CommandButton(
           new MoveAndAttackIcon(),
           "Move & Attack",
           () => {
-            GameController.unitsToMoveAndAttack = this.tileData.units;
-            World.showAttackableArea(this.coordinates, this.tileData.units);
+            /*GameController.unitsToMoveAndAttack = this.tileData.units;
+            World.showAttackableArea(this.coordinates, this.tileData.units);*/
           },
         ),
         new CommandButton(
           new RangedAttackIcon(),
           "Ranged Attack",
           () => {
-            GameController.unitsToRangedAttack = this.tileData.units;
+            /*GameController.unitsToRangedAttack = this.tileData.units;
             World.showRangedAttackableArea(
               this.coordinates,
               this.tileData.units,
-            );
+            );*/
           },
         ),
         totalUnits > 1
@@ -153,7 +151,7 @@ export default class TileCommandPanel extends CommandPanel {
         new CommandButton(
           new LootIcon(),
           "Collect Loot",
-          () => GameController.collectLoot(),
+          () => {}, //GameController.collectLoot(),
         ),
       );
     }

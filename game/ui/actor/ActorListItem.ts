@@ -1,13 +1,11 @@
 import { DomNode, el } from "@common-module/app";
 import { Button, ButtonType } from "@common-module/app-components";
 import { AnimatedSprite, GameScreen } from "@gaiaengine/dom";
-import GameController from "../../core/GameController.js";
 import BuildingManager from "../../data/building/BuildingManager.js";
 import UnitManager from "../../data/unit/UnitManager.js";
 import spritesheets from "../../game-objects/unit/unit-spritesheets.json" with {
   type: "json",
 };
-import World from "../../world/World.js";
 import UpgradeBuildingModal from "../construction/UpgradeBuildingModal.js";
 import CostList from "../cost/CostList.js";
 import Actor from "./Actor.js";
@@ -117,7 +115,7 @@ export default class ActorListItem extends DomNode<HTMLDivElement, {
             type: ButtonType.Contained,
             title: "Move",
             onClick: () => {
-              if (
+              /*if (
                 this.actor.type === "unit" &&
                 GameController.selectedTileCoordinates
               ) {
@@ -126,14 +124,14 @@ export default class ActorListItem extends DomNode<HTMLDivElement, {
                   this.actor,
                 ]);
                 this.emit("proceed");
-              }
+              }*/
             },
           }),
           new Button({
             type: ButtonType.Contained,
             title: "Move & Attack",
             onClick: () => {
-              if (
+              /*if (
                 this.actor.type === "unit" &&
                 GameController.selectedTileCoordinates
               ) {
@@ -143,7 +141,7 @@ export default class ActorListItem extends DomNode<HTMLDivElement, {
                   [this.actor],
                 );
                 this.emit("proceed");
-              }
+              }*/
             },
           }),
         );
@@ -154,7 +152,7 @@ export default class ActorListItem extends DomNode<HTMLDivElement, {
               type: ButtonType.Contained,
               title: "Ranged Attack",
               onClick: () => {
-                if (
+                /*if (
                   this.actor.type === "unit" &&
                   GameController.selectedTileCoordinates
                 ) {
@@ -164,7 +162,7 @@ export default class ActorListItem extends DomNode<HTMLDivElement, {
                     [this.actor],
                   );
                   this.emit("proceed");
-                }
+                }*/
               },
             }),
           );

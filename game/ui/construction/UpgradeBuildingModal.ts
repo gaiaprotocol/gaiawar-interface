@@ -6,7 +6,6 @@ import {
 } from "@common-module/app-components";
 import { CloseIcon } from "@gaiaprotocol/svg-icons";
 import BuildingManager from "../../data/building/BuildingManager.js";
-import GameController from "../../core/GameController.js";
 import UserMaterialList from "../material/UserMaterialList.js";
 import ConstructionBuildingList from "./ConstructionBuildingList.js";
 
@@ -33,7 +32,7 @@ export default class UpgradeBuildingModal extends StructuredModal {
     this.buildingList.on(
       "buildingSelected",
       (buildingId) => {
-        GameController.upgradeBuilding(buildingId);
+        //GameController.upgradeBuilding(buildingId);
         this.remove();
       },
     );

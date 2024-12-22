@@ -4,17 +4,17 @@ import { GaiaProtocolConfig } from "gaiaprotocol";
 import ContractAddressManager from "../../config/ContractAddressManager.js";
 import TileData from "../../data/tile/TileData.js";
 import BattlegroundArtifact from "../artifacts/core/Battleground.json" assert {
-  type: "json"
+  type: "json",
 };
 
 class BattlegroundContract {
-  public async getTiles(coordinates: Coordinates[]) {
+  public async getTiles(from: Coordinates, to: Coordinates) {
     return await WalletLoginManager.readContract({
       chainId: GaiaProtocolConfig.getChainId(),
       address: ContractAddressManager.getContractAddress("Battleground"),
       abi: BattlegroundArtifact.abi,
       functionName: "getTiles",
-      args: [coordinates],
+      args: [from, to],
     }) as TileData[];
   }
 
