@@ -1,8 +1,8 @@
 import { DomNode, el } from "@common-module/app";
 import { AnimatedSprite, GameScreen } from "@gaiaengine/dom";
 import UnitData from "../../data/unit/UnitData.js";
-import spritesheets from "../../world/unit/unit-spritesheets.json" with {
-  type: "json",
+import spritesheets from "../../game-objects/unit/unit-spritesheets.json" with {
+  type: "json"
 };
 import CostList from "../cost/CostList.js";
 

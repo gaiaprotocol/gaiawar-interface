@@ -4,7 +4,7 @@ import { AnimatedSprite, GameScreen } from "@gaiaengine/dom";
 import GameController from "../../core/GameController.js";
 import BuildingManager from "../../data/building/BuildingManager.js";
 import UnitManager from "../../data/unit/UnitManager.js";
-import spritesheets from "../../world/unit/unit-spritesheets.json" with {
+import spritesheets from "../../game-objects/unit/unit-spritesheets.json" with {
   type: "json",
 };
 import World from "../../world/World.js";

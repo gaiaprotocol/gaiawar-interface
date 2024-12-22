@@ -5,7 +5,7 @@ import {
   StructuredModal,
 } from "@common-module/app-components";
 import { CloseIcon } from "@gaiaprotocol/svg-icons";
-import { UnitQuantity } from "../../data/TileData.js";
+import { UnitQuantity } from "../../data/tile/TileData.js";
 import UnitManager from "../../data/unit/UnitManager.js";
 import UserMaterialList from "../material/UserMaterialList.js";
 import TrainingUnitList from "./TrainingUnitList.js";

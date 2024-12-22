@@ -2,7 +2,7 @@ import { WalletLoginManager } from "@common-module/wallet-login";
 import { Coordinates } from "@gaiaengine/2d";
 import { GaiaProtocolConfig } from "gaiaprotocol";
 import ContractAddressManager from "../../config/ContractAddressManager.js";
-import TileData from "../../data/TileData.js";
+import TileData from "../../data/tile/TileData.js";
 import BattlegroundArtifact from "../artifacts/core/Battleground.json" assert {
   type: "json"
 };
