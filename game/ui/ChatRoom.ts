@@ -46,8 +46,7 @@ export default class ChatRoom extends DomNode {
     );
 
     this.chatMessageChannel = GameConfig.supabaseConnector
-      .subscribeToDataChanges<ChatMessageEntity>({
-        channel: "chat-messages-changes",
+      .subscribeToDataChanges<ChatMessageEntity>("chat-messages-changes", {
         table: "chat_messages",
         onSubscribe: () => this.loadMessages(),
         onInsert: (m) => {

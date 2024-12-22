@@ -1,14 +1,23 @@
+import { RealtimeChannel } from "@supabase/supabase-js";
 import GameConfig from "../core/GameConfig.js";
 
 class LiveEventObserver {
+  private channel!: RealtimeChannel;
+
   public install() {
-    GameConfig.supabaseConnector.subscribeToPresence({
-      channel: "live-events",
-      onSync: (state) => {
-        console.log(state);
+    this.channel = GameConfig.supabaseConnector.subscribeToBroadcast(
+      "live_events",
+      {
+        "new_event": (message: any) => {
+          console.log("New event received", message);
+        },
       },
-    }, {
-      test: 123,
+    );
+
+    this.channel.send({
+      type: "broadcast",
+      event: "new_event",
+      payload: { message: "Hello, world!" },
     });
   }
 }
