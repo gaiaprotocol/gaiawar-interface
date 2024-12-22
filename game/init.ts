@@ -6,6 +6,8 @@ import GameScreen from "./core/GameScreen.js";
 import BuildingManager from "./data/building/BuildingManager.js";
 import UserMaterialManager from "./data/material/UserMaterialManager.js";
 import UnitManager from "./data/unit/UnitManager.js";
+import ContractEventPoller from "./event/ContractEventPoller.js";
+import LiveEventObserver from "./event/LiveEventObserver.js";
 import GameView from "./views/GameView.js";
 
 export default async function init(config: IGameConfig) {
@@ -22,6 +24,9 @@ export default async function init(config: IGameConfig) {
   if (GameConfig.isDevMode) {
     GameScreen.root.append(new FPSDisplay(0, 110));
   }
+
+  ContractEventPoller.install();
+  LiveEventObserver.install();
 
   Router.add("/", GameView);
 }

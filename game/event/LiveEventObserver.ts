@@ -5,18 +5,12 @@ class LiveEventObserver {
   private channel!: RealtimeChannel;
 
   public install() {
-    /*this.channel = GameConfig.supabaseConnector.channel("live_events").on(
-      "live_event",
-      { event: "sync" },
-      () => {
-        // Handle live event sync
+    this.channel = GameConfig.supabaseConnector.subscribeToPresence({
+      channel: "live-events",
+      onSync: (state) => {
+        console.log(state);
       },
-    ).subscribe(async (status, error) => {
-      if (status === "SUBSCRIBED") {
-        await this.track();
-      }
-      if (error) console.error(error);
-    });*/
+    });
   }
 }
 
