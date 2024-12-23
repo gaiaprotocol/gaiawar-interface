@@ -17,21 +17,24 @@ class TileCommander {
   private waitingBuilding: number | undefined;
   private waitingUnits: UnitQuantity[] | undefined;
 
-  public waitForBuildingCommand(command: "construct", building: number) {
+  public async waitForBuildingCommand(command: "construct", building: number) {
     this.waitingCommand = command;
     this.waitingBuilding = building;
 
-    GaiaWarController.showConstructableArea(this.fromTilePosition!, building);
+    await GaiaWarController.showConstructableArea(
+      this.fromTilePosition!,
+      building,
+    );
   }
 
-  public waitForUnitCommand(
+  public async waitForUnitCommand(
     command: "move" | "move-and-attack" | "ranged-attack",
     units: UnitQuantity[],
   ) {
     this.waitingCommand = command;
     this.waitingUnits = units;
 
-    GaiaWarController.showUnitActionableArea(
+    await GaiaWarController.showUnitActionableArea(
       this.fromTilePosition!,
       command,
       units,

@@ -45,11 +45,14 @@ class GaiaWarController {
     TileCommander.selectTile(coord);
   }
 
-  public showConstructableArea(startPosition: Coordinates, building: number) {
+  public async showConstructableArea(
+    startPosition: Coordinates,
+    building: number,
+  ) {
     //TODO:
   }
 
-  public showUnitActionableArea(
+  public async showUnitActionableArea(
     startPosition: Coordinates,
     action: "move" | "move-and-attack" | "ranged-attack",
     units: UnitQuantity[],

@@ -32,8 +32,8 @@ export default class ConstructionModal extends StructuredModal {
 
     this.buildingList.on(
       "buildingSelected",
-      (buildingId) => {
-        TileCommander.waitForBuildingCommand("construct", buildingId);
+      async (buildingId) => {
+        await TileCommander.waitForBuildingCommand("construct", buildingId);
         this.remove();
       },
     );

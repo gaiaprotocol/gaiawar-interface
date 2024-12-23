@@ -3,7 +3,7 @@ import BuildingData from "../../data/building/BuildingData.js";
 import ConstructionBuildingListItem from "./ConstructionBuildingListItem.js";
 
 export default class ConstructionBuildingList extends DomNode<HTMLDivElement, {
-  buildingSelected: (buildingId: number) => void;
+  buildingSelected: (buildingId: number) => Promise<void>;
 }> {
   constructor(buildings?: BuildingData[]) {
     super(".construction-building-list");
@@ -19,6 +19,9 @@ export default class ConstructionBuildingList extends DomNode<HTMLDivElement, {
 
   public addBuilding(building: BuildingData) {
     const item = new ConstructionBuildingListItem(building).appendTo(this);
-    item.onDom("click", () => this.emit("buildingSelected", building.id));
+    item.on(
+      "buildingSelected",
+      async () => (await this.emit("buildingSelected", building.id))[0],
+    );
   }
 }
