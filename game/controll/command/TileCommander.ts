@@ -56,6 +56,13 @@ class TileCommander {
       );
     }
   }
+
+  public reset() {
+    this.fromTilePosition = undefined;
+    this.waitingCommand = undefined;
+    this.waitingBuilding = undefined;
+    this.waitingUnits = undefined;
+  }
 }
 
 export default new TileCommander();
