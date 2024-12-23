@@ -1,6 +1,7 @@
 import { BodyNode } from "@common-module/app";
 import { Coordinates, FPSDisplay, GameObject } from "@gaiaengine/2d";
 import GaiaWarConfig from "../config/GaiaWarConfig.js";
+import ActionableAreaCalculator from "../data/ActionableAreaCalculator.js";
 import { UnitQuantity } from "../data/tile/TileData.js";
 import TileManager from "../data/tile/TileManager.js";
 import TileHover from "../game-objects/tile-overlays/TileHover.js";
@@ -49,6 +50,7 @@ class GaiaWarController {
     startPosition: Coordinates,
     building: number,
   ) {
+    await ActionableAreaCalculator.calculateConstructableArea();
     //TODO:
   }
 

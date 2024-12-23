@@ -4,12 +4,16 @@ import PendingCommand from "./PendingCommand.js";
 
 class PendingCommandManager {
   private channel!: RealtimeChannel;
-  private pendingCommands: PendingCommand[] = [];
+  private pendingCommands = {};
 
   public init() {
     this.channel = GaiaWarConfig.supabaseConnector.subscribeToPresence(
       "pending-commands",
-      { onSync: (state) => {} },
+      {
+        onSync: (state) => {
+          console.log("sync", state);
+        },
+      },
       this.pendingCommands,
     );
   }

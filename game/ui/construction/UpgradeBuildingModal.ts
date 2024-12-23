@@ -31,7 +31,7 @@ export default class UpgradeBuildingModal extends StructuredModal {
 
     this.buildingList.on(
       "buildingSelected",
-      (buildingId) => {
+      async (buildingId) => {
         //GameController.upgradeBuilding(buildingId);
         this.remove();
       },
@@ -44,7 +44,8 @@ export default class UpgradeBuildingModal extends StructuredModal {
     const buildings = await BuildingManager.loadAllBuildings();
     this.buildingList.setBuildings(
       buildings.filter((b) =>
-        b.canBeConstructed && b.prerequisiteBuildingId === this.previousBuildingId
+        b.canBeConstructed &&
+        b.prerequisiteBuildingId === this.previousBuildingId
       ),
     );
   }

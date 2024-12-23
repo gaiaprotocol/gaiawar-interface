@@ -2588,6 +2588,7 @@ li.chat-content-list-item.temp {
   }
 }
 .construction-building-list-item {
+  position: relative;
   flex-shrink: 0;
   width: 300px;
   padding: 20px;
@@ -2618,6 +2619,14 @@ li.chat-content-list-item.temp {
 }
 .construction-building-list-item:active {
   background-color: #424242;
+}
+.construction-building-list-item > .loading-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 32px;
+  height: 32px;
 }
 .training-modal {
   max-width: 90% !important;
