@@ -3,8 +3,10 @@ import { TileRange } from "@gaiaengine/2d";
 import BattlegroundContract from "../../contracts/core/BattlegroundContract.js";
 import TileData from "./TileData.js";
 
+type TileMap = Record<number, Record<number, TileData>>;
+
 class TileManager extends EventContainer<{
-  tilesLoaded: (tiles: Record<number, Record<number, TileData>>) => void;
+  tilesLoaded: (tileMap: TileMap) => void;
 }> {
   private currentTileRange: TileRange = {
     startX: 0,
@@ -12,6 +14,15 @@ class TileManager extends EventContainer<{
     endX: 0,
     endY: 0,
   };
+  private currentTileMap: TileMap = {};
+
+  public getCurrentTileRange() {
+    return this.currentTileRange;
+  }
+
+  public getCurrentTileData(x: number, y: number): TileData | undefined {
+    return this.currentTileMap[x]?.[y];
+  }
 
   constructor() {
     super();
@@ -31,17 +42,17 @@ class TileManager extends EventContainer<{
       { x: range.endX, y: range.endY },
     );
 
-    const tileMap: Record<number, Record<number, TileData>> = {};
+    this.currentTileMap = {};
 
     let i = 0;
     for (let x = range.startX; x <= range.endX; x++) {
-      tileMap[x] = {};
+      this.currentTileMap[x] = {};
       for (let y = range.startY; y <= range.endY; y++) {
-        tileMap[x][y] = tiles[i++];
+        this.currentTileMap[x][y] = tiles[i++];
       }
     }
 
-    this.emit("tilesLoaded", tileMap);
+    this.emit("tilesLoaded", this.currentTileMap);
   }
 }
 
