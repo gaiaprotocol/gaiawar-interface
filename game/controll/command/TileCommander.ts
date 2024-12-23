@@ -1,7 +1,12 @@
 import { Coordinates } from "@gaiaengine/2d";
 import { UnitQuantity } from "../../data/tile/TileData.js";
+import ConstructionCommandExecutor from "./executors/ConstructionCommandExecutor.js";
+import MoveAndAttackCommandExecutor from "./executors/MoveAndAttackCommandExecutor.js";
+import MoveCommandExecutor from "./executors/MoveCommandExecutor.js";
+import RangedAttackCommandExecutor from "./executors/RangedAttackCommandExecutor.js";
 
 class TileCommander {
+  private fromTilePosition: Coordinates | undefined;
   private waitingCommand:
     | "construct"
     | "move"
@@ -10,6 +15,10 @@ class TileCommander {
     | undefined;
   private waitingBuilding: number | undefined;
   private waitingUnits: UnitQuantity[] | undefined;
+
+  public setFromTilePosition(coord: Coordinates) {
+    this.fromTilePosition = coord;
+  }
 
   public waitForBuildingCommand(command: "construct", building: number) {
     this.waitingCommand = command;
@@ -25,7 +34,27 @@ class TileCommander {
   }
 
   public selectTile(coord: Coordinates) {
-    //TODO:
+    if (this.waitingCommand === "construct") {
+      ConstructionCommandExecutor.execute(coord, this.waitingBuilding!);
+    } else if (this.waitingCommand === "move") {
+      MoveCommandExecutor.execute(
+        this.fromTilePosition!,
+        coord,
+        this.waitingUnits!,
+      );
+    } else if (this.waitingCommand === "move-and-attack") {
+      MoveAndAttackCommandExecutor.execute(
+        this.fromTilePosition!,
+        coord,
+        this.waitingUnits!,
+      );
+    } else if (this.waitingCommand === "ranged-attack") {
+      RangedAttackCommandExecutor.execute(
+        this.fromTilePosition!,
+        coord,
+        this.waitingUnits!,
+      );
+    }
   }
 }
 
