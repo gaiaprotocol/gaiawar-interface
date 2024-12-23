@@ -1,5 +1,6 @@
 import { Coordinates } from "@gaiaengine/2d";
 import { UnitQuantity } from "../../data/tile/TileData.js";
+import GaiaWarController from "../GaiaWarController.js";
 import ConstructionCommandExecutor from "./executors/ConstructionCommandExecutor.js";
 import MoveAndAttackCommandExecutor from "./executors/MoveAndAttackCommandExecutor.js";
 import MoveCommandExecutor from "./executors/MoveCommandExecutor.js";
@@ -16,13 +17,11 @@ class TileCommander {
   private waitingBuilding: number | undefined;
   private waitingUnits: UnitQuantity[] | undefined;
 
-  public setFromTilePosition(coord: Coordinates) {
-    this.fromTilePosition = coord;
-  }
-
   public waitForBuildingCommand(command: "construct", building: number) {
     this.waitingCommand = command;
     this.waitingBuilding = building;
+
+    GaiaWarController.showConstructableArea(this.fromTilePosition!, building);
   }
 
   public waitForUnitCommand(
@@ -31,6 +30,12 @@ class TileCommander {
   ) {
     this.waitingCommand = command;
     this.waitingUnits = units;
+
+    GaiaWarController.showUnitActionableArea(
+      this.fromTilePosition!,
+      command,
+      units,
+    );
   }
 
   public selectTile(coord: Coordinates) {
@@ -55,6 +60,8 @@ class TileCommander {
         this.waitingUnits!,
       );
     }
+
+    this.fromTilePosition = coord;
   }
 
   public reset() {

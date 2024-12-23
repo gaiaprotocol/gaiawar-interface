@@ -5,6 +5,7 @@ import {
   StructuredModal,
 } from "@common-module/app-components";
 import { CloseIcon } from "@gaiaprotocol/svg-icons";
+import TileCommander from "../../controll/command/TileCommander.js";
 import BuildingManager from "../../data/building/BuildingManager.js";
 import UserMaterialList from "../material/UserMaterialList.js";
 import ConstructionBuildingList from "./ConstructionBuildingList.js";
@@ -32,26 +33,22 @@ export default class ConstructionModal extends StructuredModal {
     this.buildingList.on(
       "buildingSelected",
       (buildingId) => {
-        //GameController.buildingToConstruct = buildingId;
+        TileCommander.waitForBuildingCommand("construct", buildingId);
         this.remove();
       },
     );
 
+    this.on("remove", () => TileCommander.reset());
+
     this.loadBuildings();
-
-    /*World.showConstructableArea();
-
-    this.on("remove", () => {
-      if (!GameController.buildingToConstruct) {
-        World.hideConstructableArea();
-      }
-    });*/
   }
 
   private async loadBuildings() {
     const buildings = await BuildingManager.loadAllBuildings();
     this.buildingList.setBuildings(
-      buildings.filter((b) => b.canBeConstructed && b.prerequisiteBuildingId === 0),
+      buildings.filter((b) =>
+        b.canBeConstructed && b.prerequisiteBuildingId === 0
+      ),
     );
   }
 }

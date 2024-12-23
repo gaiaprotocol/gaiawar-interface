@@ -1,13 +1,14 @@
 import { BodyNode } from "@common-module/app";
 import { Coordinates, FPSDisplay, GameObject } from "@gaiaengine/2d";
 import GaiaWarConfig from "../config/GaiaWarConfig.js";
+import { UnitQuantity } from "../data/tile/TileData.js";
 import TileManager from "../data/tile/TileManager.js";
 import TileHover from "../game-objects/tile-overlays/TileHover.js";
 import TileSelected from "../game-objects/tile-overlays/TileSelected.js";
 import World from "../game-objects/world/World.js";
 import GaiaWarScreen from "./GaiaWarScreen.js";
-import TileCommander from "./command/TileCommander.js";
 import PendingCommandManager from "./command/PendingCommandManager.js";
+import TileCommander from "./command/TileCommander.js";
 
 class GaiaWarController {
   private screen!: GaiaWarScreen;
@@ -42,6 +43,18 @@ class GaiaWarController {
   private selectTile(coord: Coordinates) {
     this.tileSelected.setTilePosition(coord);
     TileCommander.selectTile(coord);
+  }
+
+  public showConstructableArea(startPosition: Coordinates, building: number) {
+    //TODO:
+  }
+
+  public showUnitActionableArea(
+    startPosition: Coordinates,
+    action: "move" | "move-and-attack" | "ranged-attack",
+    units: UnitQuantity[],
+  ) {
+    //TODO:
   }
 }
 
