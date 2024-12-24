@@ -4,6 +4,7 @@ import { zeroAddress } from "viem";
 import CollectLootCommandExecutor from "../../command-executors/CollectLootCommandExecutor.js";
 import BuildingManager from "../../data/building/BuildingManager.js";
 import TileData from "../../data/tile/TileData.js";
+import TileManager from "../../data/tile/TileManager.js";
 import UnitManager from "../../data/unit/UnitManager.js";
 import Actor from "../actor/Actor.js";
 import SelectActorInTileModal from "../actor/SelectActorInTileModal.js";
@@ -24,9 +25,15 @@ import TrainIcon from "./icons/TrainIcon.js";
 import UpgradeIcon from "./icons/UpgradeIcon.js";
 
 export default class TileCommandPanel extends CommandPanel {
-  constructor(private coordinates: Coordinates, private tileData: TileData) {
+  constructor(private coordinates: Coordinates) {
     super(".tile-command-panel");
 
+    const tileData = TileManager.getCurrentTileData(
+      coordinates.x,
+      coordinates.y,
+    );
+
+    if (!tileData) return;
     if (tileData.occupant === zeroAddress) {
       this.append(
         new CommandButton(
@@ -36,20 +43,20 @@ export default class TileCommandPanel extends CommandPanel {
         ),
       );
     } else if (tileData.occupant === WalletLoginManager.getLoggedInAddress()) {
-      this.renderLoginUserCommands();
+      this.renderLoginUserCommands(tileData);
     } else {
       //TODO:
     }
   }
 
-  private async renderLoginUserCommands() {
+  private async renderLoginUserCommands(tileData: TileData) {
     const actors: Actor[] = [];
 
-    if (BuildingManager.canBeUpgraded(this.tileData.buildingId)) {
-      actors.push({ type: "building", buildingId: this.tileData.buildingId });
+    if (BuildingManager.canBeUpgraded(tileData.buildingId)) {
+      actors.push({ type: "building", buildingId: tileData.buildingId });
     }
 
-    for (const unit of this.tileData.units) {
+    for (const unit of tileData.units) {
       if (UnitManager.canBeUpgraded(unit.unitId)) {
         actors.push({
           type: "unit",
@@ -64,11 +71,11 @@ export default class TileCommandPanel extends CommandPanel {
         new CommandButton(
           new UpgradeIcon(),
           "Upgrade",
-          () => new UpgradeActorInTileModal(actors),
+          () => new UpgradeActorInTileModal(this.coordinates, actors),
         ),
       );
     } else {
-      const upgradableUnit = this.tileData.units.find(
+      const upgradableUnit = tileData.units.find(
         (u) => UnitManager.canBeUpgraded(u.unitId),
       );
       if (upgradableUnit) {
@@ -81,25 +88,26 @@ export default class TileCommandPanel extends CommandPanel {
         );
       }
 
-      if (BuildingManager.canBeUpgraded(this.tileData.buildingId)) {
+      if (BuildingManager.canBeUpgraded(tileData.buildingId)) {
         this.append(
           new CommandButton(
             new UpgradeIcon(),
             "Upgrade",
-            () => new UpgradeBuildingModal(this.tileData.buildingId),
+            () =>
+              new UpgradeBuildingModal(this.coordinates, tileData.buildingId),
           ),
         );
       }
     }
 
-    await this.loadTrainableUnits();
+    await this.loadTrainableUnits(tileData);
 
-    if (this.tileData.units.length > 0) {
+    if (tileData.units.length > 0) {
       const unitActors: Actor[] = [];
 
       let totalUnits = 0;
 
-      for (const unit of this.tileData.units) {
+      for (const unit of tileData.units) {
         unitActors.push({
           type: "unit",
           unitId: unit.unitId,
@@ -114,26 +122,26 @@ export default class TileCommandPanel extends CommandPanel {
           new MoveIcon(),
           "Move",
           () => {
-            /*GameController.unitsToMove = this.tileData.units;
-            World.showMovableArea(this.coordinates, this.tileData.units);*/
+            /*GameController.unitsToMove = tileData.units;
+            World.showMovableArea(this.coordinates, tileData.units);*/
           },
         ),
         new CommandButton(
           new MoveAndAttackIcon(),
           "Move & Attack",
           () => {
-            /*GameController.unitsToMoveAndAttack = this.tileData.units;
-            World.showAttackableArea(this.coordinates, this.tileData.units);*/
+            /*GameController.unitsToMoveAndAttack = tileData.units;
+            World.showAttackableArea(this.coordinates, tileData.units);*/
           },
         ),
         new CommandButton(
           new RangedAttackIcon(),
           "Ranged Attack",
           () => {
-            /*GameController.unitsToRangedAttack = this.tileData.units;
+            /*GameController.unitsToRangedAttack = tileData.units;
             World.showRangedAttackableArea(
               this.coordinates,
-              this.tileData.units,
+              tileData.units,
             );*/
           },
         ),
@@ -141,13 +149,13 @@ export default class TileCommandPanel extends CommandPanel {
           ? new CommandButton(
             new SelectUnitIcon(),
             "Select Unit",
-            () => new SelectActorInTileModal(unitActors),
+            () => new SelectActorInTileModal(this.coordinates, unitActors),
           )
           : undefined,
       );
     }
 
-    if (this.tileData.loot.length > 0) {
+    if (tileData.loot.length > 0) {
       this.append(
         new CommandButton(
           new LootIcon(),
@@ -158,16 +166,16 @@ export default class TileCommandPanel extends CommandPanel {
     }
   }
 
-  private async loadTrainableUnits() {
+  private async loadTrainableUnits(tileData: TileData) {
     const trainableUnits = await UnitManager.getTrainingBuildingUnits(
-      this.tileData.buildingId,
+      tileData.buildingId,
     );
     if (trainableUnits.length) {
       this.append(
         new CommandButton(
           new TrainIcon(),
           "Train",
-          () => new TrainingModal(this.tileData.buildingId),
+          () => new TrainingModal(tileData.buildingId),
         ),
       );
     }

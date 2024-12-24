@@ -4,7 +4,9 @@ import {
   ButtonType,
   StructuredModal,
 } from "@common-module/app-components";
+import { Coordinates } from "@gaiaengine/2d";
 import { CloseIcon } from "@gaiaprotocol/svg-icons";
+import UpgradeBuildingCommandExecutor from "../../command-executors/UpgradeBuildingCommandExecutor.js";
 import BuildingManager from "../../data/building/BuildingManager.js";
 import UserMaterialList from "../material/UserMaterialList.js";
 import ConstructionBuildingList from "./ConstructionBuildingList.js";
@@ -12,7 +14,7 @@ import ConstructionBuildingList from "./ConstructionBuildingList.js";
 export default class UpgradeBuildingModal extends StructuredModal {
   private buildingList: ConstructionBuildingList;
 
-  constructor(private previousBuildingId: number) {
+  constructor(coordinates: Coordinates, private previousBuildingId: number) {
     super(".upgrade-building-modal");
 
     this.appendToHeader(
@@ -31,8 +33,8 @@ export default class UpgradeBuildingModal extends StructuredModal {
 
     this.buildingList.on(
       "buildingSelected",
-      async (buildingId) => {
-        //GameController.upgradeBuilding(buildingId);
+      (buildingId) => {
+        UpgradeBuildingCommandExecutor.execute(coordinates, buildingId);
         this.remove();
       },
     );

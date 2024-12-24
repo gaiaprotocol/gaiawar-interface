@@ -1,10 +1,11 @@
 import { DomNode, el } from "@common-module/app";
 import { Button, ButtonType } from "@common-module/app-components";
+import { Coordinates } from "@gaiaengine/2d";
 import { AnimatedSprite, GameScreen } from "@gaiaengine/dom";
 import BuildingManager from "../../data/building/BuildingManager.js";
 import UnitManager from "../../data/unit/UnitManager.js";
 import spritesheets from "../../game-objects/unit/unit-spritesheets.json" with {
-  type: "json",
+  type: "json"
 };
 import UpgradeBuildingModal from "../construction/UpgradeBuildingModal.js";
 import CostList from "../cost/CostList.js";
@@ -14,7 +15,11 @@ import ActorMode from "./ActorMode.js";
 export default class ActorListItem extends DomNode<HTMLDivElement, {
   proceed: () => void;
 }> {
-  constructor(private mode: ActorMode, private actor: Actor) {
+  constructor(
+    private mode: ActorMode,
+    private coordinates: Coordinates,
+    private actor: Actor,
+  ) {
     super(".actor-list-item");
     this.loadActor();
   }
@@ -38,7 +43,10 @@ export default class ActorListItem extends DomNode<HTMLDivElement, {
             title: "Upgrade",
             onClick: () => {
               if (this.actor.type === "building") {
-                new UpgradeBuildingModal(this.actor.buildingId);
+                new UpgradeBuildingModal(
+                  this.coordinates,
+                  this.actor.buildingId,
+                );
                 this.emit("proceed");
               }
             },

@@ -1,4 +1,5 @@
 import { DomNode } from "@common-module/app";
+import { Coordinates } from "@gaiaengine/2d";
 import TileCommandPanel from "./TileCommandPanel.js";
 import WorldCommandPanel from "./WorldCommandPanel.js";
 
@@ -7,23 +8,15 @@ class CommandPanelController {
 
   public setPanelContainer(container: DomNode) {
     this.panelContainer = container;
-    this.changePanel("world");
+    this.changeToWorldPanel();
   }
 
-  public changePanel(
-    type: "world" | "tile",
-    data?: any,
-  ) {
-    if (!this.panelContainer) return;
+  public changeToWorldPanel() {
+    this.panelContainer?.clear().append(new WorldCommandPanel());
+  }
 
-    this.panelContainer.clear();
-
-    if (type === "world") this.panelContainer.append(new WorldCommandPanel());
-    else if (type === "tile") {
-      this.panelContainer.append(
-        new TileCommandPanel(data.coordinates, data.tileData),
-      );
-    }
+  public changeToTilePanel(position: Coordinates) {
+    this.panelContainer?.clear().append(new TileCommandPanel(position));
   }
 }
 

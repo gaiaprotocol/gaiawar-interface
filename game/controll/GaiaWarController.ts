@@ -8,6 +8,7 @@ import ActionableArea from "../game-objects/tile-overlays/ActionableArea.js";
 import TileHover from "../game-objects/tile-overlays/TileHover.js";
 import TileSelected from "../game-objects/tile-overlays/TileSelected.js";
 import World from "../game-objects/world/World.js";
+import CommandPanelController from "../ui/command/CommandPanelController.js";
 import GaiaWarScreen from "./GaiaWarScreen.js";
 import TileCommander from "./TileCommander.js";
 
@@ -55,11 +56,13 @@ class GaiaWarController {
   private selectTile(coord: Coordinates) {
     this.tileSelected.setTilePosition(coord);
     TileCommander.selectTile(coord);
+    CommandPanelController.changeToTilePanel(coord);
   }
 
   public deselectTile() {
     this.tileSelected.hide();
     TileCommander.reset();
+    CommandPanelController.changeToWorldPanel();
   }
 
   public async showConstructableArea() {

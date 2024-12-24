@@ -1,14 +1,15 @@
-import { GameObject, Sprite } from "@gaiaengine/2d";
+import { Fadeable, Sprite } from "@gaiaengine/2d";
 import { PendingCommandType } from "../../data/pending-command/PendingCommand.js";
 import TileFaction from "../../data/tile/TileFaction.js";
 
-export default class Flag extends GameObject {
+export default class Flag extends Fadeable {
   constructor(faction: TileFaction, type: PendingCommandType) {
     super(0, 0);
     this.append(new Sprite(0, 0, `/assets/flags/flag-${faction}.png`)).setPivot(
       -19,
       64,
     );
+
     if (
       type === PendingCommandType.CONSTRUCT ||
       type === PendingCommandType.UPGRADE_BUILDING
@@ -28,5 +29,7 @@ export default class Flag extends GameObject {
     } else if (type === PendingCommandType.COLLECT_LOOT) {
       this.append(new Sprite(1, -25, "/assets/flags/icons/collect.png"));
     }
+
+    this.fadeIn(0.2);
   }
 }

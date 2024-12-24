@@ -1,9 +1,12 @@
 import { WalletLoginManager } from "@common-module/wallet-login";
 import { compareCoordinates, Coordinates } from "@gaiaengine/2d";
-import PendingCommand from "../../data/pending-command/PendingCommand.js";
+import PendingCommand, {
+  PendingCommandType,
+} from "../../data/pending-command/PendingCommand.js";
 import TileData from "../../data/tile/TileData.js";
 import TileFaction from "../../data/tile/TileFaction.js";
 import Building from "../building/Building.js";
+import Constructing from "../building/Constructing.js";
 import Flag from "../flag/Flag.js";
 import Loot from "../loot/Loot.js";
 import UnitPlatoon from "../unit/UnitPlatoon.js";
@@ -17,6 +20,7 @@ export default class Tile extends TileObject {
   private unitPlatoon: UnitPlatoon;
   private loot: Loot;
 
+  private constructing: Constructing | undefined;
   private flags: Record<string, Flag> = {};
 
   constructor(private coord: Coordinates) {
@@ -73,6 +77,16 @@ export default class Tile extends TileObject {
     }
 
     if (compareCoordinates(pendingCommand.to, this.coord)) {
+      if (
+        pendingCommand.type === PendingCommandType.CONSTRUCT ||
+        pendingCommand.type === PendingCommandType.UPGRADE_BUILDING
+      ) {
+        this.destroyBuilding();
+
+        this.constructing?.remove();
+        this.constructing = new Constructing().appendTo(this);
+      }
+
       const user = WalletLoginManager.getLoggedInAddress();
       const faction = pendingCommand.user === user ? "player" : "enemy";
       const flag = new Flag(faction, pendingCommand.type).appendTo(this);
@@ -86,6 +100,19 @@ export default class Tile extends TileObject {
     }
 
     if (compareCoordinates(pendingCommand.to, this.coord)) {
+      if (
+        pendingCommand.type === PendingCommandType.CONSTRUCT ||
+        pendingCommand.type === PendingCommandType.UPGRADE_BUILDING
+      ) {
+        const buildingId = this.currentData?.buildingId ?? 0;
+        if (buildingId > 0) {
+          this.createBuilding(this.currentFaction, buildingId);
+        }
+
+        this.constructing?.remove();
+        this.constructing = undefined;
+      }
+
       const flagId = this.makeFlagId(pendingCommand);
       this.flags[flagId]?.remove();
       delete this.flags[flagId];
