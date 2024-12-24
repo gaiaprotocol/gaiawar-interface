@@ -4,9 +4,7 @@ import GaiaWarConfig from "../../config/GaiaWarConfig.js";
 import PendingCommand from "./PendingCommand.js";
 
 class PendingCommandManager extends EventContainer<{
-  pendingCommandsChanged: (
-    pendingCommands: Record<number, Record<number, PendingCommand[]>>,
-  ) => void;
+  pendingCommandsChanged: (pendingCommands: PendingCommand[]) => void;
 }> {
   private channel!: RealtimeChannel;
   private pendingCommands: Record<string, PendingCommand> = {};
@@ -21,19 +19,12 @@ class PendingCommandManager extends EventContainer<{
   }
 
   private onSync(state: { [key: string]: Record<string, PendingCommand>[] }) {
-    const pendingCommands: Record<number, Record<number, PendingCommand[]>> =
-      {};
+    const pendingCommands: PendingCommand[] = [];
     for (const key in state) {
       for (const commands of state[key]) {
-        for (const command of Object.values(commands)) {
-          if (typeof command === "object") {
-            if (!pendingCommands[command.to.x]) {
-              pendingCommands[command.to.x] = {};
-            }
-            if (!pendingCommands[command.to.x][command.to.y]) {
-              pendingCommands[command.to.x][command.to.y] = [];
-            }
-            pendingCommands[command.to.x][command.to.y].push(command);
+        for (const pendingCommand of Object.values(commands)) {
+          if (typeof pendingCommand === "object") {
+            pendingCommands.push(pendingCommand);
           }
         }
       }

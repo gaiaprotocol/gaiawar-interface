@@ -63,9 +63,7 @@ export default class World extends GameObject {
     }
   }
 
-  public updatePendingCommands(
-    pendingCommands: Record<number, Record<number, PendingCommand[]>>,
-  ) {
+  public updatePendingCommands(pendingCommands: PendingCommand[]) {
     console.log(pendingCommands);
     //TODO:
   }
