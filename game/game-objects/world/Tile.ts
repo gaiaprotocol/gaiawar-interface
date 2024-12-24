@@ -52,6 +52,19 @@ export default class Tile extends TileObject {
   }
 
   private createBuilding(faction: TileFaction, buildingId: number) {
+    this.constructing?.remove();
+    this.constructing = undefined;
+
+    for (const [flagId, flag] of Object.entries(this.flags)) {
+      if (
+        flag.type === PendingCommandType.CONSTRUCT ||
+        flag.type === PendingCommandType.UPGRADE_BUILDING
+      ) {
+        flag.remove();
+        delete this.flags[flagId];
+      }
+    }
+
     this.building?.destroy();
     this.building = new Building(faction, buildingId).appendTo(this);
   }

@@ -3,7 +3,7 @@ import { PendingCommandType } from "../../data/pending-command/PendingCommand.js
 import TileFaction from "../../data/tile/TileFaction.js";
 
 export default class Flag extends Fadeable {
-  constructor(faction: TileFaction, type: PendingCommandType) {
+  constructor(faction: TileFaction, public type: PendingCommandType) {
     super(0, 0);
     this.append(new Sprite(0, 0, `/assets/flags/flag-${faction}.png`)).setPivot(
       -19,
