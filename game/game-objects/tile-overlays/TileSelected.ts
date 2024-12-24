@@ -8,4 +8,8 @@ export default class TileSelected extends TileObject {
       new Sprite(0, 0, "/assets/tile/selected.png"),
     );
   }
+
+  public hide() {
+    this.setTilePosition({ x: -999999, y: -999999 });
+  }
 }

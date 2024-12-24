@@ -72,6 +72,8 @@ class TileCommander {
     this.waitingCommand = undefined;
     this.waitingBuilding = undefined;
     this.waitingUnits = undefined;
+
+    GaiaWarController.hideActionableArea();
   }
 }
 

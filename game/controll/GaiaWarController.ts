@@ -1,9 +1,10 @@
 import { BodyNode } from "@common-module/app";
 import { Coordinates, FPSDisplay, GameObject } from "@gaiaengine/2d";
 import GaiaWarConfig from "../config/GaiaWarConfig.js";
-import ActionableAreaCalculator from "../data/ActionableAreaCalculator.js";
+import TileAvailableMapCalculator from "../data/tile/TileAvailableMapCalculator.js";
 import { UnitQuantity } from "../data/tile/TileData.js";
 import TileManager from "../data/tile/TileManager.js";
+import ActionableArea from "../game-objects/tile-overlays/ActionableArea.js";
 import TileHover from "../game-objects/tile-overlays/TileHover.js";
 import TileSelected from "../game-objects/tile-overlays/TileSelected.js";
 import World from "../game-objects/world/World.js";
@@ -14,6 +15,7 @@ import TileCommander from "./command/TileCommander.js";
 class GaiaWarController {
   private screen!: GaiaWarScreen;
   private world!: World;
+  private actionableArea!: ActionableArea;
   private tileHover!: TileHover;
   private tileSelected!: TileSelected;
 
@@ -27,6 +29,7 @@ class GaiaWarController {
       this.world = new World({
         onTileRangeChanged: (range) => TileManager.setTileRange(range),
       }),
+      this.actionableArea = new ActionableArea(),
       new GameObject(
         0,
         0,
@@ -39,6 +42,12 @@ class GaiaWarController {
     TileManager.on("tilesLoaded", (tiles) => this.world.updateTiles(tiles));
 
     PendingCommandManager.init();
+
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        this.deselectTile();
+      }
+    });
   }
 
   private selectTile(coord: Coordinates) {
@@ -46,12 +55,17 @@ class GaiaWarController {
     TileCommander.selectTile(coord);
   }
 
+  public deselectTile() {
+    this.tileSelected.hide();
+    TileCommander.reset();
+  }
+
   public async showConstructableArea(
     startPosition: Coordinates,
     building: number,
   ) {
-    await ActionableAreaCalculator.calculateConstructableArea();
-    //TODO:
+    const map = await TileAvailableMapCalculator.calculateConstructableArea();
+    this.actionableArea.updateMap(map);
   }
 
   public async showUnitActionableArea(
@@ -59,7 +73,15 @@ class GaiaWarController {
     action: "move" | "move-and-attack" | "ranged-attack",
     units: UnitQuantity[],
   ) {
-    //TODO:
+    const map = await TileAvailableMapCalculator.calculateUnitActionableArea(
+      action,
+      startPosition,
+    );
+    this.actionableArea.updateMap(map);
+  }
+
+  public hideActionableArea() {
+    this.actionableArea.clear();
   }
 }
 
