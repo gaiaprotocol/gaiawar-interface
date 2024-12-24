@@ -1,8 +1,9 @@
+import { WalletLoginManager } from "@common-module/wallet-login";
 import { Coordinates } from "@gaiaengine/2d";
-import ConstructContract from "../../../contracts/commands/ConstructContract.js";
-import UserMaterialManager from "../../../data/material/UserMaterialManager.js";
-import PendingCommand, { PendingCommandType } from "../PendingCommand.js";
-import PendingCommandManager from "../PendingCommandManager.js";
+import ConstructContract from "../../contracts/commands/ConstructContract.js";
+import UserMaterialManager from "../../data/material/UserMaterialManager.js";
+import PendingCommand, { PendingCommandType } from "../../data/pending-command/PendingCommand.js";
+import PendingCommandManager from "../../data/pending-command/PendingCommandManager.js";
 import BuildingCommandExecutor from "./base/BuildingCommandExecutor.js";
 
 class ConstructionCommandExecutor extends BuildingCommandExecutor {
@@ -10,9 +11,13 @@ class ConstructionCommandExecutor extends BuildingCommandExecutor {
     coordinates: Coordinates,
     buildingId: number,
   ) {
+    const user = WalletLoginManager.getLoggedInAddress();
+    if (!user) return;
+
     if (await this.checkUserHasConstructionCost(buildingId)) {
       const pendingCommand: PendingCommand = {
         type: PendingCommandType.CONSTRUCT,
+        user,
         to: coordinates,
         buildingId,
       };

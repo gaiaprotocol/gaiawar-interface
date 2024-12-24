@@ -1,10 +1,11 @@
+import { WalletLoginManager } from "@common-module/wallet-login";
 import { Coordinates } from "@gaiaengine/2d";
-import TrainContract from "../../../contracts/commands/TrainContract.js";
-import UserMaterialManager from "../../../data/material/UserMaterialManager.js";
-import { UnitQuantity } from "../../../data/tile/TileData.js";
-import UnitManager from "../../../data/unit/UnitManager.js";
-import PendingCommand, { PendingCommandType } from "../PendingCommand.js";
-import PendingCommandManager from "../PendingCommandManager.js";
+import TrainContract from "../../contracts/commands/TrainContract.js";
+import UserMaterialManager from "../../data/material/UserMaterialManager.js";
+import { UnitQuantity } from "../../data/tile/TileData.js";
+import UnitManager from "../../data/unit/UnitManager.js";
+import PendingCommand, { PendingCommandType } from "../../data/pending-command/PendingCommand.js";
+import PendingCommandManager from "../../data/pending-command/PendingCommandManager.js";
 import BaseCommandExecutor from "./base/BaseCommandExecutor.js";
 
 class TrainingCommandExecutor extends BaseCommandExecutor {
@@ -12,6 +13,9 @@ class TrainingCommandExecutor extends BaseCommandExecutor {
     coordinates: Coordinates,
     unitQuantity: UnitQuantity,
   ) {
+    const user = WalletLoginManager.getLoggedInAddress();
+    if (!user) return;
+
     const unit = await UnitManager.getUnit(unitQuantity.unitId);
     const totalCost: { [material: string]: bigint } = unit.trainingCost;
     for (const [material, amount] of Object.entries(totalCost)) {
@@ -21,6 +25,7 @@ class TrainingCommandExecutor extends BaseCommandExecutor {
     if (await this.checkUserHasCost(totalCost)) {
       const pendingCommand: PendingCommand = {
         type: PendingCommandType.TRAIN,
+        user,
         to: coordinates,
         units: [unitQuantity],
       };

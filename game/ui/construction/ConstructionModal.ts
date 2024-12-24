@@ -5,7 +5,7 @@ import {
   StructuredModal,
 } from "@common-module/app-components";
 import { CloseIcon } from "@gaiaprotocol/svg-icons";
-import TileCommander from "../../controll/command/TileCommander.js";
+import TileCommander from "../../controll/TileCommander.js";
 import BuildingManager from "../../data/building/BuildingManager.js";
 import UserMaterialList from "../material/UserMaterialList.js";
 import ConstructionBuildingList from "./ConstructionBuildingList.js";

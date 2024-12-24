@@ -1,6 +1,7 @@
 import { BodyNode } from "@common-module/app";
 import { Coordinates, FPSDisplay, GameObject } from "@gaiaengine/2d";
 import GaiaWarConfig from "../config/GaiaWarConfig.js";
+import PendingCommandManager from "../data/pending-command/PendingCommandManager.js";
 import TileAvailableMapCalculator from "../data/tile/TileAvailableMapCalculator.js";
 import TileManager from "../data/tile/TileManager.js";
 import ActionableArea from "../game-objects/tile-overlays/ActionableArea.js";
@@ -8,8 +9,7 @@ import TileHover from "../game-objects/tile-overlays/TileHover.js";
 import TileSelected from "../game-objects/tile-overlays/TileSelected.js";
 import World from "../game-objects/world/World.js";
 import GaiaWarScreen from "./GaiaWarScreen.js";
-import PendingCommandManager from "./command/PendingCommandManager.js";
-import TileCommander from "./command/TileCommander.js";
+import TileCommander from "./TileCommander.js";
 
 class GaiaWarController {
   private screen!: GaiaWarScreen;
@@ -40,7 +40,10 @@ class GaiaWarController {
 
     TileManager.on("tilesLoaded", (tiles) => this.world.updateTiles(tiles));
 
-    PendingCommandManager.init();
+    PendingCommandManager.init().on(
+      "pendingCommandsChanged",
+      (pendingCommands) => this.world.updatePendingCommands(pendingCommands),
+    );
 
     window.addEventListener("keydown", (event) => {
       if (event.key === "Escape") {

@@ -2,9 +2,9 @@ import { ConfirmDialog } from "@common-module/app-components";
 import { ErrorIcon } from "@gaiaprotocol/svg-icons";
 import { TradeMaterialModal } from "gaiaprotocol";
 import { formatEther } from "viem";
-import MaterialContractManager from "../../../../config/MaterialContractManager.js";
-import MaterialType from "../../../../data/material/MaterialType.js";
-import UserMaterialManager from "../../../../data/material/UserMaterialManager.js";
+import MaterialContractManager from "../../../config/MaterialContractManager.js";
+import MaterialType from "../../../data/material/MaterialType.js";
+import UserMaterialManager from "../../../data/material/UserMaterialManager.js";
 
 export default abstract class BaseCommandExecutor {
   protected async checkUserHasCost(cost: { [material: string]: bigint }) {

@@ -1,5 +1,5 @@
 import { Coordinates } from "@gaiaengine/2d";
-import { UnitQuantity } from "../../data/tile/TileData.js";
+import { UnitQuantity } from "../tile/TileData.js";
 
 export enum PendingCommandType {
   CONSTRUCT,
@@ -14,6 +14,7 @@ export enum PendingCommandType {
 
 export default interface PendingCommand {
   type: PendingCommandType;
+  user: string;
   from?: Coordinates;
   to: Coordinates;
   buildingId?: number;

@@ -1,4 +1,4 @@
-import BuildingManager from "../../../../data/building/BuildingManager.js";
+import BuildingManager from "../../../data/building/BuildingManager.js";
 import BaseCommandExecutor from "./BaseCommandExecutor.js";
 
 export default abstract class BuildingCommandExecutor

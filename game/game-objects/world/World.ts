@@ -1,5 +1,6 @@
 import { Coordinates, GameObject, TileRange } from "@gaiaengine/2d";
 import GaiaWarConfig from "../../config/GaiaWarConfig.js";
+import PendingCommand from "../../data/pending-command/PendingCommand.js";
 import TileData from "../../data/tile/TileData.js";
 import Ground from "../ground/Ground.js";
 import Tile from "./Tile.js";
@@ -60,5 +61,12 @@ export default class World extends GameObject {
         }
       }
     }
+  }
+
+  public updatePendingCommands(
+    pendingCommands: Record<number, Record<number, PendingCommand[]>>,
+  ) {
+    console.log(pendingCommands);
+    //TODO:
   }
 }
