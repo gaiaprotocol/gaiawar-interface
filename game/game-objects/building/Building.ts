@@ -1,4 +1,4 @@
-import { Fadeable, Sprite } from "@gaiaengine/2d";
+import { Fadeable, SFXPlayer, Sprite } from "@gaiaengine/2d";
 import { BuildingMetadata } from "../../data/building/BuildingData.js";
 import BuildingManager from "../../data/building/BuildingManager.js";
 import TileFaction from "../../data/tile/TileFaction.js";
@@ -15,6 +15,12 @@ export default class Building extends Fadeable {
         new Sprite(0, 0, `/assets/buildings/${this.metadata.sprites[faction]}`),
       );
       this.fadeIn(0.2);
+    }
+  }
+
+  public playSelectEffect() {
+    if (this.metadata?.sfx?.select) {
+      SFXPlayer.play(`/assets/sfx/buildings/${this.metadata.sfx.select}`);
     }
   }
 

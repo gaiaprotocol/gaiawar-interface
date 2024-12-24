@@ -8,7 +8,7 @@
     "enemy": "castle-lv1-enemy.png"
   },
   "sfx": {
-    "select": "headquarters/select"
+    "select": "headquarters/select.wav"
   },
   "canBeUpgraded": true
 }, {
@@ -21,7 +21,7 @@
     "enemy": "castle-lv2-enemy.png"
   },
   "sfx": {
-    "select": "headquarters/select"
+    "select": "headquarters/select.wav"
   },
   "canBeUpgraded": true
 }, {
@@ -34,7 +34,7 @@
     "enemy": "castle-lv3-enemy.png"
   },
   "sfx": {
-    "select": "headquarters/select"
+    "select": "headquarters/select.wav"
   }
 }, {
   "id": 4,
@@ -46,7 +46,7 @@
     "enemy": "training-camp-enemy.png"
   },
   "sfx": {
-    "select": "training-camp/select"
+    "select": "training-camp/select.wav"
   }
 }, {
   "id": 5,
@@ -58,7 +58,7 @@
     "enemy": "archery-range-enemy.png"
   },
   "sfx": {
-    "select": "achery-range/select"
+    "select": "achery-range/select.wav"
   }
 }, {
   "id": 6,
@@ -70,7 +70,7 @@
     "enemy": "stable-enemy.png"
   },
   "sfx": {
-    "select": "stable/select"
+    "select": "stable/select.wav"
   }
 }, {
   "id": 7,

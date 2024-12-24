@@ -55,6 +55,8 @@ class GaiaWarController {
 
   private selectTile(coord: Coordinates) {
     this.tileSelected.setTilePosition(coord);
+    this.world.playSelectEffect(coord);
+
     TileCommander.selectTile(coord);
     CommandPanelController.changeToTilePanel(coord);
   }

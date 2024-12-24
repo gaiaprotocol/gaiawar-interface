@@ -69,6 +69,10 @@ export default class World extends GameObject {
     }
   }
 
+  public playSelectEffect(coord: Coordinates) {
+    this.tiles[coord.x]?.[coord.y]?.playSelectEffect();
+  }
+
   public updatePendingCommands(pendingCommands: PendingCommand[]) {
     for (const pendingCommand of pendingCommands) {
       if (

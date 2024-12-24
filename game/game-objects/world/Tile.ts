@@ -131,4 +131,8 @@ export default class Tile extends TileObject {
       delete this.flags[flagId];
     }
   }
+
+  public playSelectEffect() {
+    this.building?.playSelectEffect();
+  }
 }
