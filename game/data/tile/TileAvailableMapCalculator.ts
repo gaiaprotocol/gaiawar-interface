@@ -4,10 +4,10 @@ import { zeroAddress } from "viem";
 import GaiaWarConfig from "../../config/GaiaWarConfig.js";
 import BattlegroundContract from "../../contracts/core/BattlegroundContract.js";
 import BuildingManager from "../building/BuildingManager.js";
+import UnitManager from "../unit/UnitManager.js";
 import TileAvailableMap from "./TileAvailableMap.js";
 import TileAvailableValue from "./TileAvailableValue.js";
 import TileManager from "./TileManager.js";
-import UnitManager from "../unit/UnitManager.js";
 
 class TileAvailableMapCalculator {
   private makeDefaultValueMap(
@@ -31,25 +31,14 @@ class TileAvailableMapCalculator {
     centerX: number,
     centerY: number,
     range: number,
-    safeValue: TileAvailableValue,
-    dangerValue: TileAvailableValue,
+    getValue: (x: number, y: number) => TileAvailableValue,
   ) {
-    const user = WalletLoginManager.getLoggedInAddress();
-    if (!user) return;
-
     for (let dx = -range; dx <= range; dx++) {
       const remainingRange = range - Math.abs(dx);
       for (let dy = -remainingRange; dy <= remainingRange; dy++) {
         const x = centerX + dx;
         const y = centerY + dy;
-        const tileData = TileManager.getCurrentTileData(x, y);
-        if (!tileData) continue;
-
-        if (tileData.occupant === zeroAddress || tileData.occupant === user) {
-          areaMap[x][y] = safeValue;
-        } else {
-          areaMap[x][y] = dangerValue;
-        }
+        areaMap[x][y] = getValue(x, y);
       }
     }
   }
@@ -74,8 +63,14 @@ class TileAvailableMapCalculator {
               x,
               y,
               building.constructionRange,
-              TileAvailableValue.AVAILABLE,
-              TileAvailableValue.UNAVAILABLE,
+              (x, y) => {
+                const tileData = TileManager.getCurrentTileData(x, y);
+                if (!tileData) return TileAvailableValue.UNAVAILABLE;
+                return tileData.occupant === zeroAddress ||
+                    (tileData.occupant === user && tileData.buildingId === 0)
+                  ? TileAvailableValue.AVAILABLE
+                  : TileAvailableValue.UNAVAILABLE;
+              },
             );
           }
         }
@@ -99,8 +94,7 @@ class TileAvailableMapCalculator {
               x,
               y,
               GaiaWarConfig.enemyBuildingSearchRange,
-              TileAvailableValue.UNAVAILABLE,
-              TileAvailableValue.UNAVAILABLE,
+              () => TileAvailableValue.UNAVAILABLE,
             );
           }
         }
@@ -139,12 +133,23 @@ class TileAvailableMapCalculator {
         unitTilePosition.x,
         unitTilePosition.y,
         minRange,
-        unitAction === "move"
-          ? TileAvailableValue.AVAILABLE
-          : TileAvailableValue.UNAVAILABLE, // move-and-attack
-        unitAction === "move"
-          ? TileAvailableValue.UNAVAILABLE
-          : TileAvailableValue.AVAILABLE, // move-and-attack
+        (x, y) => {
+          const tileData = TileManager.getCurrentTileData(x, y);
+          if (!tileData) return TileAvailableValue.UNAVAILABLE;
+
+          return tileData.occupant === zeroAddress ||
+              tileData.occupant === user
+            ? (
+              unitAction === "move"
+                ? TileAvailableValue.AVAILABLE
+                : TileAvailableValue.UNAVAILABLE // move-and-attack
+            )
+            : (
+              unitAction === "move"
+                ? TileAvailableValue.UNAVAILABLE
+                : TileAvailableValue.AVAILABLE // move-and-attack
+            );
+        },
       );
     } else if (unitAction === "ranged-attack") {
       const minRange = Math.min(
@@ -156,8 +161,15 @@ class TileAvailableMapCalculator {
         unitTilePosition.x,
         unitTilePosition.y,
         minRange,
-        TileAvailableValue.UNAVAILABLE,
-        TileAvailableValue.AVAILABLE,
+        (x, y) => {
+          const tileData = TileManager.getCurrentTileData(x, y);
+          if (!tileData) return TileAvailableValue.UNAVAILABLE;
+
+          return tileData.occupant === zeroAddress ||
+              tileData.occupant === user
+            ? TileAvailableValue.UNAVAILABLE
+            : TileAvailableValue.AVAILABLE;
+        },
       );
     }
 

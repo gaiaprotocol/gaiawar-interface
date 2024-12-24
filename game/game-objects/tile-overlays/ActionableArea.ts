@@ -50,7 +50,7 @@ export default class ActionableArea extends GameObject {
 
     for (const x in this.tiles) {
       for (const y in this.tiles[x]) {
-        if (!map[x] || !map[x][y]) {
+        if (map[x]?.[y] === undefined) {
           this.tiles[x][y].remove();
           delete this.tiles[x][y];
 

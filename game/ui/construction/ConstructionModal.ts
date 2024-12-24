@@ -38,8 +38,6 @@ export default class ConstructionModal extends StructuredModal {
       },
     );
 
-    this.on("remove", () => TileCommander.reset());
-
     this.loadBuildings();
   }
 

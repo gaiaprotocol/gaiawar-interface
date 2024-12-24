@@ -3,10 +3,8 @@ import GaiaWarConfig from "../../config/GaiaWarConfig.js";
 
 export default abstract class TileObject extends GameObject {
   constructor(coord: Coordinates, ...gameNodes: (GameNode | undefined)[]) {
-    const x = coord.x * GaiaWarConfig.tileSize;
-    const y = coord.y * GaiaWarConfig.tileSize;
-    super(x, y, ...gameNodes);
-    this.zIndex = -y;
+    super(0, 0, ...gameNodes);
+    this.setTilePosition(coord);
   }
 
   public setPosition(x: number, y: number): this {

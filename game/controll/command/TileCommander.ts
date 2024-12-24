@@ -21,10 +21,7 @@ class TileCommander {
     this.waitingCommand = command;
     this.waitingBuilding = building;
 
-    await GaiaWarController.showConstructableArea(
-      this.fromTilePosition!,
-      building,
-    );
+    await GaiaWarController.showConstructableArea();
   }
 
   public async waitForUnitCommand(
@@ -37,7 +34,6 @@ class TileCommander {
     await GaiaWarController.showUnitActionableArea(
       this.fromTilePosition!,
       command,
-      units,
     );
   }
 
@@ -64,6 +60,7 @@ class TileCommander {
       );
     }
 
+    this.reset();
     this.fromTilePosition = coord;
   }
 

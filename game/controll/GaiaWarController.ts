@@ -2,7 +2,6 @@ import { BodyNode } from "@common-module/app";
 import { Coordinates, FPSDisplay, GameObject } from "@gaiaengine/2d";
 import GaiaWarConfig from "../config/GaiaWarConfig.js";
 import TileAvailableMapCalculator from "../data/tile/TileAvailableMapCalculator.js";
-import { UnitQuantity } from "../data/tile/TileData.js";
 import TileManager from "../data/tile/TileManager.js";
 import ActionableArea from "../game-objects/tile-overlays/ActionableArea.js";
 import TileHover from "../game-objects/tile-overlays/TileHover.js";
@@ -60,10 +59,7 @@ class GaiaWarController {
     TileCommander.reset();
   }
 
-  public async showConstructableArea(
-    startPosition: Coordinates,
-    building: number,
-  ) {
+  public async showConstructableArea() {
     const map = await TileAvailableMapCalculator.calculateConstructableArea();
     this.actionableArea.updateMap(map);
   }
@@ -71,7 +67,6 @@ class GaiaWarController {
   public async showUnitActionableArea(
     startPosition: Coordinates,
     action: "move" | "move-and-attack" | "ranged-attack",
-    units: UnitQuantity[],
   ) {
     const map = await TileAvailableMapCalculator.calculateUnitActionableArea(
       action,
