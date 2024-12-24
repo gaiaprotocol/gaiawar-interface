@@ -16,7 +16,7 @@ export default class Tile extends TileObject {
   private unitPlatoon: UnitPlatoon;
   private loot: Loot;
 
-  constructor(private coord: Coordinates) {
+  constructor(coord: Coordinates) {
     super(coord);
     this.unitPlatoon = new UnitPlatoon().appendTo(this);
     this.loot = new Loot().appendTo(this);

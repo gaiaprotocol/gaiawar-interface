@@ -1,4 +1,9 @@
-import { Coordinates, GameObject, TileRange } from "@gaiaengine/2d";
+import {
+  compareCoordinates,
+  Coordinates,
+  GameObject,
+  TileRange,
+} from "@gaiaengine/2d";
 import GaiaWarConfig from "../../config/GaiaWarConfig.js";
 import PendingCommand from "../../data/pending-command/PendingCommand.js";
 import TileData from "../../data/tile/TileData.js";
@@ -64,25 +69,24 @@ export default class World extends GameObject {
     }
   }
 
-  private compareCoordinates(
-    a: Coordinates | undefined,
-    b: Coordinates | undefined,
-  ) {
-    return a?.x === b?.x && a?.y === b?.y;
-  }
-
   public updatePendingCommands(pendingCommands: PendingCommand[]) {
     for (const pendingCommand of pendingCommands) {
       if (
         !this.previousPendingCommands.find((pc) =>
           pc.type === pendingCommand.type &&
           pc.user === pendingCommand.user &&
-          this.compareCoordinates(pc.from, pendingCommand.from) &&
-          this.compareCoordinates(pc.to, pendingCommand.to)
+          compareCoordinates(pc.from, pendingCommand.from) &&
+          compareCoordinates(pc.to, pendingCommand.to)
         )
       ) {
-        const tile = this.tiles[pendingCommand.to.x]?.[pendingCommand.to.y];
-        tile?.addPendingCommand(pendingCommand);
+        if (pendingCommand.from) {
+          const fromTile = this.tiles[pendingCommand.from.x]
+            ?.[pendingCommand.from.y];
+          fromTile?.addPendingCommand(pendingCommand);
+        }
+
+        const toTile = this.tiles[pendingCommand.to.x]?.[pendingCommand.to.y];
+        toTile?.addPendingCommand(pendingCommand);
       }
     }
 
@@ -91,12 +95,18 @@ export default class World extends GameObject {
         !pendingCommands.find((pc) =>
           pc.type === pendingCommand.type &&
           pc.user === pendingCommand.user &&
-          this.compareCoordinates(pc.from, pendingCommand.from) &&
-          this.compareCoordinates(pc.to, pendingCommand.to)
+          compareCoordinates(pc.from, pendingCommand.from) &&
+          compareCoordinates(pc.to, pendingCommand.to)
         )
       ) {
-        const tile = this.tiles[pendingCommand.to.x]?.[pendingCommand.to.y];
-        tile?.removePendingCommand(pendingCommand);
+        if (pendingCommand.from) {
+          const fromTile = this.tiles[pendingCommand.from.x]
+            ?.[pendingCommand.from.y];
+          fromTile?.removePendingCommand(pendingCommand);
+        }
+
+        const toTile = this.tiles[pendingCommand.to.x]?.[pendingCommand.to.y];
+        toTile?.removePendingCommand(pendingCommand);
       }
     }
 
