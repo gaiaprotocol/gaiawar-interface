@@ -1,6 +1,7 @@
 import { WalletLoginManager } from "@common-module/wallet-login";
 import { Coordinates } from "@gaiaengine/2d";
 import { zeroAddress } from "viem";
+import CollectLootCommandExecutor from "../../command-executors/CollectLootCommandExecutor.js";
 import BuildingManager from "../../data/building/BuildingManager.js";
 import TileData from "../../data/tile/TileData.js";
 import UnitManager from "../../data/unit/UnitManager.js";
@@ -151,7 +152,7 @@ export default class TileCommandPanel extends CommandPanel {
         new CommandButton(
           new LootIcon(),
           "Collect Loot",
-          () => {}, //GameController.collectLoot(),
+          () => CollectLootCommandExecutor.execute(this.coordinates),
         ),
       );
     }

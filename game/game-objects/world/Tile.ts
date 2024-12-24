@@ -1,9 +1,10 @@
 import { WalletLoginManager } from "@common-module/wallet-login";
-import { Coordinates } from "@gaiaengine/2d";
+import { compareCoordinates, Coordinates } from "@gaiaengine/2d";
 import PendingCommand from "../../data/pending-command/PendingCommand.js";
 import TileData from "../../data/tile/TileData.js";
 import TileFaction from "../../data/tile/TileFaction.js";
 import Building from "../building/Building.js";
+import Flag from "../flag/Flag.js";
 import Loot from "../loot/Loot.js";
 import UnitPlatoon from "../unit/UnitPlatoon.js";
 import TileObject from "./TileObject.js";
@@ -16,15 +17,17 @@ export default class Tile extends TileObject {
   private unitPlatoon: UnitPlatoon;
   private loot: Loot;
 
-  constructor(coord: Coordinates) {
+  private flags: Record<string, Flag> = {};
+
+  constructor(private coord: Coordinates) {
     super(coord);
     this.unitPlatoon = new UnitPlatoon().appendTo(this);
     this.loot = new Loot().appendTo(this);
   }
 
   public setData(tileData: TileData) {
-    const loginUser = WalletLoginManager.getLoggedInAddress();
-    const faction = tileData.occupant === loginUser ? "player" : "enemy";
+    const user = WalletLoginManager.getLoggedInAddress();
+    const faction = tileData.occupant === user ? "player" : "enemy";
 
     if (this.building && tileData.buildingId === 0) {
       this.destroyBuilding();
@@ -54,11 +57,36 @@ export default class Tile extends TileObject {
     this.building = undefined;
   }
 
+  private makeFlagId(pendingCommand: PendingCommand) {
+    let id = `${pendingCommand.user}:${pendingCommand.type}`;
+    if (pendingCommand.from) {
+      id += `-${pendingCommand.from.x},${pendingCommand.from.y}`;
+    } else if (pendingCommand.to) {
+      id += `-${pendingCommand.to.x},${pendingCommand.to.y}`;
+    }
+    return id;
+  }
+
   public addPendingCommand(pendingCommand: PendingCommand) {
-    //TODO:
+    if (compareCoordinates(pendingCommand.from, this.coord)) {
+      //TODO:
+    }
+
+    if (compareCoordinates(pendingCommand.to, this.coord)) {
+      const user = WalletLoginManager.getLoggedInAddress();
+      const faction = pendingCommand.user === user ? "player" : "enemy";
+      const flag = new Flag(faction, pendingCommand.type).appendTo(this);
+      this.flags[this.makeFlagId(pendingCommand)] = flag;
+    }
   }
 
   public removePendingCommand(pendingCommand: PendingCommand) {
-    //TODO:
+    if (compareCoordinates(pendingCommand.from, this.coord)) {
+      //TODO:
+    }
+
+    if (compareCoordinates(pendingCommand.to, this.coord)) {
+      delete this.flags[this.makeFlagId(pendingCommand)];
+    }
   }
 }

@@ -1,10 +1,10 @@
 import { Coordinates } from "@gaiaengine/2d";
 import { UnitQuantity } from "../data/tile/TileData.js";
 import GaiaWarController from "./GaiaWarController.js";
-import ConstructionCommandExecutor from "./command-executors/ConstructionCommandExecutor.js";
-import MoveAndAttackCommandExecutor from "./command-executors/MoveAndAttackCommandExecutor.js";
-import MoveCommandExecutor from "./command-executors/MoveCommandExecutor.js";
-import RangedAttackCommandExecutor from "./command-executors/RangedAttackCommandExecutor.js";
+import ConstructionCommandExecutor from "../command-executors/ConstructionCommandExecutor.js";
+import MoveAndAttackCommandExecutor from "../command-executors/MoveAndAttackCommandExecutor.js";
+import MoveCommandExecutor from "../command-executors/MoveCommandExecutor.js";
+import RangedAttackCommandExecutor from "../command-executors/RangedAttackCommandExecutor.js";
 
 class TileCommander {
   private fromTilePosition: Coordinates | undefined;
