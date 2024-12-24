@@ -18,6 +18,12 @@ node --loader ts-node/esm ./package-units.ts
 cd ..
 ```
 
+```
+cd utils
+node --loader ts-node/esm ./convert-wav.ts
+cd ..
+```
+
 ## Deploy Edge Function
 ```
 supabase functions deploy api
