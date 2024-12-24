@@ -8,7 +8,8 @@
     "enemy": "castle-lv1-enemy.png"
   },
   "sfx": {
-    "select": "headquarters/select.wav"
+    "select": "headquarters/select.wav",
+    "destroy": "destroy.wav"
   },
   "canBeUpgraded": true
 }, {
@@ -21,7 +22,8 @@
     "enemy": "castle-lv2-enemy.png"
   },
   "sfx": {
-    "select": "headquarters/select.wav"
+    "select": "headquarters/select.wav",
+    "destroy": "destroy.wav"
   },
   "canBeUpgraded": true
 }, {
@@ -34,7 +36,8 @@
     "enemy": "castle-lv3-enemy.png"
   },
   "sfx": {
-    "select": "headquarters/select.wav"
+    "select": "headquarters/select.wav",
+    "destroy": "destroy.wav"
   }
 }, {
   "id": 4,
@@ -46,7 +49,8 @@
     "enemy": "training-camp-enemy.png"
   },
   "sfx": {
-    "select": "training-camp/select.wav"
+    "select": "training-camp/select.wav",
+    "destroy": "destroy.wav"
   }
 }, {
   "id": 5,
@@ -58,7 +62,8 @@
     "enemy": "archery-range-enemy.png"
   },
   "sfx": {
-    "select": "achery-range/select.wav"
+    "select": "achery-range/select.wav",
+    "destroy": "destroy.wav"
   }
 }, {
   "id": 6,
@@ -70,7 +75,8 @@
     "enemy": "stable-enemy.png"
   },
   "sfx": {
-    "select": "stable/select.wav"
+    "select": "stable/select.wav",
+    "destroy": "destroy.wav"
   }
 }, {
   "id": 7,
@@ -80,5 +86,8 @@
     "base": "tower.png",
     "player": "tower-player.png",
     "enemy": "tower-enemy.png"
+  },
+  "sfx": {
+    "destroy": "destroy.wav"
   }
 }]

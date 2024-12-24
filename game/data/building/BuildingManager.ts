@@ -67,6 +67,7 @@ class BuildingManager {
         name: `Building ${buildingId}`,
         description: `Description of building ${buildingId}`,
         sprites: { base: "", player: "", enemy: "" },
+        sfx: { destroy: "" },
       }),
       ...buildingInfo,
       constructionCost: constructionCosts,

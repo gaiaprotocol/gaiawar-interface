@@ -2,6 +2,7 @@ import {
   compareCoordinates,
   Coordinates,
   GameObject,
+  SFXPlayer,
   TileRange,
 } from "@gaiaengine/2d";
 import GaiaWarConfig from "../../config/GaiaWarConfig.js";
@@ -70,6 +71,7 @@ export default class World extends GameObject {
   }
 
   public playSelectEffect(coord: Coordinates) {
+    SFXPlayer.play("/assets/sfx/world/select-tile.mp3");
     this.tiles[coord.x]?.[coord.y]?.playSelectEffect();
   }
 

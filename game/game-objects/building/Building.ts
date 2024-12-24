@@ -19,13 +19,15 @@ export default class Building extends Fadeable {
   }
 
   public playSelectEffect() {
-    if (this.metadata?.sfx?.select) {
+    if (this.metadata?.sfx.select) {
       SFXPlayer.play(`/assets/sfx/buildings/${this.metadata.sfx.select}`);
     }
   }
 
   public destroy() {
-    //TODO:
-    this.remove();
+    if (this.metadata?.sfx.destroy) {
+      SFXPlayer.play(`/assets/sfx/buildings/${this.metadata.sfx.destroy}`);
+    }
+    this.fadeOut(0.2, () => this.remove());
   }
 }

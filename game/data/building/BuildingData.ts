@@ -3,7 +3,7 @@ export interface BuildingMetadata {
   name: string;
   description: string;
   sprites: { base: string; player: string; enemy: string };
-  sfx?: { select: string };
+  sfx: { select?: string; destroy: string };
 }
 
 export default interface BuildingData extends BuildingMetadata {
