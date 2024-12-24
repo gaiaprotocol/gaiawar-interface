@@ -1,6 +1,8 @@
 import { Coordinates } from "@gaiaengine/2d";
 import RangedAttackContract from "../../../contracts/commands/RangedAttackContract.js";
 import { UnitQuantity } from "../../../data/tile/TileData.js";
+import PendingCommand, { PendingCommandType } from "../PendingCommand.js";
+import PendingCommandManager from "../PendingCommandManager.js";
 import BaseCommandExecutor from "./base/BaseCommandExecutor.js";
 
 class RangedAttackCommandExecutor extends BaseCommandExecutor {
@@ -9,7 +11,21 @@ class RangedAttackCommandExecutor extends BaseCommandExecutor {
     to: Coordinates,
     units: UnitQuantity[],
   ) {
-    await RangedAttackContract.rangedAttack(from, to, units);
+    const pendingCommand: PendingCommand = {
+      type: PendingCommandType.RANGED_ATTACK,
+      from,
+      to,
+      units,
+    };
+    PendingCommandManager.addPendingCommand(pendingCommand);
+
+    try {
+      await RangedAttackContract.rangedAttack(from, to, units);
+    } catch (e) {
+      console.error(e);
+    }
+
+    PendingCommandManager.removePendingCommand(pendingCommand);
   }
 }
 
