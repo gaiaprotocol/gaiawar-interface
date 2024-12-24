@@ -1,10 +1,11 @@
 import { WalletLoginManager } from "@common-module/wallet-login";
 import { Coordinates } from "@gaiaengine/2d";
+import PendingCommand from "../../data/pending-command/PendingCommand.js";
 import TileData from "../../data/tile/TileData.js";
 import TileFaction from "../../data/tile/TileFaction.js";
 import Building from "../building/Building.js";
-import UnitPlatoon from "../unit/UnitPlatoon.js";
 import Loot from "../loot/Loot.js";
+import UnitPlatoon from "../unit/UnitPlatoon.js";
 import TileObject from "./TileObject.js";
 
 export default class Tile extends TileObject {
@@ -51,5 +52,13 @@ export default class Tile extends TileObject {
   private destroyBuilding() {
     this.building?.destroy();
     this.building = undefined;
+  }
+
+  public addPendingCommand(pendingCommand: PendingCommand) {
+    //TODO:
+  }
+
+  public removePendingCommand(pendingCommand: PendingCommand) {
+    //TODO:
   }
 }

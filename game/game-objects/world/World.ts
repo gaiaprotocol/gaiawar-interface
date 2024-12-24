@@ -12,6 +12,7 @@ interface WorldOptions {
 export default class World extends GameObject {
   private tileContainer = new GameObject(0, 0);
   private tiles: Record<number, Record<number, Tile>> = {};
+  private previousPendingCommands: PendingCommand[] = [];
 
   constructor(options: WorldOptions) {
     super(0, 0);
@@ -63,8 +64,42 @@ export default class World extends GameObject {
     }
   }
 
+  private compareCoordinates(
+    a: Coordinates | undefined,
+    b: Coordinates | undefined,
+  ) {
+    return a?.x === b?.x && a?.y === b?.y;
+  }
+
   public updatePendingCommands(pendingCommands: PendingCommand[]) {
-    console.log(pendingCommands);
-    //TODO:
+    for (const pendingCommand of pendingCommands) {
+      if (
+        !this.previousPendingCommands.find((pc) =>
+          pc.type === pendingCommand.type &&
+          pc.user === pendingCommand.user &&
+          this.compareCoordinates(pc.from, pendingCommand.from) &&
+          this.compareCoordinates(pc.to, pendingCommand.to)
+        )
+      ) {
+        const tile = this.tiles[pendingCommand.to.x]?.[pendingCommand.to.y];
+        tile?.addPendingCommand(pendingCommand);
+      }
+    }
+
+    for (const pendingCommand of this.previousPendingCommands) {
+      if (
+        !pendingCommands.find((pc) =>
+          pc.type === pendingCommand.type &&
+          pc.user === pendingCommand.user &&
+          this.compareCoordinates(pc.from, pendingCommand.from) &&
+          this.compareCoordinates(pc.to, pendingCommand.to)
+        )
+      ) {
+        const tile = this.tiles[pendingCommand.to.x]?.[pendingCommand.to.y];
+        tile?.removePendingCommand(pendingCommand);
+      }
+    }
+
+    this.previousPendingCommands = pendingCommands;
   }
 }
