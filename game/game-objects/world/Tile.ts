@@ -86,7 +86,9 @@ export default class Tile extends TileObject {
     }
 
     if (compareCoordinates(pendingCommand.to, this.coord)) {
-      delete this.flags[this.makeFlagId(pendingCommand)];
+      const flagId = this.makeFlagId(pendingCommand);
+      this.flags[flagId]?.remove();
+      delete this.flags[flagId];
     }
   }
 }
