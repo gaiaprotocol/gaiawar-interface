@@ -1,15 +1,18 @@
 import { Fadeable, Sprite } from "@gaiaengine/2d";
+import { BuildingMetadata } from "../../data/building/BuildingData.js";
 import BuildingManager from "../../data/building/BuildingManager.js";
 import TileFaction from "../../data/tile/TileFaction.js";
 
 export default class Building extends Fadeable {
+  private metadata: BuildingMetadata | undefined;
+
   constructor(faction: TileFaction, buildingId: number) {
     super(0, 0);
-    const metadata = BuildingManager.getBuildingMetadata(buildingId);
-    if (metadata) {
+    this.metadata = BuildingManager.getBuildingMetadata(buildingId);
+    if (this.metadata) {
       this.append(
-        new Sprite(0, 0, `/assets/${metadata.sprites.base}`),
-        new Sprite(0, 0, `/assets/${metadata.sprites[faction]}`),
+        new Sprite(0, 0, `/assets/buildings/${this.metadata.sprites.base}`),
+        new Sprite(0, 0, `/assets/buildings/${this.metadata.sprites[faction]}`),
       );
       this.fadeIn(0.2);
     }

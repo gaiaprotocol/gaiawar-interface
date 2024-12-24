@@ -3,9 +3,12 @@
   "name": "Castle Level 1",
   "description": "The Castle is the main building of your city. It allows you to build other buildings and train knights.",
   "sprites": {
-    "base": "buildings/castle-lv1.png",
-    "player": "buildings/castle-lv1-player.png",
-    "enemy": "buildings/castle-lv1-enemy.png"
+    "base": "castle-lv1.png",
+    "player": "castle-lv1-player.png",
+    "enemy": "castle-lv1-enemy.png"
+  },
+  "sfx": {
+    "select": "headquarters/select"
   },
   "canBeUpgraded": true
 }, {
@@ -13,9 +16,12 @@
   "name": "Castle Level 2",
   "description": "The Castle is the main building of your city. It allows you to build other buildings and train knights.",
   "sprites": {
-    "base": "buildings/castle-lv2.png",
-    "player": "buildings/castle-lv2-player.png",
-    "enemy": "buildings/castle-lv2-enemy.png"
+    "base": "castle-lv2.png",
+    "player": "castle-lv2-player.png",
+    "enemy": "castle-lv2-enemy.png"
+  },
+  "sfx": {
+    "select": "headquarters/select"
   },
   "canBeUpgraded": true
 }, {
@@ -23,44 +29,56 @@
   "name": "Castle Level 3",
   "description": "The Castle is the main building of your city. It allows you to build other buildings and train knights.",
   "sprites": {
-    "base": "buildings/castle-lv3.png",
-    "player": "buildings/castle-lv3-player.png",
-    "enemy": "buildings/castle-lv3-enemy.png"
+    "base": "castle-lv3.png",
+    "player": "castle-lv3-player.png",
+    "enemy": "castle-lv3-enemy.png"
+  },
+  "sfx": {
+    "select": "headquarters/select"
   }
 }, {
   "id": 4,
   "name": "Training Camp",
   "description": "The Training Camp allows you to train swordsmen",
   "sprites": {
-    "base": "buildings/training-camp.png",
-    "player": "buildings/training-camp-player.png",
-    "enemy": "buildings/training-camp-enemy.png"
+    "base": "training-camp.png",
+    "player": "training-camp-player.png",
+    "enemy": "training-camp-enemy.png"
+  },
+  "sfx": {
+    "select": "training-camp/select"
   }
 }, {
   "id": 5,
   "name": "Archery Range",
   "description": "The Archery Range allows you to train archers",
   "sprites": {
-    "base": "buildings/archery-range.png",
-    "player": "buildings/archery-range-player.png",
-    "enemy": "buildings/archery-range-enemy.png"
+    "base": "archery-range.png",
+    "player": "archery-range-player.png",
+    "enemy": "archery-range-enemy.png"
+  },
+  "sfx": {
+    "select": "achery-range/select"
   }
 }, {
   "id": 6,
   "name": "Stable",
   "description": "The Stable allows you to train cavalry",
   "sprites": {
-    "base": "buildings/stable.png",
-    "player": "buildings/stable-player.png",
-    "enemy": "buildings/stable-enemy.png"
+    "base": "stable.png",
+    "player": "stable-player.png",
+    "enemy": "stable-enemy.png"
+  },
+  "sfx": {
+    "select": "stable/select"
   }
 }, {
   "id": 7,
   "name": "Tower",
   "description": "The Tower increases the health and damage of units stationed inside.",
   "sprites": {
-    "base": "buildings/tower.png",
-    "player": "buildings/tower-player.png",
-    "enemy": "buildings/tower-enemy.png"
+    "base": "tower.png",
+    "player": "tower-player.png",
+    "enemy": "tower-enemy.png"
   }
 }]

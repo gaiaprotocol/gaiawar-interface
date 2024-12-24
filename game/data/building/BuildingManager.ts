@@ -1,6 +1,6 @@
 import { ObjectUtils } from "@common-module/ts";
 import BuildingManagerContract from "../../contracts/data/BuildingManagerContract.js";
-import BuildingData from "./BuildingData.js";
+import BuildingData, { BuildingMetadata } from "./BuildingData.js";
 import buildingMetadataSet from "./buildings-metadata.json" assert {
   type: "json",
 };
@@ -81,7 +81,7 @@ class BuildingManager {
     );
   }
 
-  public getBuildingMetadata(buildingId: number) {
+  public getBuildingMetadata(buildingId: number): BuildingMetadata | undefined {
     return buildingMetadataSet.find((metadata) => metadata.id === buildingId);
   }
 
