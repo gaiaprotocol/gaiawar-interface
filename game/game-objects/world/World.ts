@@ -71,7 +71,7 @@ export default class World extends GameObject {
   }
 
   public playSelectEffect(coord: Coordinates) {
-    SFXPlayer.play("/assets/sfx/world/select-tile.mp3");
+    SFXPlayer.play("/assets/sfx/world/select-tile.wav");
     this.tiles[coord.x]?.[coord.y]?.playSelectEffect();
   }
 

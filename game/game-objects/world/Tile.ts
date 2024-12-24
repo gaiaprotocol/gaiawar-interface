@@ -1,5 +1,5 @@
 import { WalletLoginManager } from "@common-module/wallet-login";
-import { compareCoordinates, Coordinates } from "@gaiaengine/2d";
+import { compareCoordinates, Coordinates, SFXPlayer } from "@gaiaengine/2d";
 import PendingCommand, {
   PendingCommandType,
 } from "../../data/pending-command/PendingCommand.js";
@@ -98,6 +98,8 @@ export default class Tile extends TileObject {
 
         this.constructing?.remove();
         this.constructing = new Constructing().appendTo(this);
+
+        SFXPlayer.play("/assets/sfx/commands/construction/start.wav");
       }
 
       const user = WalletLoginManager.getLoggedInAddress();

@@ -16,7 +16,7 @@ export default class ConstructionBuildingListItem
       el("h3", building.name),
       el(
         ".image-container",
-        el("img", { src: `/assets/${building.sprites.base}` }),
+        el("img", { src: `/assets/buildings/${building.sprites.base}` }),
       ),
       new CostList(building.constructionCost),
     );
