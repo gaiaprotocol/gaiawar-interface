@@ -10,7 +10,6 @@ class MoveCommandExecutor extends BaseCommandExecutor {
     units: UnitQuantity[],
   ) {
     await MoveContract.move(from, to, units);
-    return true;
   }
 }
 

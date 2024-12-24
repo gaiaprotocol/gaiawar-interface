@@ -15,11 +15,10 @@ class TrainingCommandExecutor extends BaseCommandExecutor {
     for (const [material, amount] of Object.entries(totalCost)) {
       totalCost[material] = amount * BigInt(unitQuantity.quantity);
     }
-    if (!(await this.checkUserHasCost(totalCost))) return false;
-
-    await TrainContract.train(coordinates, unitQuantity);
-    await UserMaterialManager.reloadBalances();
-    return true;
+    if (await this.checkUserHasCost(totalCost)) {
+      await TrainContract.train(coordinates, unitQuantity);
+      await UserMaterialManager.reloadBalances();
+    }
   }
 }
 

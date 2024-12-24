@@ -10,7 +10,6 @@ class MoveAndAttackCommandExecutor extends BaseCommandExecutor {
     units: UnitQuantity[],
   ) {
     await MoveAndAttackContract.moveAndAttack(from, to, units);
-    return true;
   }
 }
 

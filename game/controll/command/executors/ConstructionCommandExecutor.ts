@@ -7,11 +7,11 @@ class ConstructionCommandExecutor extends BuildingCommandExecutor {
   public async execute(
     coordinates: Coordinates,
     buildingId: number,
-  ): Promise<boolean> {
-    if (!(await this.checkUserHasConstructionCost(buildingId))) return false;
-    await ConstructContract.construct(coordinates, buildingId);
-    await UserMaterialManager.reloadBalances();
-    return true;
+  ) {
+    if (await this.checkUserHasConstructionCost(buildingId)) {
+      await ConstructContract.construct(coordinates, buildingId);
+      await UserMaterialManager.reloadBalances();
+    }
   }
 }
 

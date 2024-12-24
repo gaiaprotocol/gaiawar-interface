@@ -10,7 +10,6 @@ class RangedAttackCommandExecutor extends BaseCommandExecutor {
     units: UnitQuantity[],
   ) {
     await RangedAttackContract.rangedAttack(from, to, units);
-    return true;
   }
 }
 
