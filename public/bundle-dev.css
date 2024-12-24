@@ -2332,14 +2332,18 @@ li.chat-content-list-item.temp {
 }
 .intro-background > .intro > header {
   flex-shrink: 0;
-  padding: 34px;
+  background-image: url('/images/banner.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 40px 0 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 @container (width <= 520px) {
   .intro-background > .intro > header {
-    padding: 34px 24px;
+    padding: 40px 24px 30px;
   }
 }
 .intro-background > .intro > header > h1 {
@@ -2349,14 +2353,14 @@ li.chat-content-list-item.temp {
 .intro-background > .intro > main {
   overflow-y: auto;
   flex-grow: 1;
-  padding: 0 34px;
+  padding: 34px 34px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 @container (width <= 520px) {
   .intro-background > .intro > main {
-    padding: 0 24px;
+    padding: 34px 24px 0;
   }
 }
 .intro-background > .intro > footer {
