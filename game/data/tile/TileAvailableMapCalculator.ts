@@ -54,7 +54,7 @@ class TileAvailableMapCalculator {
       for (let x = range.startX; x <= range.endX; x++) {
         for (let y = range.startY; y <= range.endY; y++) {
           const tileData = TileManager.getCurrentTileData(x, y);
-          if (tileData?.occupant === user) {
+          if (tileData?.occupant === user && tileData.buildingId !== 0) {
             const building = await BuildingManager.getBuilding(
               tileData.buildingId,
             );
@@ -93,7 +93,9 @@ class TileAvailableMapCalculator {
               areaMap,
               x,
               y,
-              GaiaWarConfig.enemyBuildingSearchRange,
+              tileData.buildingId !== 0
+                ? GaiaWarConfig.enemyBuildingSearchRange
+                : 1,
               () => TileAvailableValue.UNAVAILABLE,
             );
           }
