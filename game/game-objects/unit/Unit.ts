@@ -24,6 +24,10 @@ export default abstract class Unit extends Movable {
   public playMoveAnimation(x: number, y: number) {
     this.playAnimation("walk");
 
+    if (x < this.x) {
+      this.scaleX = -1;
+    }
+
     const angle = Math.atan2(y - this.y, x - this.x);
     this.move(angle, 100);
 
@@ -32,5 +36,10 @@ export default abstract class Unit extends Movable {
 
   public playRangedAttackAnimation() {
     this.playAnimation("ranged-attack");
+  }
+
+  public remove(): void {
+    this.moveSound.remove();
+    super.remove();
   }
 }
