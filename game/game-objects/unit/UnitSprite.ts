@@ -1,15 +1,16 @@
-import { AnimatedSprite, Movable, Sprite } from "@gaiaengine/2d";
+import { AnimatedSprite, Sprite } from "@gaiaengine/2d";
 import TileFaction from "../../data/tile/TileFaction.js";
 import { UnitMetadata } from "../../data/unit/UnitData.js";
 import UnitManager from "../../data/unit/UnitManager.js";
 import spritesheets from "./unit-spritesheets.json" with { type: "json" };
+import Unit from "./Unit.js";
 
-export default class UnitSprite extends Movable {
+export default class UnitSprite extends Unit {
   private metadata: UnitMetadata | undefined;
   private sprite: AnimatedSprite | undefined;
 
-  constructor(public unitId: number, private faction: TileFaction) {
-    super(0, 0);
+  constructor(unitId: number, faction: TileFaction) {
+    super(unitId, faction);
     this.metadata = UnitManager.getUnitMetadata(unitId);
     if (this.metadata) {
       this.append(
@@ -21,7 +22,7 @@ export default class UnitSprite extends Movable {
     }
   }
 
-  private playAnimation(animation: string) {
+  protected playAnimation(animation: string) {
     if (!this.metadata) return;
     this.sprite?.remove();
 
@@ -43,17 +44,5 @@ export default class UnitSprite extends Movable {
     );
 
     this.append(this.sprite);
-  }
-
-  public playIdleAnimation() {
-    this.playAnimation("idle");
-    this.stop();
-  }
-
-  public playMoveAnimation(x: number, y: number) {
-    this.playAnimation("walk");
-
-    const angle = Math.atan2(y - this.y, x - this.x);
-    this.move(angle, 100);
   }
 }

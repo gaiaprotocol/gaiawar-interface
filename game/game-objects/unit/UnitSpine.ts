@@ -1,13 +1,14 @@
-import { Movable, Sprite } from "@gaiaengine/2d";
+import { Sprite } from "@gaiaengine/2d";
 import { Spine } from "@gaiaengine/2d-spine";
 import TileFaction from "../../data/tile/TileFaction.js";
 import UnitManager from "../../data/unit/UnitManager.js";
+import Unit from "./Unit.js";
 
-export default class UnitSpine extends Movable {
+export default class UnitSpine extends Unit {
   private spine: Spine | undefined;
 
-  constructor(public unitId: number, faction: TileFaction) {
-    super(0, 0);
+  constructor(unitId: number, faction: TileFaction) {
+    super(unitId, faction);
 
     const metadata = UnitManager.getUnitMetadata(unitId);
     if (metadata) {
@@ -32,18 +33,9 @@ export default class UnitSpine extends Movable {
     }
   }
 
-  public playIdleAnimation() {
+  protected playAnimation(animation: string) {
     if (this.spine) {
-      this.spine.animation = "idle";
-    }
-  }
-
-  public playMoveAnimation(x: number, y: number) {
-    const angle = Math.atan2(y - this.y, x - this.x);
-    this.move(angle, 100);
-
-    if (this.spine) {
-      this.spine.animation = "walk";
+      this.spine.animation = animation;
     }
   }
 }
