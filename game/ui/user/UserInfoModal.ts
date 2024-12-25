@@ -45,6 +45,14 @@ export default class UserInfoModal extends StructuredModal {
           onEditClick: () =>
             window.open("https://personas.gaia.cc/edit-persona", "_blank"),
         }),
+        el(
+          ".powered-by",
+          "Powered by ",
+          el("a", "Gaia Personas", {
+            href: "https://personas.gaia.cc",
+            target: "_blank",
+          }),
+        ),
       );
     }
   }

@@ -2472,9 +2472,26 @@ li.chat-content-list-item.temp {
   max-height: calc(50vh - 100px);
   overflow-y: auto;
 }
+.user-info-modal > main {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
 .user-info-modal > main > .loading-spinner {
   width: 32px;
   height: 32px;
+}
+.user-info-modal > main > .powered-by {
+  color: #b4b4b4;
+  font-size: 14px;
+}
+.user-info-modal > main > .powered-by > a {
+  text-decoration: underline;
+  text-decoration-color: var(--link-underline-color);
+  transition: text-decoration-color 0.25s ease;
+}
+.user-info-modal > main > .powered-by > a:hover {
+  text-decoration-color: currentColor;
 }
 .user-material-list {
   display: flex;
