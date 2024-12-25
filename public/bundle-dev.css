@@ -2472,6 +2472,10 @@ li.chat-content-list-item.temp {
   max-height: calc(50vh - 100px);
   overflow-y: auto;
 }
+.user-info-modal > main > .loading-spinner {
+  width: 32px;
+  height: 32px;
+}
 .user-material-list {
   display: flex;
   flex-direction: column;
