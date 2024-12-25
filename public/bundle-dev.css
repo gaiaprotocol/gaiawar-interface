@@ -1895,6 +1895,7 @@ li.chat-message-list-item > .sender {
   display: flex;
   gap: 8px;
   align-items: center;
+  min-height: 32px;
 }
 li.chat-message-list-item > .sender > .avatar {
   width: 32px;
