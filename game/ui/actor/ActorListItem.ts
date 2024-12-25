@@ -2,6 +2,7 @@ import { DomNode, el } from "@common-module/app";
 import { Button, ButtonType } from "@common-module/app-components";
 import { Coordinates } from "@gaiaengine/2d";
 import { AnimatedSprite, GameScreen } from "@gaiaengine/dom";
+import TileCommander from "../../controll/TileCommander.js";
 import BuildingManager from "../../data/building/BuildingManager.js";
 import UnitManager from "../../data/unit/UnitManager.js";
 import spritesheets from "../../game-objects/unit/unit-spritesheets.json" with {
@@ -9,6 +10,7 @@ import spritesheets from "../../game-objects/unit/unit-spritesheets.json" with {
 };
 import UpgradeBuildingModal from "../construction/UpgradeBuildingModal.js";
 import CostList from "../cost/CostList.js";
+import UpgradeUnitModal from "../training/UpgradeUnitModal.js";
 import Actor from "./Actor.js";
 import ActorMode from "./ActorMode.js";
 
@@ -88,7 +90,7 @@ export default class ActorListItem extends DomNode<HTMLDivElement, {
             title: "Upgrade",
             onClick: () => {
               if (this.actor.type === "unit") {
-                //TODO: new UpgradeUnitModal(this.actor);
+                new UpgradeUnitModal(this.coordinates, this.actor);
                 this.emit("proceed");
               }
             },
@@ -110,7 +112,7 @@ export default class ActorListItem extends DomNode<HTMLDivElement, {
               title: "Upgrade",
               onClick: () => {
                 if (this.actor.type === "unit") {
-                  //TODO: new UpgradeUnitModal(this.actor);
+                  new UpgradeUnitModal(this.coordinates, this.actor);
                   this.emit("proceed");
                 }
               },
@@ -123,33 +125,22 @@ export default class ActorListItem extends DomNode<HTMLDivElement, {
             type: ButtonType.Contained,
             title: "Move",
             onClick: () => {
-              /*if (
-                this.actor.type === "unit" &&
-                GameController.selectedTileCoordinates
-              ) {
-                GameController.unitsToMove = [this.actor];
-                World.showMovableArea(GameController.selectedTileCoordinates, [
-                  this.actor,
-                ]);
+              if (this.actor.type === "unit") {
+                TileCommander.waitForUnitCommand("move", [this.actor]);
                 this.emit("proceed");
-              }*/
+              }
             },
           }),
           new Button({
             type: ButtonType.Contained,
             title: "Move & Attack",
             onClick: () => {
-              /*if (
-                this.actor.type === "unit" &&
-                GameController.selectedTileCoordinates
-              ) {
-                GameController.unitsToMoveAndAttack = [this.actor];
-                World.showAttackableArea(
-                  GameController.selectedTileCoordinates,
-                  [this.actor],
-                );
+              if (this.actor.type === "unit") {
+                TileCommander.waitForUnitCommand("move-and-attack", [
+                  this.actor,
+                ]);
                 this.emit("proceed");
-              }*/
+              }
             },
           }),
         );
@@ -160,17 +151,12 @@ export default class ActorListItem extends DomNode<HTMLDivElement, {
               type: ButtonType.Contained,
               title: "Ranged Attack",
               onClick: () => {
-                /*if (
-                  this.actor.type === "unit" &&
-                  GameController.selectedTileCoordinates
-                ) {
-                  GameController.unitsToRangedAttack = [this.actor];
-                  World.showRangedAttackableArea(
-                    GameController.selectedTileCoordinates,
-                    [this.actor],
-                  );
+                if (this.actor.type === "unit") {
+                  TileCommander.waitForUnitCommand("ranged-attack", [
+                    this.actor,
+                  ]);
                   this.emit("proceed");
-                }*/
+                }
               },
             }),
           );

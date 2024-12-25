@@ -1512,6 +1512,43 @@ a.button.circle.disabled {
 .select > select:hover {
   border-color: var(--input-hover-border-color);
 }
+.quantity-input {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  align-items: flex-start;
+}
+.quantity-input.required > .label::after {
+  content: '*';
+  margin-left: 3px;
+}
+.quantity-input > .label {
+  font-size: 15.14px;
+}
+.quantity-input > main {
+  display: flex;
+  border: 1px solid var(--input-border-color);
+  border-radius: 999999px;
+}
+.quantity-input > main:has(input:focus) {
+  border-color: var(--input-focus-border-color);
+}
+.quantity-input > main:has(input:hover) {
+  border-color: var(--input-hover-border-color);
+}
+.quantity-input > main > input {
+  width: 100%;
+  height: 40px;
+  font-size: 18px;
+  padding: 0 13.5px;
+  -moz-appearance: textfield;
+}
+.quantity-input > main > input::-webkit-inner-spin-button,
+.quantity-input > main > input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 .dropdown-menu {
   position: fixed;
   z-index: 1000;
@@ -1641,6 +1678,11 @@ dialog.modal.prompt-dialog > header > h1 > .icon {
   height: 32px;
 }
 dialog.modal.prompt-dialog > main {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+dialog.modal.quantity-input-dialog > main {
   display: flex;
   flex-direction: column;
   gap: 12px;

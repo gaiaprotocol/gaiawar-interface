@@ -2,6 +2,7 @@ import { WalletLoginManager } from "@common-module/wallet-login";
 import { Coordinates } from "@gaiaengine/2d";
 import { zeroAddress } from "viem";
 import CollectLootCommandExecutor from "../../command-executors/CollectLootCommandExecutor.js";
+import TileCommander from "../../controll/TileCommander.js";
 import BuildingManager from "../../data/building/BuildingManager.js";
 import TileData from "../../data/tile/TileData.js";
 import TileManager from "../../data/tile/TileManager.js";
@@ -83,7 +84,7 @@ export default class TileCommandPanel extends CommandPanel {
           new CommandButton(
             new UpgradeIcon(),
             "Upgrade",
-            () => new UpgradeUnitModal(upgradableUnit),
+            () => new UpgradeUnitModal(this.coordinates, upgradableUnit),
           ),
         );
       }
@@ -121,29 +122,19 @@ export default class TileCommandPanel extends CommandPanel {
         new CommandButton(
           new MoveIcon(),
           "Move",
-          () => {
-            /*GameController.unitsToMove = tileData.units;
-            World.showMovableArea(this.coordinates, tileData.units);*/
-          },
+          () => TileCommander.waitForUnitCommand("move", tileData.units),
         ),
         new CommandButton(
           new MoveAndAttackIcon(),
           "Move & Attack",
-          () => {
-            /*GameController.unitsToMoveAndAttack = tileData.units;
-            World.showAttackableArea(this.coordinates, tileData.units);*/
-          },
+          () =>
+            TileCommander.waitForUnitCommand("move-and-attack", tileData.units),
         ),
         new CommandButton(
           new RangedAttackIcon(),
           "Ranged Attack",
-          () => {
-            /*GameController.unitsToRangedAttack = tileData.units;
-            World.showRangedAttackableArea(
-              this.coordinates,
-              tileData.units,
-            );*/
-          },
+          () =>
+            TileCommander.waitForUnitCommand("ranged-attack", tileData.units),
         ),
         totalUnits > 1
           ? new CommandButton(
@@ -175,7 +166,7 @@ export default class TileCommandPanel extends CommandPanel {
         new CommandButton(
           new TrainIcon(),
           "Train",
-          () => new TrainingModal(tileData.buildingId),
+          () => new TrainingModal(this.coordinates, tileData.buildingId),
         ),
       );
     }

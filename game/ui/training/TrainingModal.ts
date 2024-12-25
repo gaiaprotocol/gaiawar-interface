@@ -2,9 +2,14 @@ import { el } from "@common-module/app";
 import {
   Button,
   ButtonType,
+  QuantityInputDialog,
   StructuredModal,
 } from "@common-module/app-components";
+import { Coordinates } from "@gaiaengine/2d";
 import { CloseIcon } from "@gaiaprotocol/svg-icons";
+import TrainingCommandExecutor from "../../command-executors/TrainingCommandExecutor.js";
+import GaiaWarConfig from "../../config/GaiaWarConfig.js";
+import TileManager from "../../data/tile/TileManager.js";
 import UnitManager from "../../data/unit/UnitManager.js";
 import UserMaterialList from "../material/UserMaterialList.js";
 import TrainingUnitList from "./TrainingUnitList.js";
@@ -12,7 +17,7 @@ import TrainingUnitList from "./TrainingUnitList.js";
 export default class TrainingModal extends StructuredModal {
   private unitList: TrainingUnitList;
 
-  constructor(private buildingId: number) {
+  constructor(private coordinates: Coordinates, private buildingId: number) {
     super(".training-modal");
 
     this.appendToHeader(
@@ -32,8 +37,34 @@ export default class TrainingModal extends StructuredModal {
     this.unitList.on(
       "unitSelected",
       (unitId) => {
-        //TEST
-        //GameController.trainUnits({ unitId, quantity: 1 });
+        const tileData = TileManager.getCurrentTileData(
+          coordinates.x,
+          coordinates.y,
+        );
+
+        const totalUnits = tileData
+          ? tileData.units.reduce(
+            (total, u) => total + u.quantity,
+            0,
+          )
+          : 0;
+
+        const max = GaiaWarConfig.maxUnitsPerTile - totalUnits;
+
+        new QuantityInputDialog({
+          title: "Train Units",
+          message: "Enter the quantity of units you want to train.",
+          min: 1,
+          value: max,
+          max,
+          onConfirm: (quantity) => {
+            TrainingCommandExecutor.execute(this.coordinates, {
+              unitId,
+              quantity,
+            });
+          },
+        });
+
         this.remove();
       },
     );

@@ -31,6 +31,11 @@ export interface IGaiaWarConfig {
 }
 
 class GaiaWarConfig {
+  public readonly tileSize = 256;
+  public readonly headquartersSearchRange = 7;
+  public readonly enemyBuildingSearchRange = 3;
+  public readonly maxUnitsPerTile = 50;
+
   public isDevMode!: boolean;
   public isTestnet!: boolean;
 
@@ -38,10 +43,6 @@ class GaiaWarConfig {
   public supabaseKey!: string;
 
   public supabaseConnector!: SupabaseConnector;
-
-  public tileSize = 256;
-  public headquartersSearchRange = 7;
-  public enemyBuildingSearchRange = 3;
 
   public init(config: IGaiaWarConfig) {
     Object.assign(this, config);
