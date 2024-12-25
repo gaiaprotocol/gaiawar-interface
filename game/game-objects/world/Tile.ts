@@ -9,7 +9,7 @@ import Building from "../building/Building.js";
 import Constructing from "../building/Constructing.js";
 import Flag from "../flag/Flag.js";
 import Loot from "../loot/Loot.js";
-import UnitPlatoon from "../unit/UnitPlatoon.js";
+import UnitGroup from "../unit/UnitGroup.js";
 import TileObject from "./TileObject.js";
 
 export default class Tile extends TileObject {
@@ -17,16 +17,19 @@ export default class Tile extends TileObject {
   private currentFaction: TileFaction = "enemy";
 
   private building: Building | undefined;
-  private unitPlatoon: UnitPlatoon;
   private loot: Loot;
+  private unitGroup: UnitGroup;
 
   private constructing: Constructing | undefined;
   private flags: Record<string, Flag> = {};
 
   constructor(private coord: Coordinates) {
     super(coord);
-    this.unitPlatoon = new UnitPlatoon().appendTo(this);
     this.loot = new Loot().appendTo(this);
+    this.loot.zIndex = 1;
+
+    this.unitGroup = new UnitGroup().appendTo(this);
+    this.unitGroup.zIndex = 2;
   }
 
   public setData(tileData: TileData) {
@@ -44,7 +47,7 @@ export default class Tile extends TileObject {
       this.createBuilding(faction, tileData.buildingId);
     }
 
-    this.unitPlatoon.setUnits(faction, tileData.units);
+    this.unitGroup.setUnits(faction, tileData.units);
     this.loot.setLoot(tileData.loot);
 
     this.currentData = tileData;

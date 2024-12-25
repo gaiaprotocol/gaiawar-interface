@@ -8,9 +8,7 @@ import {
 import { Coordinates } from "@gaiaengine/2d";
 import { CloseIcon } from "@gaiaprotocol/svg-icons";
 import UpgradeUnitCommandExecutor from "../../command-executors/UpgradeUnitCommandExecutor.js";
-import GaiaWarConfig from "../../config/GaiaWarConfig.js";
 import { UnitQuantity } from "../../data/tile/TileData.js";
-import TileManager from "../../data/tile/TileManager.js";
 import UnitManager from "../../data/unit/UnitManager.js";
 import UserMaterialList from "../material/UserMaterialList.js";
 import TrainingUnitList from "./TrainingUnitList.js";
@@ -38,27 +36,11 @@ export default class UpgradeUnitModal extends StructuredModal {
     this.unitList.on(
       "unitSelected",
       (unitId) => {
-        const tileData = TileManager.getCurrentTileData(
-          coordinates.x,
-          coordinates.y,
-        );
-
-        const totalUnits = tileData
-          ? tileData.units.reduce(
-            (total, u) => total + u.quantity,
-            0,
-          )
-          : 0;
-
-        let max = GaiaWarConfig.maxUnitsPerTile - totalUnits +
-          previousUnit.quantity;
-        if (max > previousUnit.quantity) {
-          max = previousUnit.quantity;
-        }
+        const max = previousUnit.quantity;
 
         new QuantityInputDialog({
-          title: "Train Units",
-          message: "Enter the quantity of units you want to train.",
+          title: "Upgrade Unit",
+          message: "Enter the quantity of units you want to upgrade.",
           min: 1,
           value: max,
           max,

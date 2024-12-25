@@ -1,5 +1,9 @@
 import { DomNode, el } from "@common-module/app";
-import { Button, ButtonType } from "@common-module/app-components";
+import {
+  Button,
+  ButtonType,
+  QuantityInputDialog,
+} from "@common-module/app-components";
 import { Coordinates } from "@gaiaengine/2d";
 import { AnimatedSprite, GameScreen } from "@gaiaengine/dom";
 import TileCommander from "../../controll/TileCommander.js";
@@ -126,8 +130,24 @@ export default class ActorListItem extends DomNode<HTMLDivElement, {
             title: "Move",
             onClick: () => {
               if (this.actor.type === "unit") {
-                TileCommander.waitForUnitCommand("move", [this.actor]);
-                this.emit("proceed");
+                const max = this.actor.quantity;
+
+                new QuantityInputDialog({
+                  title: "Move Units",
+                  message: "Enter the quantity of units you want to move.",
+                  min: 1,
+                  value: max,
+                  max,
+                  onConfirm: (quantity) => {
+                    if (this.actor.type === "unit") {
+                      TileCommander.waitForUnitCommand("move", [{
+                        unitId: this.actor.unitId,
+                        quantity,
+                      }]);
+                      this.emit("proceed");
+                    }
+                  },
+                });
               }
             },
           }),
@@ -136,10 +156,25 @@ export default class ActorListItem extends DomNode<HTMLDivElement, {
             title: "Move & Attack",
             onClick: () => {
               if (this.actor.type === "unit") {
-                TileCommander.waitForUnitCommand("move-and-attack", [
-                  this.actor,
-                ]);
-                this.emit("proceed");
+                const max = this.actor.quantity;
+
+                new QuantityInputDialog({
+                  title: "Move & Attack",
+                  message:
+                    "Enter the quantity of units you want to move and attack.",
+                  min: 1,
+                  value: max,
+                  max,
+                  onConfirm: (quantity) => {
+                    if (this.actor.type === "unit") {
+                      TileCommander.waitForUnitCommand("move-and-attack", [{
+                        unitId: this.actor.unitId,
+                        quantity,
+                      }]);
+                      this.emit("proceed");
+                    }
+                  },
+                });
               }
             },
           }),
@@ -152,10 +187,24 @@ export default class ActorListItem extends DomNode<HTMLDivElement, {
               title: "Ranged Attack",
               onClick: () => {
                 if (this.actor.type === "unit") {
-                  TileCommander.waitForUnitCommand("ranged-attack", [
-                    this.actor,
-                  ]);
-                  this.emit("proceed");
+                  const max = this.actor.quantity;
+
+                  new QuantityInputDialog({
+                    title: "Ranged Attack",
+                    message: "Enter the quantity of units you want to attack.",
+                    min: 1,
+                    value: max,
+                    max,
+                    onConfirm: (quantity) => {
+                      if (this.actor.type === "unit") {
+                        TileCommander.waitForUnitCommand("ranged-attack", [{
+                          unitId: this.actor.unitId,
+                          quantity,
+                        }]);
+                        this.emit("proceed");
+                      }
+                    },
+                  });
                 }
               },
             }),
