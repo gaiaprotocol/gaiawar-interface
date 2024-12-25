@@ -16,6 +16,7 @@ interface WorldOptions {
 }
 
 export default class World extends GameObject {
+  private ground: Ground;
   private tileContainer = new GameObject(0, 0);
   private tiles: Record<number, Record<number, Tile>> = {};
   private previousPendingCommands: PendingCommand[] = [];
@@ -23,7 +24,7 @@ export default class World extends GameObject {
   constructor(options: WorldOptions) {
     super(0, 0);
     this.append(
-      new Ground({
+      this.ground = new Ground({
         extraLoadTileCount: GaiaWarConfig.headquartersSearchRange,
         debounceDelay: 200,
         tileFadeDuration: 0.2,
@@ -117,5 +118,11 @@ export default class World extends GameObject {
     }
 
     this.previousPendingCommands = pendingCommands;
+  }
+
+  public clearTiles() {
+    this.tileContainer.clear();
+    this.tiles = {};
+    this.ground.reloadTiles();
   }
 }

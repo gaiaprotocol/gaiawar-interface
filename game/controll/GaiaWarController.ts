@@ -67,6 +67,10 @@ class GaiaWarController {
     CommandPanelController.changeToWorldPanel();
   }
 
+  public clearTiles() {
+    this.world.clearTiles();
+  }
+
   public async showConstructableArea() {
     const map = await TileAvailableMapCalculator.calculateConstructableArea();
     this.actionableArea.updateMap(map);

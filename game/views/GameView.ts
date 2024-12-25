@@ -1,6 +1,7 @@
 import { BodyNode, el, View } from "@common-module/app";
 import { WalletLoginManager } from "@common-module/wallet-login";
 import { BackgroundMusic } from "@gaiaengine/2d";
+import GaiaWarController from "../controll/GaiaWarController.js";
 import HUD from "../ui/HUD.js";
 import Intro from "../ui/Intro.js";
 
@@ -33,6 +34,8 @@ export default class GameView extends View {
     this.container.clear().append(
       WalletLoginManager.isLoggedIn() ? new HUD() : new Intro(),
     );
+
+    GaiaWarController.clearTiles();
   }
 
   public close(): void {

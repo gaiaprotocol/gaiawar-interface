@@ -1,4 +1,5 @@
 import { EventContainer } from "@common-module/ts";
+import { WalletLoginManager } from "@common-module/wallet-login";
 import { RealtimeChannel } from "@supabase/supabase-js";
 import GaiaWarConfig from "../../config/GaiaWarConfig.js";
 import PendingCommand from "./PendingCommand.js";
@@ -10,12 +11,17 @@ class PendingCommandManager extends EventContainer<{
   private pendingCommands: Record<string, PendingCommand> = {};
 
   public init() {
+    this.subscribe();
+    WalletLoginManager.on("loginStatusChanged", () => this.subscribe());
+    return this;
+  }
+
+  private subscribe() {
     this.channel = GaiaWarConfig.supabaseConnector.subscribeToPresence(
       "pending-commands",
       { onSync: (state) => this.onSync(state) },
       this.pendingCommands,
     );
-    return this;
   }
 
   private onSync(state: { [key: string]: Record<string, PendingCommand>[] }) {
