@@ -1,5 +1,6 @@
 import { WalletLoginManager } from "@common-module/wallet-login";
 import { compareCoordinates, Coordinates, SFXPlayer } from "@gaiaengine/2d";
+import GaiaWarConfig from "../../config/GaiaWarConfig.js";
 import PendingCommand, {
   PendingCommandType,
 } from "../../data/pending-command/PendingCommand.js";
@@ -89,7 +90,15 @@ export default class Tile extends TileObject {
 
   public addPendingCommand(pendingCommand: PendingCommand) {
     if (compareCoordinates(pendingCommand.from, this.coord)) {
-      //TODO:
+      if (pendingCommand.type === PendingCommandType.MOVE) {
+        if (pendingCommand.units) {
+          this.unitGroup.playMoveAnimation(
+            (pendingCommand.to.x - this.coord.x) * GaiaWarConfig.tileSize,
+            (pendingCommand.to.y - this.coord.y) * GaiaWarConfig.tileSize,
+            pendingCommand.units,
+          );
+        }
+      }
     }
 
     if (compareCoordinates(pendingCommand.to, this.coord)) {
@@ -114,7 +123,9 @@ export default class Tile extends TileObject {
 
   public removePendingCommand(pendingCommand: PendingCommand) {
     if (compareCoordinates(pendingCommand.from, this.coord)) {
-      //TODO:
+      if (pendingCommand.type === PendingCommandType.MOVE) {
+        this.unitGroup.playIdleAnimation();
+      }
     }
 
     if (compareCoordinates(pendingCommand.to, this.coord)) {

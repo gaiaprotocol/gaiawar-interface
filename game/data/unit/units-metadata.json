@@ -8,8 +8,8 @@
     "json": "units/spine/knight.json",
     "png": "units/spine/knight.png"
   },
-  "canBeUpgraded": true,
-  "shadowSize": "small"
+  "shadowSize": "small",
+  "canBeUpgraded": true
 }, {
   "id": 2,
   "key": "swordsman",

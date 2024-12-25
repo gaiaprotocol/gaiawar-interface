@@ -1,4 +1,4 @@
-export default interface UnitData {
+export interface UnitMetadata {
   id: number;
   key: string;
   name: string;
@@ -8,14 +8,17 @@ export default interface UnitData {
     json: string;
     png: string;
   };
+  shadowSize?: string;
+  canBeTrained?: boolean;
+}
 
+export default interface UnitData extends UnitMetadata {
   prerequisiteUnitId: number;
   trainingBuildingIds: number[];
   healthPoints: number;
   attackDamage: number;
   attackRange: number;
   movementRange: number;
-  canBeTrained: boolean;
 
   trainingCost: {
     [material: string]: bigint;

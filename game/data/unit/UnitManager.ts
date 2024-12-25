@@ -1,6 +1,6 @@
 import { ObjectUtils } from "@common-module/ts";
 import UnitManagerContract from "../../contracts/data/UnitManagerContract.js";
-import UnitData from "./UnitData.js";
+import UnitData, { UnitMetadata } from "./UnitData.js";
 import unitMetadataSet from "./units-metadata.json" assert {
   type: "json",
 };
@@ -82,7 +82,7 @@ class UnitManager {
     );
   }
 
-  public getUnitMetadata(unitId: number) {
+  public getUnitMetadata(unitId: number): UnitMetadata | undefined {
     return unitMetadataSet.find((metadata) => metadata.id === unitId);
   }
 

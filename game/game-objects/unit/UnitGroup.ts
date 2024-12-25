@@ -103,4 +103,25 @@ export default class UnitGroup extends Fadeable {
       }
     }
   }
+
+  public playIdleAnimation() {
+    for (const unit of this.units) {
+      unit.playIdleAnimation();
+    }
+  }
+
+  public playMoveAnimation(x: number, y: number, units: UnitQuantity[]) {
+    for (const { unitId, quantity } of units) {
+      let needed = quantity;
+      for (const unit of this.units) {
+        if (unit.unitId === unitId) {
+          unit.playMoveAnimation(x, y);
+          needed--;
+          if (needed <= 0) {
+            break;
+          }
+        }
+      }
+    }
+  }
 }
