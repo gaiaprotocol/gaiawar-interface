@@ -13,7 +13,7 @@ import WorldMapModal from "./worldmap/WorldMapModal.js";
 export default class HUD extends DomNode {
   private chatRoom: ChatRoom;
   private commandPanelContainer: CommandPanel;
-  private historyPanel: HistoryPanel;
+  //private historyPanel: HistoryPanel;
 
   constructor() {
     super(".hud");
@@ -28,7 +28,7 @@ export default class HUD extends DomNode {
       }),*/
       this.chatRoom = new ChatRoom(),
       this.commandPanelContainer = el(".command-panel-container"),
-      this.historyPanel = new HistoryPanel(),
+      //this.historyPanel = new HistoryPanel(),
     );
 
     CommandPanelController.setPanelContainer(this.commandPanelContainer);
