@@ -1,10 +1,6 @@
-import { GameObject } from "@gaiaengine/2d";
-import TileFaction from "../../data/tile/TileFaction.js";
+import UnitSpine from "./UnitSpine.js";
+import UnitSprite from "./UnitSprite.js";
 
-export default class Unit extends GameObject {
-  constructor(faction: TileFaction, unitId: number) {
-    super(0, 0);
+type Unit = UnitSpine | UnitSprite;
 
-    //TODO:
-  }
-}
+export default Unit;

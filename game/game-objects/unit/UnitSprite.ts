@@ -4,7 +4,7 @@ import UnitManager from "../../data/unit/UnitManager.js";
 import spritesheets from "./unit-spritesheets.json" with { type: "json" };
 
 export default class UnitSprite extends GameObject {
-  constructor(unitId: number, faction: TileFaction) {
+  constructor(public unitId: number, faction: TileFaction) {
     super(0, 0);
 
     const metadata = UnitManager.getUnitMetadata(unitId);

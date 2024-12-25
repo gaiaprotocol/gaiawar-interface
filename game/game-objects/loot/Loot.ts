@@ -12,12 +12,31 @@ export default class Loot extends GameObject {
   }
 
   public setLoot(loot: TokenAmount[]) {
-    for (const item of this.items) {
-      item.remove();
+    const totalLootAmount = loot.reduce((acc, { amount }) => acc + amount, 0n);
+    const newCount = parseInt(formatEther(totalLootAmount / 1000n));
+
+    const oldCount = this.items.length;
+
+    if (newCount > oldCount) {
+      const diff = newCount - oldCount;
+      for (let i = 0; i < diff; i++) {
+        const newItem = new LootItem(0, 0).appendTo(this);
+        this.items.push(newItem);
+      }
+    } else if (newCount < oldCount) {
+      const diff = oldCount - newCount;
+      const toRemove = this.items.splice(-diff, diff);
+      for (const item of toRemove) {
+        item.remove();
+      }
     }
 
-    const totalLootAmount = loot.reduce((acc, { amount }) => acc + amount, 0n);
-    const totalLootCount = parseInt(formatEther(totalLootAmount / 1000n));
+    this.repositionItems();
+  }
+
+  private repositionItems() {
+    const totalLootCount = this.items.length;
+    if (totalLootCount === 0) return;
 
     const side = Math.ceil(Math.sqrt(totalLootCount));
     const cellSize = GaiaWarConfig.tileSize / side;
@@ -30,8 +49,7 @@ export default class Loot extends GameObject {
         const x = -GaiaWarConfig.tileSize / 2 + col * cellSize + cellSize / 2;
         const y = -GaiaWarConfig.tileSize / 2 + row * cellSize + cellSize / 2;
 
-        const item = new LootItem(x, y).appendTo(this);
-        this.items.push(item);
+        this.items[index].setPosition(x, y);
 
         index++;
       }
