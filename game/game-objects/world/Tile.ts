@@ -99,6 +99,17 @@ export default class Tile extends TileObject {
           );
         }
       }
+
+      //TODO:
+      if (pendingCommand.type === PendingCommandType.MOVE_AND_ATTACK) {
+        if (pendingCommand.units) {
+          this.unitGroup.playMoveAnimation(
+            (pendingCommand.to.x - this.coord.x) * GaiaWarConfig.tileSize,
+            (pendingCommand.to.y - this.coord.y) * GaiaWarConfig.tileSize,
+            pendingCommand.units,
+          );
+        }
+      }
     }
 
     if (compareCoordinates(pendingCommand.to, this.coord)) {
@@ -124,6 +135,11 @@ export default class Tile extends TileObject {
   public removePendingCommand(pendingCommand: PendingCommand) {
     if (compareCoordinates(pendingCommand.from, this.coord)) {
       if (pendingCommand.type === PendingCommandType.MOVE) {
+        this.unitGroup.playIdleAnimation();
+      }
+
+      //TODO:
+      if (pendingCommand.type === PendingCommandType.MOVE_AND_ATTACK) {
         this.unitGroup.playIdleAnimation();
       }
     }
