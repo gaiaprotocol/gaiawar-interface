@@ -124,4 +124,19 @@ export default class UnitGroup extends Fadeable {
       }
     }
   }
+
+  public playRangedAttackAnimation(units: UnitQuantity[]) {
+    for (const { unitId, quantity } of units) {
+      let needed = quantity;
+      for (const unit of this.units) {
+        if (unit.unitId === unitId) {
+          unit.playRangedAttackAnimation();
+          needed--;
+          if (needed <= 0) {
+            break;
+          }
+        }
+      }
+    }
+  }
 }

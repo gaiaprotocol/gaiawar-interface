@@ -29,4 +29,8 @@ export default abstract class Unit extends Movable {
 
     this.moveSound.play();
   }
+
+  public playRangedAttackAnimation() {
+    this.playAnimation("ranged-attack");
+  }
 }

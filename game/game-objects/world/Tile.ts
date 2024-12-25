@@ -110,6 +110,12 @@ export default class Tile extends TileObject {
           );
         }
       }
+
+      if (pendingCommand.type === PendingCommandType.RANGED_ATTACK) {
+        if (pendingCommand.units) {
+          this.unitGroup.playRangedAttackAnimation(pendingCommand.units);
+        }
+      }
     }
 
     if (compareCoordinates(pendingCommand.to, this.coord)) {
@@ -140,6 +146,10 @@ export default class Tile extends TileObject {
 
       //TODO:
       if (pendingCommand.type === PendingCommandType.MOVE_AND_ATTACK) {
+        this.unitGroup.playIdleAnimation();
+      }
+
+      if (pendingCommand.type === PendingCommandType.RANGED_ATTACK) {
         this.unitGroup.playIdleAnimation();
       }
     }
