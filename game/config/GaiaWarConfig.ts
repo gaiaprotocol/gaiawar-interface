@@ -13,7 +13,7 @@ import {
 } from "@gaiaprotocol/svg-icons";
 import { GaiaUIPreset } from "@gaiaprotocol/ui-preset";
 import { base, baseSepolia } from "@wagmi/core/chains";
-import { GaiaProtocolConfig } from "gaiaprotocol";
+import { GaiaProtocolConfig, PersonaAvatar } from "gaiaprotocol";
 import { WalletModuleConfig } from "../../../wallet-module/lib/index.js";
 import ChatMessageRepository from "../data/chat/ChatMessageRepository.js";
 import SettingsModal from "../ui/settings/SettingsModal.js";
@@ -80,6 +80,10 @@ class GaiaWarConfig {
       this.supabaseConnector,
       authTokenManager,
     );
+
+    SocialCompConfig.Avatar = PersonaAvatar;
+
+    SocialCompConfig.showUserInfo = (user) => new UserInfoModal(user.id);
 
     SocialCompConfig.goLoggedInUserProfile = (user) =>
       new UserInfoModal(user.id);

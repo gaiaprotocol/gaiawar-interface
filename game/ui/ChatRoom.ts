@@ -1,11 +1,9 @@
 import { DomNode, el } from "@common-module/app";
-import { Button, ButtonType } from "@common-module/app-components";
 import {
   ChatMessageForm,
   ChatMessageList,
 } from "@common-module/social-components";
 import { WalletLoginManager } from "@common-module/wallet-login";
-import { CollapseIcon, ExpandIcon } from "@gaiaprotocol/svg-icons";
 import { RealtimeChannel } from "@supabase/supabase-js";
 import { v4 as uuidv4 } from "uuid";
 import GameConfig from "../config/GaiaWarConfig.js";
@@ -19,6 +17,9 @@ export default class ChatRoom extends DomNode {
   private messageList: ChatMessageList;
   private tempMessages: { id: string; content: string }[] = [];
 
+  private isScrolling = false;
+  private fontLoadingPromise: Promise<void>;
+
   constructor() {
     super(".chat-room");
 
@@ -26,7 +27,7 @@ export default class ChatRoom extends DomNode {
       el(
         "header",
         el("h2", "Chat Room"),
-        el(
+        /*el(
           ".button-container",
           new Button({
             type: ButtonType.Circle,
@@ -36,7 +37,7 @@ export default class ChatRoom extends DomNode {
             type: ButtonType.Circle,
             icon: new ExpandIcon(),
           }),
-        ),
+        ),*/
       ),
       el(
         "main",
@@ -68,9 +69,31 @@ export default class ChatRoom extends DomNode {
               content: m.content,
               createdAt: m.created_at,
             });
+
+            // Scroll to bottom after adding a new message
+            this.scrollToBottom();
           }
         },
       });
+
+    this.fontLoadingPromise = this.waitForFontsToLoad();
+  }
+
+  private async waitForFontsToLoad(): Promise<void> {
+    if ("fonts" in document) {
+      try {
+        // Wait for all fonts to load
+        await document.fonts.ready;
+      } catch (error) {
+        console.error("Error loading fonts:", error);
+        // Fallback in case of error
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+      }
+    } else {
+      // Fallback for browsers that don't support document.fonts
+      console.warn("document.fonts not supported. Using fallback timeout.");
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+    }
   }
 
   private async loadMessages() {
@@ -83,6 +106,32 @@ export default class ChatRoom extends DomNode {
         createdAt: m.created_at,
       })),
     );
+    this.scrollToBottom();
+  }
+
+  private async scrollToBottom(): Promise<void> {
+    if (this.isScrolling) return;
+
+    this.isScrolling = true;
+
+    try {
+      // Immediate scroll
+      this.performScroll();
+
+      // Wait for fonts and scroll again
+      await this.fontLoadingPromise;
+      this.performScroll();
+    } finally {
+      this.isScrolling = false;
+    }
+  }
+
+  private performScroll(): void {
+    // Use requestAnimationFrame to ensure the DOM has updated before scrolling
+    requestAnimationFrame(() => {
+      this.messageList.htmlElement.scrollTop =
+        this.messageList.htmlElement.scrollHeight;
+    });
   }
 
   private sendMessage(content: string) {
@@ -102,6 +151,9 @@ export default class ChatRoom extends DomNode {
         createdAt: new Date().toISOString(),
         isTemp: true,
       });
+
+      // Scroll to bottom after adding a new message
+      this.scrollToBottom();
     }
   }
 
