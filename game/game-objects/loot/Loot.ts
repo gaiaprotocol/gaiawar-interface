@@ -13,9 +13,10 @@ export default class Loot extends GameObject {
 
   public setLoot(loot: TokenAmount[]) {
     const totalLootAmount = loot.reduce((acc, { amount }) => acc + amount, 0n);
+    const scaledLootAmount = formatEther(totalLootAmount / 1000n);
 
-    let newCount = parseInt(formatEther(totalLootAmount / 1000n));
-    if (newCount === 0 && totalLootAmount % 1000n !== 0n) newCount = 1;
+    let newCount = parseInt(scaledLootAmount);
+    if (newCount === 0 && parseFloat(scaledLootAmount) > 0) newCount = 1;
 
     const oldCount = this.items.length;
 
