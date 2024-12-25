@@ -1,7 +1,7 @@
 import init from "./init.js";
 
 await init({
-  isDevMode: true,
+  isDevMode: false,
   isTestnet: true,
 
   supabaseUrl: "https://itqgxihqmbuqpbuduktk.supabase.co",
