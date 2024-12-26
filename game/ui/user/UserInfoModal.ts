@@ -48,10 +48,18 @@ export default class UserInfoModal extends StructuredModal {
         el(
           ".powered-by",
           "Powered by ",
-          el("a", "Gaia Personas", {
-            href: "https://personas.gaia.cc",
-            target: "_blank",
-          }),
+          el(
+            "a",
+            "Gaia Personas",
+            el("img", {
+              src:
+                "https://common-resources.gaia.cc/mini-icons/gaia-personas.png",
+            }),
+            {
+              href: "https://personas.gaia.cc",
+              target: "_blank",
+            },
+          ),
         ),
       );
     }
