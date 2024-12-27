@@ -2,7 +2,7 @@ import { WalletLoginManager } from "@common-module/wallet-login";
 import { GaiaProtocolConfig } from "gaiaprotocol";
 import ContractAddressManager from "../../config/ContractAddressManager.js";
 import MaterialContractManager from "../../config/MaterialContractManager.js";
-import UnitManagerArtifact from "../artifacts/data/UnitManager.json" assert {
+import UnitManagerArtifact from "../artifacts/data/UnitManager.json" with {
   type: "json"
 };
 

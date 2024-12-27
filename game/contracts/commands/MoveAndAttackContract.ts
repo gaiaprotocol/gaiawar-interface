@@ -3,7 +3,7 @@ import { Coordinates } from "@gaiaengine/2d";
 import { GaiaProtocolConfig } from "gaiaprotocol";
 import ContractAddressManager from "../../config/ContractAddressManager.js";
 import { UnitQuantity } from "../../data/tile/TileData.js";
-import MoveAndAttackArtifact from "../artifacts/commands/MoveAndAttack.json" assert {
+import MoveAndAttackArtifact from "../artifacts/commands/MoveAndAttack.json" with {
   type: "json"
 };
 

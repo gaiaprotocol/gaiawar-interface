@@ -1,7 +1,7 @@
 import { ObjectUtils } from "@common-module/ts";
 import UnitManagerContract from "../../contracts/data/UnitManagerContract.js";
 import UnitData, { UnitMetadata } from "./UnitData.js";
-import unitMetadataSet from "./units-metadata.json" assert {
+import unitMetadataSet from "./units-metadata.json" with {
   type: "json",
 };
 

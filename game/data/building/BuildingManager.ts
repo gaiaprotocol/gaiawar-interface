@@ -1,7 +1,7 @@
 import { ObjectUtils } from "@common-module/ts";
 import BuildingManagerContract from "../../contracts/data/BuildingManagerContract.js";
 import BuildingData, { BuildingMetadata } from "./BuildingData.js";
-import buildingMetadataSet from "./buildings-metadata.json" assert {
+import buildingMetadataSet from "./buildings-metadata.json" with {
   type: "json",
 };
 

@@ -3,7 +3,7 @@ import { Coordinates } from "@gaiaengine/2d";
 import { GaiaProtocolConfig } from "gaiaprotocol";
 import ContractAddressManager from "../../config/ContractAddressManager.js";
 import TileData from "../../data/tile/TileData.js";
-import BattlegroundArtifact from "../artifacts/core/Battleground.json" assert {
+import BattlegroundArtifact from "../artifacts/core/Battleground.json" with {
   type: "json",
 };
 
