@@ -90,6 +90,17 @@ class GaiaWarController {
   public hideActionableArea() {
     this.actionableArea.clear();
   }
+
+  public getCenter() {
+    return {
+      x: this.screen.camera.getX() / GaiaWarConfig.tileSize,
+      y: this.screen.camera.getY() / GaiaWarConfig.tileSize,
+    };
+  }
+
+  public setCenter(coord: Coordinates) {
+    this.screen.moveToTile(coord);
+  }
 }
 
 export default new GaiaWarController();

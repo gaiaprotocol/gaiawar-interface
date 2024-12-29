@@ -125,7 +125,7 @@ export default class GaiaWarScreen extends Fullscreen {
   private handleMouseWheel(event: WheelEvent): void {
     event.preventDefault();
 
-    let updatedZoom = this.camera.scale +
+    let updatedZoom = this.camera.scale -
       event.deltaY / GaiaWarScreen.ZOOM_SENSITIVITY;
 
     updatedZoom = Math.max(
@@ -141,5 +141,15 @@ export default class GaiaWarScreen extends Fullscreen {
     this.options.onTileHover(
       this.mousePositionToTileCoordinates(mouseX, mouseY),
     );
+  }
+
+  public moveToTile(coord: Coordinates): void {
+    this.camera.setPosition(
+      coord.x * GaiaWarConfig.tileSize,
+      coord.y * GaiaWarConfig.tileSize,
+    );
+
+    this.store.setPermanent("cameraX", -this.camera.getX());
+    this.store.setPermanent("cameraY", -this.camera.getY());
   }
 }

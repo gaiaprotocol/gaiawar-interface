@@ -21,11 +21,11 @@ export default class HUD extends DomNode {
     this.append(
       new UserMaterialList(),
       new LoggedInUserAvatarButton(WalletLoginManager),
-      /*new Button(".world-map", {
+      new Button(".world-map", {
         type: ButtonType.Circle,
         icon: new MapIcon(),
         onClick: () => new WorldMapModal(),
-      }),*/
+      }),
       this.chatRoom = new ChatRoom(),
       this.commandPanelContainer = el(".command-panel-container"),
       //this.historyPanel = new HistoryPanel(),

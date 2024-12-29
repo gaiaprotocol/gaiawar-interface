@@ -2532,6 +2532,18 @@ li.chat-content-list-item.temp {
 .user-info-modal > main > .powered-by > a > img {
   height: 16px;
 }
+.world-map-modal > main {
+  position: relative;
+  padding: 0 !important;
+}
+.world-map-modal > main > .loading-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 32px;
+  height: 32px;
+}
 .user-material-list {
   display: flex;
   flex-direction: column;
