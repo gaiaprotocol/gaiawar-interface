@@ -78,5 +78,16 @@
     "scripts",
     "utils",
     "server",
-  ]
+    "webpack.config.dev.ts",
+    "webpack.config.testnet.ts",
+    "webpack.config.mainnet.ts"
+  ],
+  "ts-node": {
+    "transpileOnly": true,
+    "moduleTypes": {
+      "webpack.config.dev.ts": "cjs",
+      "webpack.config.testnet.ts": "cjs",
+      "webpack.config.mainnet.ts": "cjs"
+    }
+  }
 }
