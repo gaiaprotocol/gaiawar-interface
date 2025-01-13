@@ -1,8 +1,8 @@
 export default interface ChatMessageEntity {
   id: number;
-  sender: string;
+  author: string;
   content: string;
   created_at: string;
 }
 
-export const ChatMessageQuery = "id, sender, content, created_at";
+export const ChatMessageQuery = "id, author, content, created_at";
