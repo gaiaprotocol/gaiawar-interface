@@ -10,8 +10,6 @@ import GameConfig from "../config/GaiaWarConfig.js";
 import ChatMessageEntity from "../data/chat/ChatMessageEntity.js";
 import ChatMessageRepository from "../data/chat/ChatMessageRepository.js";
 
-const clientId = Date.now() % 32767;
-
 export default class ChatRoom extends DomNode {
   private chatMessageChannel: RealtimeChannel;
   private messageList: ChatMessageList;
@@ -135,10 +133,7 @@ export default class ChatRoom extends DomNode {
   }
 
   private sendMessage(content: string) {
-    GameConfig.supabaseConnector.callEdgeFunction(
-      "send-chat-message",
-      { content, clientId },
-    );
+    ChatMessageRepository.sendMessage(content);
 
     const sender = WalletLoginManager.getLoggedInAddress();
     if (sender) {
