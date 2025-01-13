@@ -6,9 +6,21 @@ serve(async (req, ip) => {
   const walletAddress = extractWalletAddressFromRequest(req);
   const { content, clientId } = await req.json();
 
-  const data = await insert(
+  if (typeof content !== "string" || typeof clientId !== "string") {
+    throw new Error("Invalid input");
+  }
+
+  const data = await insert<
+    {
+      id: string;
+      author: string;
+      client_id: string;
+      content: string;
+      ip_address: string;
+    }
+  >(
     "chat_messages",
-    { sender: walletAddress, client_id: clientId, content, ip_address: ip },
+    { author: walletAddress, client_id: clientId, content, ip_address: ip },
     "id",
   );
 
