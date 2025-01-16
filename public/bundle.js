@@ -1,1 +1,1 @@
-location.href = "https://testnet.gaiawar.com";
+location.href = "https://testnet.war.gaia.cc";
