@@ -1,13 +1,13 @@
-import { MapData, MapEntity, TerrainData } from "@gaiaengine/2d";
+import { MapData, MapEntity, MapObjectData, TerrainData } from "@gaiaengine/2d";
 import fs from "fs";
 import oldMapData from "./legacy/optimized-tiles/map.json" with {
-  type: "json"
+  type: "json",
 };
 import oldSpritesheetWithAlphaData from "./legacy/optimized-tiles/spritesheet-with-alpha.json" with {
-  type: "json"
+  type: "json",
 };
 import oldSpritesheetWithoutAlphaData from "./legacy/optimized-tiles/spritesheet-without-alpha.json" with {
-  type: "json"
+  type: "json",
 };
 
 const newMapData: MapData = {
@@ -77,6 +77,33 @@ for (const oldTerrainId in oldMapData.terrains) {
   };
   newMapData.terrains[oldTerrainId] = newTerrain;
 }
+
+for (const oldObjectId in oldMapData.objects) {
+  const oldObject = (oldMapData.objects as any)[oldObjectId];
+  const oldFrame = oldObject.spritesheet === "spritesheet-with-alpha"
+    ? (oldSpritesheetWithAlphaData.frames as any)[oldObject.frame].frame
+    : (oldSpritesheetWithoutAlphaData.frames as any)[oldObject.frame].frame;
+  const newObject: MapObjectData = {
+    drawingOrder: oldObject.zIndex,
+    spritesheet: oldObject.spritesheet,
+    frames: [{
+      x: oldFrame.x,
+      y: oldFrame.y,
+      width: oldFrame.w,
+      height: oldFrame.h,
+    }],
+  };
+  newMapData.objects[oldObjectId] = newObject;
+}
+
+newMapData.terrainMap = oldMapData.terrainMap;
+newMapData.mapObjects = oldMapData.mapObjects.map((oldMapObject: any) => {
+  return {
+    x: oldMapObject.x,
+    y: oldMapObject.y,
+    object: oldMapObject.objectId,
+  };
+});
 
 fs.writeFileSync(
   "./map.json",

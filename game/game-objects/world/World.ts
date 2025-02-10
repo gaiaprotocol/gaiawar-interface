@@ -123,6 +123,6 @@ export default class World extends GameObject {
   public clearTiles() {
     this.tileContainer.clear();
     this.tiles = {};
-    this.ground.reloadTiles();
+    //TODO: this.ground.reloadTiles();
   }
 }
