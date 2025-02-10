@@ -20,7 +20,7 @@ export default class UpgradeBuildingModal extends StructuredModal {
     this.appendToHeader(
       el("h2", "Upgrade Your Building"),
       new Button({
-        type: ButtonType.Circle,
+        type: ButtonType.Icon,
         icon: new CloseIcon(),
         onClick: () => this.remove(),
       }),

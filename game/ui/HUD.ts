@@ -22,7 +22,7 @@ export default class HUD extends DomNode {
       new UserMaterialList(),
       new LoggedInUserAvatarButton(WalletLoginManager),
       new Button(".world-map", {
-        type: ButtonType.Circle,
+        type: ButtonType.Icon,
         icon: new MapIcon(),
         onClick: () => new WorldMapModal(),
       }),

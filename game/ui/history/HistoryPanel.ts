@@ -11,11 +11,11 @@ export default class HistoryPanel extends DomNode {
         el(
           ".button-container",
           new Button({
-            type: ButtonType.Circle,
+            type: ButtonType.Icon,
             icon: new CollapseIcon(),
           }),
           new Button({
-            type: ButtonType.Circle,
+            type: ButtonType.Icon,
             icon: new ExpandIcon(),
           }),
         ),

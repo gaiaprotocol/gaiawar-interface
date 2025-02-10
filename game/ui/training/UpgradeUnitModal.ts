@@ -22,7 +22,7 @@ export default class UpgradeUnitModal extends StructuredModal {
     this.appendToHeader(
       el("h2", "Upgrade Your Unit"),
       new Button({
-        type: ButtonType.Circle,
+        type: ButtonType.Icon,
         icon: new CloseIcon(),
         onClick: () => this.remove(),
       }),

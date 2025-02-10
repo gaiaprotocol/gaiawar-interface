@@ -27,10 +27,10 @@ export default class Tile extends TileObject {
   constructor(private coord: Coordinates) {
     super(coord);
     this.loot = new Loot().appendTo(this);
-    this.loot.zIndex = 1;
+    this.loot.drawingOrder = 1;
 
     this.unitGroup = new UnitGroup().appendTo(this);
-    this.unitGroup.zIndex = 2;
+    this.unitGroup.drawingOrder = 2;
   }
 
   public setData(tileData: TileData) {

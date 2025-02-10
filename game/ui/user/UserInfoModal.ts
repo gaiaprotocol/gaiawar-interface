@@ -39,8 +39,7 @@ export default class UserInfoModal extends StructuredModal {
       }
     } else {
       this.appendToMain(
-        new PersonaDisplay({
-          persona,
+        new PersonaDisplay(persona, {
           showEditButton: persona.wallet_address === loginUser,
           onEditClick: () =>
             window.open("https://personas.gaia.cc/edit-persona", "_blank"),

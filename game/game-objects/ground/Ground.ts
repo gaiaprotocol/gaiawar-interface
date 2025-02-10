@@ -1,31 +1,17 @@
-import { RectTerrainMap, RectTerrainMapOptions } from "@gaiaengine/2d";
+import { RectMap, RectMapOptions } from "@gaiaengine/2d";
 import GameConfig from "../../config/GaiaWarConfig.js";
 import mapData from "./map.json" with { type: "json" };
-import spritesheetWithAlphaData from "./spritesheet-with-alpha.json" with {
-  type: "json",
-};
-import spritesheetWithoutAlphaData from "./spritesheet-without-alpha.json" with {
-  type: "json",
-};
 
-export default class Ground extends RectTerrainMap {
-  constructor(options: RectTerrainMapOptions) {
+export default class Ground extends RectMap {
+  constructor(options: RectMapOptions) {
     super(
       GameConfig.tileSize,
       {
-        "spritesheet-with-alpha": {
-          src: "/assets/map/spritesheet-with-alpha.png",
-          atlas: spritesheetWithAlphaData,
-        },
-        "spritesheet-without-alpha": {
-          src: "/assets/map/spritesheet-without-alpha.jpg",
-          atlas: spritesheetWithoutAlphaData,
-        },
+        "spritesheet-with-alpha": "/assets/map/spritesheet-with-alpha.png",
+        "spritesheet-without-alpha":
+          "/assets/map/spritesheet-without-alpha.jpg",
       },
-      mapData.terrains,
-      mapData.objects,
-      mapData.terrainMap,
-      mapData.mapObjects,
+      mapData,
       options,
     );
   }

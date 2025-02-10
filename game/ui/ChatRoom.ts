@@ -55,7 +55,7 @@ export default class ChatRoom extends DomNode {
           if (index !== -1) {
             this.messageList.updateMessage(this.tempMessages[index].id, {
               id: m.id.toString(),
-              sender: m.sender,
+              author: m.author,
               content: m.content,
               createdAt: m.created_at,
             });
@@ -63,7 +63,7 @@ export default class ChatRoom extends DomNode {
           } else {
             this.messageList.addMessage({
               id: m.id.toString(),
-              sender: m.sender,
+              author: m.author,
               content: m.content,
               createdAt: m.created_at,
             });
@@ -99,7 +99,7 @@ export default class ChatRoom extends DomNode {
     this.messageList.setMessages(
       messages.reverse().map((m) => ({
         id: m.id.toString(),
-        sender: m.sender,
+        author: m.author,
         content: m.content,
         createdAt: m.created_at,
       })),
@@ -135,13 +135,13 @@ export default class ChatRoom extends DomNode {
   private sendMessage(content: string) {
     ChatMessageRepository.sendMessage(content);
 
-    const sender = WalletLoginManager.getLoggedInAddress();
-    if (sender) {
+    const author = WalletLoginManager.getLoggedInAddress();
+    if (author) {
       const tempMessageId = uuidv4();
       this.tempMessages.push({ id: tempMessageId, content });
       this.messageList.addMessage({
         id: tempMessageId,
-        sender,
+        author,
         content,
         createdAt: new Date().toISOString(),
         isTemp: true,

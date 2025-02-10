@@ -23,7 +23,7 @@ export default class TrainingModal extends StructuredModal {
     this.appendToHeader(
       el("h2", "Train Units"),
       new Button({
-        type: ButtonType.Circle,
+        type: ButtonType.Icon,
         icon: new CloseIcon(),
         onClick: () => this.remove(),
       }),

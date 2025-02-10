@@ -19,7 +19,7 @@ export default class UpgradeActorInTileModal extends StructuredModal {
     this.appendToHeader(
       el("h2", "Upgrade Building or Unit"),
       new Button({
-        type: ButtonType.Circle,
+        type: ButtonType.Icon,
         icon: new CloseIcon(),
         onClick: () => this.remove(),
       }),

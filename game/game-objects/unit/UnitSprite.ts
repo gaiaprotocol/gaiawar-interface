@@ -29,14 +29,13 @@ export default class UnitSprite extends Unit {
     const atlas = (spritesheets as any)[this.metadata.key][animation];
     const firstFrame = Object.values(atlas.frames)[0] as any;
 
-    this.sprite = new AnimatedSprite(
-      0,
-      0,
-      `/assets/units/sprites/${this.metadata.key}/${this.faction}/${animation}.png`,
+    this.sprite = new AnimatedSprite(0, 0, {
+      src:
+        `/assets/units/sprites/${this.metadata.key}/${this.faction}/${animation}.png`,
       atlas,
       animation,
-      24,
-    );
+      fps: 24,
+    });
 
     this.sprite.setPivot(
       firstFrame.anchor.x - firstFrame.frame.w / 2,

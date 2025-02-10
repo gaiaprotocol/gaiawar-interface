@@ -17,7 +17,7 @@ export default class UserMaterialListItem extends DomNode {
       el("img.icon", { src: materialIcons[type] }),
       this.balanceDisplay = el("span.balance"),
       new Button(".buy", {
-        type: ButtonType.Circle,
+        type: ButtonType.Icon,
         icon: new AddIcon(),
         onClick: () => {
           const modal = new TradeMaterialModal(
