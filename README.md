@@ -2,25 +2,7 @@
 
 ```
 cd utils
-node --loader ts-node/esm ./package-tiles.ts
-cd ..
-```
-
-```
-cd utils
-node --loader ts-node/esm ./generate-map.ts
-cd ..
-```
-
-```
-cd utils
-node --loader ts-node/esm ./package-units.ts
-cd ..
-```
-
-```
-cd utils
-node --loader ts-node/esm ./convert-wav.ts
+node --loader ts-node/esm ./upgrade-map-data.ts
 cd ..
 ```
 
