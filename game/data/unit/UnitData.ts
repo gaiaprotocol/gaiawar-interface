@@ -5,8 +5,8 @@ export interface UnitMetadata {
   description: string;
   spine: {
     atlas: string;
-    json: string;
-    png: string;
+    skeletonData: any;
+    texture: string;
   };
   shadowSize?: string;
   canBeTrained?: boolean;

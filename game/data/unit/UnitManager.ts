@@ -1,8 +1,63 @@
 import { ObjectUtils } from "@common-module/ts";
 import UnitManagerContract from "../../contracts/data/UnitManagerContract.js";
+import archerSkeletonData from "./spine-skeleton-data/archer.json" with {
+  type: "json",
+};
+import axeWarriorSkeletonData from "./spine-skeleton-data/axe-warrior.json" with {
+  type: "json",
+};
+import ballistaSkeletonData from "./spine-skeleton-data/ballista.json" with {
+  type: "json",
+};
+import camelRiderSkeletonData from "./spine-skeleton-data/camel-rider.json" with {
+  type: "json",
+};
+import catapultSkeletonData from "./spine-skeleton-data/catapult.json" with {
+  type: "json",
+};
+import cavalrySkeletonData from "./spine-skeleton-data/cavalry.json" with {
+  type: "json",
+};
+import crossbowmanSkeletonData from "./spine-skeleton-data/crossbowman.json" with {
+  type: "json",
+};
+import knightSkeletonData from "./spine-skeleton-data/knight.json" with {
+  type: "json",
+};
+import scoutSkeletonData from "./spine-skeleton-data/scout.json" with {
+  type: "json",
+};
+import shieldBearerSkeletonData from "./spine-skeleton-data/shield-bearer.json" with {
+  type: "json",
+};
+import spearmanSkeletonData from "./spine-skeleton-data/spearman.json" with {
+  type: "json",
+};
+import swordsmanSkeletonData from "./spine-skeleton-data/swordsman.json" with {
+  type: "json",
+};
+import warElephantSkeletonData from "./spine-skeleton-data/war-elephant.json" with {
+  type: "json",
+};
 import UnitData, { UnitMetadata } from "./UnitData.js";
 import unitMetadataSet from "./units-metadata.json" with {
   type: "json",
+};
+
+const SKELETON_DATA_MAP: Record<string, any> = {
+  "knight": knightSkeletonData,
+  "swordsman": swordsmanSkeletonData,
+  "archer": archerSkeletonData,
+  "cavalry": cavalrySkeletonData,
+  "axe-warrior": axeWarriorSkeletonData,
+  "spearman": spearmanSkeletonData,
+  "shield-bearer": shieldBearerSkeletonData,
+  "scout": scoutSkeletonData,
+  "crossbowman": crossbowmanSkeletonData,
+  "ballista": ballistaSkeletonData,
+  "catapult": catapultSkeletonData,
+  "camel-rider": camelRiderSkeletonData,
+  "war-elephant": warElephantSkeletonData,
 };
 
 type NormalizedUnit = Omit<UnitData, "trainingCosts"> & {
@@ -61,13 +116,22 @@ class UnitManager {
 
     const metadata = unitMetadataSet.find((metadata) => metadata.id === unitId);
     const unit: UnitData = {
-      ...(metadata ? metadata : {
-        id: unitId,
-        key: `unit-${unitId}`,
-        name: `Unit ${unitId}`,
-        description: `Description of unit ${unitId}`,
-        spine: { atlas: "", json: "", png: "" },
-      }),
+      ...(metadata
+        ? {
+          ...metadata,
+          spine: {
+            atlas: metadata.spine.atlas,
+            skeletonData: SKELETON_DATA_MAP[unitId] ?? {},
+            texture: metadata.spine.texture,
+          },
+        }
+        : {
+          id: unitId,
+          key: `unit-${unitId}`,
+          name: `Unit ${unitId}`,
+          description: `Description of unit ${unitId}`,
+          spine: { atlas: "", skeletonData: {}, texture: "" },
+        }),
       ...unitInfo,
       trainingBuildingIds,
       trainingCost: trainingCosts,
@@ -83,7 +147,17 @@ class UnitManager {
   }
 
   public getUnitMetadata(unitId: number): UnitMetadata | undefined {
-    return unitMetadataSet.find((metadata) => metadata.id === unitId);
+    const metadata = unitMetadataSet.find((metadata) => metadata.id === unitId);
+    if (metadata) {
+      return {
+        ...metadata,
+        spine: {
+          atlas: metadata.spine.atlas,
+          skeletonData: SKELETON_DATA_MAP[unitId] ?? {},
+          texture: metadata.spine.texture,
+        },
+      };
+    }
   }
 
   public async getTrainingBuildingUnits(

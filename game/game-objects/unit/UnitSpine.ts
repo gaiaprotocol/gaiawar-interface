@@ -16,8 +16,8 @@ export default class UnitSpine extends Unit {
 
       this.spine = new Spine(0, 0, {
         atlas: `/assets/${metadata.spine.atlas}`,
-        json: `/assets/${metadata.spine.json}`,
-        png: `/assets/${metadata.spine.png}`,
+        json: `/assets/${metadata.spine.skeletonData}`,
+        texture: `/assets/${metadata.spine.texture}`,
         animation,
         skins: [faction == "player" ? "green" : "red"],
         loop: true,

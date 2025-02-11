@@ -6,7 +6,7 @@
   "spine": {
     "atlas": "units/spine/knight.atlas",
     "json": "units/spine/knight.json",
-    "png": "units/spine/knight.png"
+    "texture": "units/spine/knight.png"
   },
   "shadowSize": "small",
   "canBeUpgraded": true
@@ -18,7 +18,7 @@
   "spine": {
     "atlas": "units/spine/swordsman.atlas",
     "json": "units/spine/swordsman.json",
-    "png": "units/spine/swordsman.png"
+    "texture": "units/spine/swordsman.png"
   }
 }, {
   "id": 3,
@@ -28,7 +28,7 @@
   "spine": {
     "atlas": "units/spine/archer.atlas",
     "json": "units/spine/archer.json",
-    "png": "units/spine/archer.png"
+    "texture": "units/spine/archer.png"
   }
 }, {
   "id": 4,
@@ -38,6 +38,6 @@
   "spine": {
     "atlas": "units/spine/cavalry.atlas",
     "json": "units/spine/cavalry.json",
-    "png": "units/spine/cavalry.png"
+    "texture": "units/spine/cavalry.png"
   }
 }]
