@@ -37,6 +37,8 @@ export default class ActionableArea extends GameObject {
           continue;
         }
 
+        /*
+        //TODO DO NOT USE INSTANTOF
         const isAvailableTile = tile instanceof AvailableTile;
         if (
           (value === TileAvailableValue.AVAILABLE && !isAvailableTile) ||
@@ -44,7 +46,7 @@ export default class ActionableArea extends GameObject {
         ) {
           tile.remove();
           this.createTile({ x: parseInt(x), y: parseInt(y) }, value);
-        }
+        }*/
       }
     }
 
